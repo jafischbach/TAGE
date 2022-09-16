@@ -1,0 +1,32 @@
+HOTEL_LOBBY
+The lobby is a small room. The exit is to the south. There are doorways east to a lounge, west to a bar, and north to a hallway. A staircase leads up to the second floor.
+#
+HOTEL_BAR
+There is a long bar along the west wall. Since the bar is closed, there is no bartender at the moment. There is a closed door in the north wall. Another doorway leads east to the lobby.
+#
+HOTEL_LOUNGE_A
+This is a pleasant room with a couch and two armchairs. An old fellow is sleeping in one of the chairs, an old newspaper lays folded in his lap. A doorway leads west to the lobby.
+#
+HOTEL_LOUNGE_B
+This is a pleasant room with a couch and two armchairs. An old fellow is sleeping in one of the chairs. A doorway leads west to the lobby.
+#
+HOTEL_HALL_1ST
+You are in a short, dead-end hallway. There are locked doors in the east and west walls. You can return south to the lobby.
+#
+HOTEL_HALL_TOP_A
+At the top of the stairs, you find your way blocked. A locked door is in the north wall and a hallway stretches east and west. However, stacked furniture blocks your way east and a large box blocks your way west. You can take the stairs back down to the lobby.
+#
+HOTEL_HALL_TOP_B
+At the top of the stairs, you find your way blocked. A door is in the north wall and a hallway stretches east and west. However, stacked furniture blocks your way east and a large box blocks your way west. You can take the stairs back down to the lobby.
+#
+HOTEL_HALL_TOP_C
+At the top of the stairs, you find your way blocked. A door is in the north wall and a hallway stretches east and west. Stacked furniture blocks your way east but the way west is now clear. Debris from the demolished box litters the floor. You can take the stairs back down to the lobby.
+#
+HOTEL_BAR_RR
+You are in a tiny bathroom. The sink is broken and the toilet hasn't seen a plumber in more than a decade. The stench is...less than pleasant. You should return south to the bar.
+#
+HOTEL_CLOSET_TOP
+You have discovered a supply closet! It's full of junk. Congratulations on your amazing discovery.
+#
+HOTEL_HALL_WEST
+This creepy hallway extends west into darkness. The carpet is dusty and littered with various broken and torn items of no interest to you. Cobwebs hang from a naked bulb dangling from the ceiling. There are doors leading to hotel rooms to the north and south. You can return east to the stairway.
