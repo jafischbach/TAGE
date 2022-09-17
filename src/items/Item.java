@@ -1,9 +1,11 @@
 package items;
 
+import java.io.Serializable;
+
 import game.Game;
 import game.InvalidLabelException;
 
-public class Item {
+public class Item implements Serializable {
 
 	private String name;
 	private String desc;

@@ -7,7 +7,7 @@ import items.Item;
 public class Player {
 
 	public static String name;
-	private static HashMap<String, Item> inventory = new HashMap<String, Item>();
+	public static HashMap<String, Item> inventory = new HashMap<String, Item>();
 	
 	public static void addItem(String name, Item item) {
 		inventory.put(name, item);

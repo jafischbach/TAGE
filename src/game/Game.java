@@ -1,10 +1,10 @@
 package game;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import items.Item;
 import world.World;
 
 public class Game {
@@ -33,7 +33,7 @@ public class Game {
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
-	
+
 	private static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
@@ -76,6 +76,10 @@ public class Game {
 			String command = input.nextLine();
 			if (command.equalsIgnoreCase("look"))
 				print(currentRoom.getDesc());
+			else if (command.equalsIgnoreCase("save"))
+				saveGame();
+			else if (command.equalsIgnoreCase("load"))
+				loadGame();
 			else if (command.length() > 1)
 				currentRoom.action(command.toLowerCase());
 			else {
@@ -115,13 +119,45 @@ public class Game {
 					default:
 						print("Invalid direction.");
 					}
-					if (direction != 'x' && direction != 'i') print(currentRoom.getDesc());
+					if (direction != 'x' && direction != 'i')
+						print(currentRoom.getDesc());
 				} catch (InvalidDirectionException ex) {
 					print("You can't go that way!");
 				}
 			}
 		} while (play);
 		System.out.println("I guess we're done here. Thanks for playing. Bye!");
+	}
+
+	public static void saveGame() {
+		ObjectOutputStream stream;
+		try {
+			File saveFile = new File("save0.dat");
+			saveFile.createNewFile();
+			stream = new ObjectOutputStream(new FileOutputStream(saveFile));
+			stream.writeObject(Player.inventory);
+			stream.close();
+		} catch (FileNotFoundException ex) {
+			Game.print("Error accessing save file.");
+		} catch (IOException ex) {
+			Game.print("Error creating save file.");
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void loadGame() {
+		try {
+			File saveFile = new File("save0.dat");
+			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(saveFile));
+			Player.inventory = (HashMap<String, Item>) stream.readObject();
+			stream.close();
+		} catch (FileNotFoundException ex) {
+			Game.print("Save file not found.");
+		} catch (IOException ex) {
+			Game.print("Error loading save file.");
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
 	}
 
 }
