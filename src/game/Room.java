@@ -1,9 +1,12 @@
 package game;
+import java.io.Serializable;
 import java.util.HashMap;
 
 import items.Item;
 
-public class Room {
+public class Room implements Serializable {
+	
+	public static final long serialVersionUID = 1L; 
 
 	public static final int EAST = 0;
 	public static final int WEST = 1;
@@ -25,6 +28,7 @@ public class Room {
 			throw new InvalidLabelException(label);
 		}
 		go = new Room[6];
+		Game.addRoom(this);
 	}
 	
 	public void addItem(Item item) {

@@ -1,6 +1,7 @@
 package game;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -18,6 +19,7 @@ public class Game {
 	public static Scanner input = new Scanner(System.in);
 	public static HashMap<String, String> roomDescs;
 	public static HashMap<String, String> itemDescs;
+	private static ArrayList<Room> rooms;
 
 	private static boolean play = true;
 	public static Room currentRoom;
@@ -34,9 +36,14 @@ public class Game {
 		return currentRoom;
 	}
 
+	public static void addRoom(Room r) {
+		rooms.add(r);
+	}
+	
 	private static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
+		rooms = new ArrayList<Room>();
 		try {
 			Scanner descReader = new Scanner(new File("rooms.dat"));
 			while (descReader.hasNextLine()) {
@@ -68,8 +75,8 @@ public class Game {
 	}
 
 	private static void play() {
-		System.out.print("What is your name? ");
-		Player.name = input.nextLine();
+//		System.out.print("What is your name? ");
+//		Player.name = input.nextLine();
 		print(currentRoom.getDesc());
 		do {
 			System.out.print("What do you want to do? ");
@@ -80,6 +87,8 @@ public class Game {
 				saveGame();
 			else if (command.equalsIgnoreCase("load"))
 				loadGame();
+			else if (command.equalsIgnoreCase("list"))
+				listSaves();
 			else if (command.length() > 1)
 				currentRoom.action(command.toLowerCase());
 			else {
@@ -129,13 +138,21 @@ public class Game {
 		System.out.println("I guess we're done here. Thanks for playing. Bye!");
 	}
 
+	public static void listSaves() {
+		File files = new File(System.getProperty("user.dir"));
+		for(String name : files.list())
+			System.out.println(name);
+	}
+	
 	public static void saveGame() {
 		ObjectOutputStream stream;
 		try {
-			File saveFile = new File("save0.dat");
+			File saveFile = new File("save0.sav");
 			saveFile.createNewFile();
 			stream = new ObjectOutputStream(new FileOutputStream(saveFile));
 			stream.writeObject(Player.inventory);
+			stream.writeObject(rooms);
+			stream.writeObject(currentRoom);
 			stream.close();
 		} catch (FileNotFoundException ex) {
 			Game.print("Error accessing save file.");
@@ -147,9 +164,11 @@ public class Game {
 	
 	public static void loadGame() {
 		try {
-			File saveFile = new File("save0.dat");
+			File saveFile = new File("save0.sav");
 			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(saveFile));
 			Player.inventory = (HashMap<String, Item>) stream.readObject();
+			rooms = (ArrayList<Room>) stream.readObject();
+			currentRoom = (Room) stream.readObject();
 			stream.close();
 		} catch (FileNotFoundException ex) {
 			Game.print("Save file not found.");

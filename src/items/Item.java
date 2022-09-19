@@ -7,6 +7,8 @@ import game.InvalidLabelException;
 
 public class Item implements Serializable {
 
+	public static final long serialVersionUID = 1L;
+	
 	private String name;
 	private String desc;
 	
