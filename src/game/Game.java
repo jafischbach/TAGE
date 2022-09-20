@@ -3,6 +3,7 @@ package game;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import items.Item;
@@ -39,7 +40,7 @@ public class Game {
 	public static void addRoom(Room r) {
 		rooms.add(r);
 	}
-	
+
 	private static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
@@ -87,8 +88,6 @@ public class Game {
 				saveGame();
 			else if (command.equalsIgnoreCase("load"))
 				loadGame();
-			else if (command.equalsIgnoreCase("list"))
-				listSaves();
 			else if (command.length() > 1)
 				currentRoom.action(command.toLowerCase());
 			else {
@@ -138,22 +137,86 @@ public class Game {
 		System.out.println("I guess we're done here. Thanks for playing. Bye!");
 	}
 
-	public static void listSaves() {
-		File files = new File(System.getProperty("user.dir"));
-		for(String name : files.list())
-			System.out.println(name);
+	public static String[] getSaves() {
+		File files = new File(System.getProperty("user.dir") + "\\saves");
+		if (files.exists()) {
+			String[] list = files.list(new FilenameFilter() {
+				public boolean accept(File f, String name) {
+					int len = name.length();
+					return len < 4 ? false : name.substring(len - 3, len).equals("sav");
+				}
+			});
+			return list;
+		} else {
+			return null;
+		}
 	}
-	
-	public static void saveGame() {
-		ObjectOutputStream stream;
+
+	public static int getOption(int min, int max) {
 		try {
-			File saveFile = new File("save0.sav");
+			System.out.print("Enter option (" + min + "-" + max + "): ");
+			int option = input.nextInt();
+			input.nextLine(); // Consume '\n'
+			if (option < min || option > max) {
+				System.out.println("Invalid option.");
+				return getOption(min, max);
+			}
+			return option;
+		} catch (InputMismatchException ex) {
+			System.out.println("Please enter a number.");
+			input.nextLine(); // Empty buffer
+			return getOption(min, max);
+		}
+	}
+
+	public static void saveGame() {
+		int option;
+		int fileID = 1;
+		boolean cancel = false;
+		String[] saves = getSaves();
+		if (saves == null) {
+			File files = new File(System.getProperty("user.dir") + "\\saves");
+			files.mkdir();
+			option = 0;
+		} else {
+			System.out.println("0: New Save");
+			int i;
+			for (i = 0; i < saves.length; i++)
+				System.out.println((i + 1) + ": " + saves[i]);
+			System.out.println((i + 1) + ": Cancel");
+			option = getOption(0, i + 1);
+			if (option == 0)
+				fileID = i+1;
+			else if (option == i + 1)
+				cancel = true;
+			else
+				fileID = option;
+		}
+		if (cancel) {
+			Game.print("Save cancelled.");
+		} else {
+			saveGame(fileID);
+		}
+	}
+
+	public static void saveGame(int fileID) {
+		try {
+			File saveFile = new File(System.getProperty("user.dir") + "\\saves\\save"+fileID+".sav");
+			if(saveFile.exists()) {
+				System.out.print("Overwrite save file (y/n)? ");
+				char choice = input.nextLine().charAt(0);
+				if (choice != 'y') {
+					Game.print("Save cancelled.");
+					return;
+				}
+			}
 			saveFile.createNewFile();
-			stream = new ObjectOutputStream(new FileOutputStream(saveFile));
+			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
 			stream.writeObject(Player.inventory);
 			stream.writeObject(rooms);
 			stream.writeObject(currentRoom);
 			stream.close();
+			Game.print("Game saved.");
 		} catch (FileNotFoundException ex) {
 			Game.print("Error accessing save file.");
 		} catch (IOException ex) {
@@ -161,7 +224,7 @@ public class Game {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	public static void loadGame() {
 		try {
 			File saveFile = new File("save0.sav");
