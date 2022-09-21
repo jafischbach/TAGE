@@ -1,12 +1,15 @@
 package game;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
 import items.Item;
+import characters.NPC;
+import game.*;
 
 public class Room implements Serializable {
-	
-	public static final long serialVersionUID = 1L; 
+
+	public static final long serialVersionUID = 1L;
 
 	public static final int EAST = 0;
 	public static final int WEST = 1;
@@ -14,10 +17,11 @@ public class Room implements Serializable {
 	public static final int SOUTH = 3;
 	public static final int UP = 4;
 	public static final int DOWN = 5;
-	
+
 	private String desc;
 	private Room[] go;
 	private HashMap<String, Item> items;
+	private HashMap<String, NPC> npcs;
 	private String label;
 	private boolean isLocked;
 
@@ -25,20 +29,33 @@ public class Room implements Serializable {
 		this.label = label;
 		isLocked = false;
 		desc = Game.roomDescs.get(label);
-		items = new HashMap<String, Item>();
 		if (desc == null) {
 			throw new InvalidLabelException(label);
 		}
 		go = new Room[6];
 		Game.addRoom(label, this);
 	}
-	
+
 	public void addItem(Item item) {
+		if (items == null)
+			items = new HashMap<String, Item>();
 		items.put(item.getName(), item);
 	}
-	
+
 	public void removeItem(String name) {
-		items.remove(name);
+		if (items != null)
+			items.remove(name);
+	}
+
+	public void addNPC(NPC npc) {
+		if (npcs == null)
+			npcs = new HashMap<String, NPC>();
+		npcs.put(npc.getName(), npc);
+	}
+
+	public void removeNPC(String name) {
+		if (npcs != null)
+			npcs.remove(name);
 	}
 
 	public void addExit(Room room, int direction) {
@@ -48,7 +65,7 @@ public class Room implements Serializable {
 	public String getDesc() {
 		return desc;
 	}
-	
+
 	public void setDesc(String label) {
 		desc = Game.roomDescs.get(label);
 		if (desc == null)
@@ -58,28 +75,59 @@ public class Room implements Serializable {
 	public void setLocked(boolean isLocked) {
 		this.isLocked = isLocked;
 	}
-	
+
 	public boolean isLocked() {
 		return isLocked;
 	}
-	
+
 	public void action(String command) {
-		String[] parsedCommand = new String[2]; //command.split(" ");
 		int index = command.indexOf(' ');
-		parsedCommand[0] = command.substring(0, index);
-		parsedCommand[1] = command.substring(index+1);
-		if (parsedCommand.length != 2)
-			Game.print("Invalid command.");
-		else {
-			Item i = Player.getItem(parsedCommand[1]);
-			if (i == null)
-				i = items.get(parsedCommand[1]);
-			if (i == null)
-				Game.print("You can't do that!");
+		if (index < 0)
+			throw new InvalidActionException("Invalid command.");
+		String action = command.substring(0, index);
+		if (command.length() == action.length())
+			throw new InvalidActionException("Invalid command.");
+		if (action.equalsIgnoreCase("give")) {
+			if (npcs == null)
+				throw new InvalidActionException("There's no one here, dude!");
+			index = command.indexOf(" to ");
+			if (index < 0)
+				throw new InvalidActionException("Give what to whom?");
+			String itemName = command.substring(5, index);
+			String npcName = command.substring(index + 4, command.length());
+			NPC npc = npcs.get(npcName);
+			if (npc == null)
+				Game.print("There is no " + npcName + " in the room.");
 			else {
-				String action = parsedCommand[0];
+				npc.give(itemName);
+			}
+		} else if (action.equalsIgnoreCase("attack")) {
+			if (npcs == null)
+				throw new InvalidActionException("There's no one here, dude!");
+			index = command.indexOf(" with ");
+			if (index < 0)
+				throw new InvalidActionException("Attack whom with what?");
+			String npcName = command.substring(7, index);
+			String weaponName = command.substring(index + 6, command.length());
+			NPC npc = npcs.get(npcName);
+			if (npc == null)
+				Game.print("There is no " + npcName + " in the room.");
+			else {
+				npc.attack(weaponName);
+			}
+		} else {
+			String itemName = command.substring(index + 1);
+			Item i = Player.getItem(itemName);
+			if (i == null && items != null)
+				i = items.get(itemName);
+			try {
 				if (action.equalsIgnoreCase("look"))
-					i.look();
+					if (i == null)
+						npcs.get(itemName).look();
+					else
+						i.look();
+				else if (action.equalsIgnoreCase("talk"))
+					npcs.get(itemName).talk();
 				else if (action.equalsIgnoreCase("take"))
 					i.take();
 				else if (action.equalsIgnoreCase("use"))
@@ -90,6 +138,8 @@ public class Room implements Serializable {
 					i.close();
 				else
 					Game.print("Invalid command.");
+			} catch (NullPointerException ex) {
+				Game.print("There is no "+itemName+" in this room!");
 			}
 		}
 	}
@@ -132,5 +182,5 @@ public class Room implements Serializable {
 	public boolean equals(String label) {
 		return this.label.equals(label);
 	}
-	
+
 }

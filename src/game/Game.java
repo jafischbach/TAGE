@@ -19,6 +19,7 @@ public class Game {
 	public static Scanner input = new Scanner(System.in);
 	public static HashMap<String, String> roomDescs;
 	public static HashMap<String, String> itemDescs;
+	public static HashMap<String, String> npcDescs;
 	private static HashMap<String, Room> rooms;
 
 	private static boolean play = true;
@@ -44,37 +45,42 @@ public class Game {
 		return rooms.get(label);
 	}
 
+	private static void populateDescs(String fileName, HashMap<String, String> map) 
+		throws FileNotFoundException
+	{
+		Scanner descReader = new Scanner(new File(fileName));
+		while (descReader.hasNextLine()) {
+			String label = descReader.nextLine();
+			String desc = descReader.nextLine();
+			while (descReader.hasNextLine()) {
+				String line = descReader.nextLine();
+				if (line.equals("#"))
+					break;
+				desc += line;
+			}
+			map.put(label, desc);
+		}
+	}
+	
 	private static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
+		npcDescs = new HashMap<String, String>();
 		rooms = new HashMap<String, Room>();
 		try {
-			Scanner descReader = new Scanner(new File("rooms.dat"));
-			while (descReader.hasNextLine()) {
-				String label = descReader.nextLine();
-				String desc = descReader.nextLine();
-				while (descReader.hasNextLine()) {
-					String line = descReader.nextLine();
-					if (line.equals("#"))
-						break;
-					desc += line;
-				}
-				roomDescs.put(label, desc);
-			}
-			descReader = new Scanner(new File("items.dat"));
-			while (descReader.hasNextLine()) {
-				String label = descReader.nextLine();
-				String desc = descReader.nextLine();
-				while (descReader.hasNextLine()) {
-					String line = descReader.nextLine();
-					if (line.equals("#"))
-						break;
-					desc += line;
-				}
-				itemDescs.put(label, desc);
-			}
+			populateDescs("rooms.dat", roomDescs);
 		} catch (FileNotFoundException ex) {
-			print("Error: file rooms.dat not found.");
+			// Nothing to do here.
+		}
+		try {
+			populateDescs("items.dat", itemDescs);
+		} catch (FileNotFoundException ex) {
+			// Nothing to do here.
+		}
+		try {
+			populateDescs("npcs.dat", npcDescs);
+		} catch (FileNotFoundException ex) {
+			// Nothing to do here.
 		}
 	}
 
@@ -92,7 +98,11 @@ public class Game {
 			else if (command.equalsIgnoreCase("load"))
 				loadGame();
 			else if (command.length() > 1)
-				currentRoom.action(command.toLowerCase());
+				try {
+					currentRoom.action(command.toLowerCase());
+				} catch(InvalidActionException ex) {
+					Game.print(ex.getMessage());
+				}
 			else {
 				try {
 					char direction = Character.toLowerCase(command.charAt(0));

@@ -17,6 +17,7 @@ public class Bottle extends Item {
 		else {
 			Game.print("You pick up the bottle, finding it lighter than expected.");
 			Player.addItem("bottle", this);
+			Game.getCurrentRoom().removeItem("bottle");
 			isTaken = true;
 		}
 	}

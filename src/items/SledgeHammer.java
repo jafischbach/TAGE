@@ -1,6 +1,7 @@
 package items;
 
 import game.*;
+import characters.*;
 
 public class SledgeHammer extends Item {
 
@@ -25,6 +26,8 @@ public class SledgeHammer extends Item {
 			r.removeItem("large box");
 			Room hallway = Game.getRoom("HOTEL_HALL_WEST");
 			hallway.setLocked(false);
+			Room bar = Game.getRoom("HOTEL_BAR");
+			bar.addNPC(new Bartender("bartender"));
 		} else if(r.equals("HOTEL_LOBBY"))
 			Game.print("You swing the sledge hammer at the door leading outside, hoping"
 					+ " to at last secure your freedom from this creepy hotel. Sadly, you"
@@ -42,6 +45,7 @@ public class SledgeHammer extends Item {
 					+ " it into your pocket.");
 			isTaken = true;
 			Player.addItem("sledge hammer", this);
+			Game.getCurrentRoom().removeItem("sledge hammer");
 		}
 			
 	}
