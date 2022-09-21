@@ -1,6 +1,7 @@
 package characters;
 
 import java.io.Serializable;
+import java.util.InputMismatchException;
 
 import game.Game;
 
@@ -52,6 +53,31 @@ public class NPC implements Serializable {
 	
 	public void addHealth(int thisMuch) {
 		health += thisMuch;
+	}
+	
+	public void say(String s) {
+		Game.print(name+": "+s);
+	}
+	
+	public int getConvoOption(String[] options) {
+		for(int i=0; i<options.length; i++) {
+			System.out.println("OPTION "+(i+1)+": "+options[i]);
+		}
+		try {
+			System.out.print("Select an option (1-"+options.length+"): ");
+			int choice = Game.input.nextInt();
+			Game.input.nextLine(); // consumer the '\n'
+			if (choice > 0 && choice <= options.length)
+				return choice;
+			else {
+				Game.print("That is not a valid option.");
+				return getConvoOption(options);
+			}
+		} catch (InputMismatchException ex) {
+			Game.input.nextLine(); // empty buffer
+			Game.print("Please enter a number.");
+			return getConvoOption(options);
+		}
 	}
 	
 	public void talk() {
