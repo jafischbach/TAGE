@@ -1,7 +1,6 @@
 package game;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -20,7 +19,7 @@ public class Game {
 	public static Scanner input = new Scanner(System.in);
 	public static HashMap<String, String> roomDescs;
 	public static HashMap<String, String> itemDescs;
-	private static ArrayList<Room> rooms;
+	private static HashMap<String, Room> rooms;
 
 	private static boolean play = true;
 	public static Room currentRoom;
@@ -37,14 +36,18 @@ public class Game {
 		return currentRoom;
 	}
 
-	public static void addRoom(Room r) {
-		rooms.add(r);
+	public static void addRoom(String label, Room r) {
+		rooms.put(label, r);
+	}
+	
+	public static Room getRoom(String label) {
+		return rooms.get(label);
 	}
 
 	private static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
-		rooms = new ArrayList<Room>();
+		rooms = new HashMap<String, Room>();
 		try {
 			Scanner descReader = new Scanner(new File("rooms.dat"));
 			while (descReader.hasNextLine()) {
@@ -130,7 +133,7 @@ public class Game {
 					if (direction != 'x' && direction != 'i')
 						print(currentRoom.getDesc());
 				} catch (InvalidDirectionException ex) {
-					print("You can't go that way!");
+					print(ex.getMessage());
 				}
 			}
 		} while (play);
@@ -226,11 +229,29 @@ public class Game {
 	}
 
 	public static void loadGame() {
+		String[] saves = getSaves();
+		if (saves == null)
+			Game.print("No saved games.");
+		else {
+			int i;
+			for (i = 0; i < saves.length; i++)
+				System.out.println((i + 1) + ": " + saves[i]);
+			System.out.println((i + 1) + ": Cancel");
+			int option = getOption(1, i + 1);
+			if (option == i+1) {
+				Game.print("Load cancelled.");
+			} else {
+				loadGame(option);
+			}
+		}
+	}
+	
+	public static void loadGame(int fileID) {
 		try {
-			File saveFile = new File("save0.sav");
-			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(saveFile));
+			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save"+fileID+".sav");
+			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
 			Player.inventory = (HashMap<String, Item>) stream.readObject();
-			rooms = (ArrayList<Room>) stream.readObject();
+			rooms = (HashMap<String, Room>) stream.readObject();
 			currentRoom = (Room) stream.readObject();
 			stream.close();
 		} catch (FileNotFoundException ex) {

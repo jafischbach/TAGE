@@ -4,7 +4,7 @@ The lobby is a small room. The exit is to the south. There are doorways east to 
 HOTEL_BAR
 There is a long bar along the west wall. Since the bar is closed, there is no bartender at the moment. There is a closed door in the north wall. Another doorway leads east to the lobby.
 #
-HOTEL_LOUNGE_A
+HOTEL_LOUNGE
 This is a pleasant room with a couch and two armchairs. An old fellow is sleeping in one of the chairs, an old newspaper lays folded in his lap. A doorway leads west to the lobby.
 #
 HOTEL_LOUNGE_B
@@ -13,7 +13,7 @@ This is a pleasant room with a couch and two armchairs. An old fellow is sleepin
 HOTEL_HALL_1ST
 You are in a short, dead-end hallway. There are locked doors in the east and west walls. You can return south to the lobby.
 #
-HOTEL_HALL_TOP_A
+HOTEL_HALL_TOP
 At the top of the stairs, you find your way blocked. A locked door is in the north wall and a hallway stretches east and west. However, stacked furniture blocks your way east and a large box blocks your way west. You can take the stairs back down to the lobby.
 #
 HOTEL_HALL_TOP_B

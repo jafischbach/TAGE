@@ -19,16 +19,18 @@ public class Room implements Serializable {
 	private Room[] go;
 	private HashMap<String, Item> items;
 	private String label;
+	private boolean isLocked;
 
 	public Room(String label) {
 		this.label = label;
+		isLocked = false;
 		desc = Game.roomDescs.get(label);
 		items = new HashMap<String, Item>();
 		if (desc == null) {
 			throw new InvalidLabelException(label);
 		}
 		go = new Room[6];
-		Game.addRoom(this);
+		Game.addRoom(label, this);
 	}
 	
 	public void addItem(Item item) {
@@ -53,6 +55,14 @@ public class Room implements Serializable {
 			desc = label;
 	}
 
+	public void setLocked(boolean isLocked) {
+		this.isLocked = isLocked;
+	}
+	
+	public boolean isLocked() {
+		return isLocked;
+	}
+	
 	public void action(String command) {
 		String[] parsedCommand = new String[2]; //command.split(" ");
 		int index = command.indexOf(' ');
@@ -109,10 +119,14 @@ public class Room implements Serializable {
 	}
 
 	private Room go(int direction) {
-		if (go[direction] != null)
-			return go[direction];
+		Room r = go[direction];
+		if (r != null)
+			if (r.isLocked())
+				throw new InvalidDirectionException("You can't go that way right now.");
+			else
+				return go[direction];
 		else
-			throw new InvalidDirectionException("Can't go that way!");
+			throw new InvalidDirectionException("You can't go that way!");
 	}
 
 	public boolean equals(String label) {

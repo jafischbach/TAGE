@@ -17,15 +17,14 @@ public class SledgeHammer extends Item {
 	
 	public void use() {
 		Room r = Game.getCurrentRoom();
-		if(!boxSmashed && r.equals("HOTEL_HALL_TOP_A")) {
+		if(!boxSmashed && r.equals("HOTEL_HALL_TOP")) {
 			Game.print("With a mighty swing, you smite the large box. Ten minutes later,"
 					+ " you manage to reduce the large box to a pile of splinters.");
 			r.setDesc("HOTEL_HALL_TOP_C");
 			boxSmashed = true;
 			r.removeItem("large box");
-			Room hallway = new Room("HOTEL_HALL_WEST");
-			hallway.addExit(r, Room.EAST);
-			r.addExit(hallway, Room.WEST);
+			Room hallway = Game.getRoom("HOTEL_HALL_WEST");
+			hallway.setLocked(false);
 		} else if(r.equals("HOTEL_LOBBY"))
 			Game.print("You swing the sledge hammer at the door leading outside, hoping"
 					+ " to at last secure your freedom from this creepy hotel. Sadly, you"

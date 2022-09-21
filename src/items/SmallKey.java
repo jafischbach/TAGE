@@ -20,16 +20,14 @@ public class SmallKey extends Item {
 
 	public void use() {
 		Room r = Game.getCurrentRoom();
-		if (r.equals("HOTEL_HALL_TOP_A")) {
+		if (r.equals("HOTEL_HALL_TOP")) {
 			if (!lockFound) {
 				Game.print("Score! The small key fits perfectly in the door lock."
 						+ " You eagerly turn they key and are rewarded with a click!" 
 						+ " The door is now unlocked.");
 				lockFound = true;
-				Room closet = new Room("HOTEL_CLOSET_TOP");
-				closet.addExit(r, Room.SOUTH);
-				closet.addItem(new Chest("HOTEL_CLOSET_TOP_CHEST", "chest"));
-				r.addExit(closet, Room.NORTH);
+				Room closet = Game.getRoom("HOTEL_CLOSET_TOP");
+				closet.setLocked(false);
 				r.setDesc("HOTEL_HALL_TOP_B");
 			} else {
 				Game.print("You already unlocked the door, dumbass.");
