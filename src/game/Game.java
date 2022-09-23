@@ -45,6 +45,37 @@ public class Game {
 		return rooms.get(label);
 	}
 
+	public static void help() {
+		System.out.println("look - displays desription of current room");
+		System.out.println("n - move north");
+		System.out.println("s - move south");
+		System.out.println("e - move east");
+		System.out.println("w - move west");
+		System.out.println("u - move up");
+		System.out.println("d - move down");
+		System.out.println("x - exit game");
+		System.out.println("save - save current game");
+		System.out.println("load - load previously saved game");
+		System.out.println("help item - displays items help");
+		System.out.println("help npc - displays NPC help\n");
+	}
+	
+	public static void itemHelp() {
+		System.out.println("look <item> - displays description of item");
+		System.out.println("use <item> - use the item");
+		System.out.println("take <item> - takes the item and adds it to player's inventory");
+		System.out.println("move <item> - move the item");
+		System.out.println("open <item> - open the item");
+		System.out.println("close <item> - close the item\n");
+	}
+	
+	public static void npcHelp() {
+		System.out.println("look <npc> - displays a description of the NPC");
+		System.out.println("talk <npc> - talk to the NPC");
+		System.out.println("give <item> to <npc> - give the item to the NPC"); 
+		System.out.println("attack <npc> with <item> - attack the NPC with the item\n");
+	}
+	
 	private static void populateDescs(String fileName, HashMap<String, String> map) 
 		throws FileNotFoundException
 	{
@@ -97,6 +128,12 @@ public class Game {
 				saveGame();
 			else if (command.equalsIgnoreCase("load"))
 				loadGame();
+			else if (command.equalsIgnoreCase("help"))
+				help();
+			else if (command.equalsIgnoreCase("help item"))
+				itemHelp();
+			else if (command.equalsIgnoreCase("help npc"))
+				npcHelp();
 			else if (command.length() > 1)
 				try {
 					currentRoom.action(command.toLowerCase());
