@@ -13,6 +13,10 @@ public class Player {
 		inventory.put(name, item);
 	}
 	
+	public static void addItem(Item item) {
+		inventory.put(item.getName(), item);
+	}
+	
 	public static Item getItem(String name) {
 		return inventory.get(name);
 	}

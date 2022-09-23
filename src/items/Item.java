@@ -45,6 +45,10 @@ public class Item implements Serializable {
 		Game.print("You can't take "+name+"!");
 	}
 	
+	public void move() {
+		Game.print(name+" doesn't move.");
+	}
+	
 	public void open() {
 		Game.print(name+" doesn't open.");
 	}

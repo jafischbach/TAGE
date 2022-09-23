@@ -16,6 +16,7 @@ public class World {
 		Room closet = new Room("HOTEL_CLOSET_TOP");
 		Room upperWestHallway = new Room("HOTEL_HALL_WEST");
 		Room rr = new Room("HOTEL_BAR_RR");
+		Room room101 = new Room("HOTEL_ROOM_101");
 
 		lobby.addExit(bar, Room.WEST);
 		lobby.addExit(lounge, Room.EAST);
@@ -30,7 +31,15 @@ public class World {
 		lounge.addItem(new Newspaper("HOTEL_LOUNGE_NEWSPAPER", "newspaper"));
 
 		hall.addExit(lobby, Room.SOUTH);
+		hall.addExit(room101, Room.WEST);
 
+		room101.setLocked(true);
+		room101.addExit(hall, Room.EAST);
+		room101.addItem(new Nightstand("nightstand"));
+		room101.addItem(new Closet("closet", 101));
+		room101.addItem(new Bed());
+		room101.addItem(new Picture());
+		
 		upperFloor.addExit(lobby, Room.DOWN);
 		upperFloor.addExit(closet, Room.NORTH);
 		upperFloor.addExit(upperWestHallway, Room.WEST);

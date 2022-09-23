@@ -130,6 +130,8 @@ public class Room implements Serializable {
 					npcs.get(itemName).talk();
 				else if (action.equalsIgnoreCase("take"))
 					i.take();
+				else if (action.equalsIgnoreCase("move"))
+					i.move();
 				else if (action.equalsIgnoreCase("use"))
 					i.use();
 				else if (action.equalsIgnoreCase("open"))

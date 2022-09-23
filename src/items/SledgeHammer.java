@@ -26,6 +26,8 @@ public class SledgeHammer extends Item {
 			r.removeItem("large box");
 			Room hallway = Game.getRoom("HOTEL_HALL_WEST");
 			hallway.setLocked(false);
+			Room room101 = Game.getRoom("HOTEL_ROOM_101");
+			room101.setLocked(false);
 			Room bar = Game.getRoom("HOTEL_BAR");
 			bar.addNPC(new Bartender("bartender"));
 		} else if(r.equals("HOTEL_LOBBY"))

@@ -30,3 +30,21 @@ You have discovered a supply closet! It's full of junk. Congratulations on your 
 #
 HOTEL_HALL_WEST
 This creepy hallway extends west into darkness. The carpet is dusty and littered with various broken and torn items of no interest to you. Cobwebs hang from a naked bulb dangling from the ceiling. There are doors leading to hotel rooms to the north and south. You can return east to the stairway.
+#
+HOTEL_ROOM_201
+You are standing in a typical hotel bedroom. Well, typical except for the excessive amount of dust. It's clear that no one (other than you) has set foot in this room in years. There is a bed, a nighstand, and a closet. A rug keeps the dust off part of the hardwood floor.
+#
+HOTEL_ROOM_202
+This was probably a hotel room once upon a time. It's mostly empty now. Just you, lots or dust, a refrigerator that's happily humming away, and a hole in the wall.
+#
+HOTEL_ROOM_101
+What a nice bedroom! There's a neatly made bed, a nightstand, and a closet. A picture of the bartender and an older gentleman hangs on the wall. There's not a speck of dust anywhere!
+#
+HOTEL_EMPLOYEES_ONLY
+You're in a small room with a door to the west and a staircase leading to the basement. There's a broom leaning against the wall, but you're not in the mood for sweeping.
+#
+HOTEL_BASEMENT
+The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of dust (like most of the hotel), and very cold. There are two metal doors. One, in the north wall, is marked "Utlities" and is pretty convincingly locked. Another door, in the south wall, is marked "Exit." If you think that's a way out, you're right. Sadly, it's not YOUR way out. You're never getting through that door, not even with the chainsaw that's sitting on the floor nearby. 
+#
+HOTEL_UTILITIES
+In contract to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. A gas canister sits on a shelf next to the electric panel. The only exit leads south.
