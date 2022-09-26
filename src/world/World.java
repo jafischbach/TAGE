@@ -18,6 +18,7 @@ public class World {
 		Room upperWestHallway = new Room("HOTEL_HALL_WEST");
 		Room rr = new Room("HOTEL_BAR_RR");
 		Room room101 = new Room("HOTEL_ROOM_101");
+		Room room201 = new Room("HOTEL_ROOM_201");
 
 		lobby.addExit(bar, Room.WEST);
 		lobby.addExit(lounge, Room.EAST);
@@ -53,6 +54,14 @@ public class World {
 
 		upperWestHallway.setLocked(true);
 		upperWestHallway.addExit(upperFloor, Room.EAST);
+		upperWestHallway.addExit(room201, Room.SOUTH);
+		
+		room201.setLocked(true);
+		room201.addExit(upperWestHallway, Room.NORTH);
+		room201.addItem(new Closet("closet", 201));
+		room201.addItem(new Nightstand("nightstand"));
+		room201.addItem(new Drawer("drawer", 201));
+		room201.addItem(new Rug());
 		
 		rr.addExit(bar, Room.SOUTH);
 		rr.addItem(new Toilet("HOTEL_BAR_TOILET", "toilet"));

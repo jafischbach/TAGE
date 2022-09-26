@@ -78,7 +78,8 @@ public class Bartender extends NPC {
 		switch(choice) {
 		case 1:
 			say("Then feel free to visit your local convenience store. Pick up some"
-					+ " slim jims while your at it. I hear the sushi is lovely as well.");
+					+ " slim jims while your at it. I hear the sushi is lovely as well."
+					+ " Here's a coupon. Enjoy.");
 			break;
 		case 2:
 			say("Sure. Swiss? Gouda? Ricotta? Brie? Oh, wait. This is all we have left. Enjoy.");
@@ -89,7 +90,7 @@ public class Bartender extends NPC {
 					+ " resist the urge to try that sledge hammer. The door is quite sturdy."
 					+ " There is an employee entrance, though. I could tell you about it..."
 					+ "if you brought me a corkscrew. Opening wine bottles has been a"
-					+ " challenge lately.");
+					+ " challenge lately. In the meantime, have a cookie.");
 		}
 	}
 	
