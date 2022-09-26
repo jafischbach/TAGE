@@ -1,7 +1,7 @@
 package characters;
 
-import game.Game;
-import game.Player;
+import game.*;
+import items.*;
 
 public class Bartender extends NPC {
 
@@ -82,6 +82,7 @@ public class Bartender extends NPC {
 			break;
 		case 2:
 			say("Sure. Swiss? Gouda? Ricotta? Brie? Oh, wait. This is all we have left. Enjoy.");
+			Player.addItem(new Cheese());
 			break;
 		case 3:
 			say("The front door is locked? That's odd. Sadly, I don't have a key. Please"
@@ -104,7 +105,7 @@ public class Bartender extends NPC {
 	}
 	
 	public void give(String itemName) {
-		if (itemName.equals("bottle") && Player.has("bottle")) {
+		if (itemName.equals("bottle")) {
 			say("What are you doing with that? Just help yourself while"
 					+ " the bartender is off taking a nap. Is that how it is? It's empty!"
 					+ " Did you drink it all? <mumbles something inaudible but probably not"
@@ -114,11 +115,12 @@ public class Bartender extends NPC {
 			say("Actually, I'd rather not hold onto that. When the owner sees whatever you"
 					+ " did upstairs, he might blame the one with the sledge hammer. Better"
 					+ " that's you than me.");
-		}
+		} else 
+			super.give(itemName);
 	}
 	
 	public void attack(String weaponName) {
-		if (weaponName.equals("bottle") && Player.has("bottle")) {
+		if (weaponName.equals("bottle")) {
 			Game.print("You whack the bartender over the head with the glass bottle. The bottle"
 					+ " doesn't break, but neither does the bartender's head. All you've managed"
 					+ " to do is upset the bartender. He reaches beneath the bar and brings out"
@@ -127,11 +129,11 @@ public class Bartender extends NPC {
 		} else if (weaponName.equals("sledge hammer")) {
 			Game.print("You swing the sledge hammer and pulverize the bartended into a gory heap"
 					+ " of bone, blood, and organs. I hope you're proud of yourself. As the"
-					+ " bartended was your only means of excaping the hotel, you're now trapped"
+					+ " bartender was your only means of escaping the hotel, you're now trapped"
 					+ " here for the rest of your miserable life. Too bad you skipped those"
 					+ " anger management classes.");
 			Game.endGame();
-		} else if (weaponName.equals("newspaper") && Player.has("newspaper")){
+		} else if (weaponName.equals("newspaper")){
 			Game.print("You repeatedly smack the bartender with your folded newspaper. He just"
 					+ " looks at you, bemused, and then snatches the newspaper away from you.");
 			Player.removeItem("newspaper");

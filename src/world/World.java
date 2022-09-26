@@ -2,6 +2,7 @@ package world;
 
 import game.*;
 import items.*;
+import characters.*;
 
 public class World {
 
@@ -29,6 +30,7 @@ public class World {
 
 		lounge.addExit(lobby, Room.WEST);
 		lounge.addItem(new Newspaper("HOTEL_LOUNGE_NEWSPAPER", "newspaper"));
+		lounge.addNPC(new OldMan());
 
 		hall.addExit(lobby, Room.SOUTH);
 		hall.addExit(room101, Room.WEST);

@@ -99,7 +99,10 @@ public class Room implements Serializable {
 			if (npc == null)
 				Game.print("There is no " + npcName + " in the room.");
 			else {
-				npc.give(itemName);
+				if (Player.has(itemName))
+					npc.give(itemName);
+				else
+					Game.print("You don't have a "+itemName);
 			}
 		} else if (action.equalsIgnoreCase("attack")) {
 			if (npcs == null)
@@ -113,7 +116,10 @@ public class Room implements Serializable {
 			if (npc == null)
 				Game.print("There is no " + npcName + " in the room.");
 			else {
-				npc.attack(weaponName);
+				if (Player.has(weaponName))
+					npc.attack(weaponName);
+				else
+					Game.print("You don't have a "+weaponName+".");
 			}
 		} else {
 			String itemName = command.substring(index + 1);
