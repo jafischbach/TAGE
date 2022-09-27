@@ -80,6 +80,7 @@ public class Bartender extends NPC {
 			say("Then feel free to visit your local convenience store. Pick up some"
 					+ " slim jims while your at it. I hear the sushi is lovely as well."
 					+ " Here's a coupon. Enjoy.");
+			Player.addItem(new Coupon());
 			break;
 		case 2:
 			say("Sure. Swiss? Gouda? Ricotta? Brie? Oh, wait. This is all we have left. Enjoy.");

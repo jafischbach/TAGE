@@ -16,7 +16,13 @@ public class TrapDoor extends Item {
 	public void look() {
 		if(isOpen)
 			if(Player.has("cash"))
-				Game.print("There is nothing else hidden beneath the trap door.");
+				if (Player.has("coupon") && !Player.has("wee little key")) {
+					Game.print("You peer into the now cash-less hole beneath the trap door and see a tiny"
+							+ " glint of metal. Reaching into the hole, you find a wee little key, which you"
+							+ " take.");
+					Player.addItem(new WeeLittleKey());
+				} else 
+					Game.print("There is nothing else hidden beneath the trap door.");
 			else if (cashFound)
 				Game.print("That's a lot of cash. You're not really just going to"
 						+ " leave it there, are you?");

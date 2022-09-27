@@ -28,11 +28,11 @@ public class Picture extends Item {
 			Game.print("Why? There's nothing else behind it.");
 		else {
 			Game.print("Not a bad idea. You move the picture to see if there's anything"
-					+ " behind it. In fact there is something behind it! A room key from"
+					+ " behind it. In fact there is something behind it! A bronze room key from"
 					+ " this hotel is taped to the back. Not one to leave a key behind, you"
-					+ " peel away the tape and take the room key.");
+					+ " peel away the tape and take the bronze room key.");
 			keyFound = true;
-			Player.addItem(new RoomKey());
+			Player.addItem(new RoomKey("bronze room key"));
 		}
 	}
 	

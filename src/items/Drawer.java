@@ -1,6 +1,7 @@
 package items;
 
 import game.Game;
+import game.Player;
 
 public class Drawer extends Item {
 
@@ -20,6 +21,13 @@ public class Drawer extends Item {
 			Game.print("Wow! Look at all this stuff! You have no use for any of it! The drawer"
 					+ " just contains a few of the bartender's personal items and nothing of use"
 					+ " to you.");
+		else if (roomNum == 201)
+			if (Player.has("silver room key"))
+				Game.print("There is nothing else in the drawer.");
+			else {
+				Game.print("The only thing in the draw is a silver room key.");
+				Game.getCurrentRoom().addItem(new RoomKey("silver room key"));
+			}
 	}
 	
 	public void open() {
@@ -36,6 +44,8 @@ public class Drawer extends Item {
 			if (roomNum == 101)
 				Game.print("You close the drawer. Wouldn't want the bartender to know you've"
 						+ " been sooping, eh?");
+			else
+				Game.print("You close the drawer.");
 			isOpen = false;
 		} else
 			Game.print("You push and push on the drawer but nothing happens. Probably because"
