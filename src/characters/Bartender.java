@@ -92,6 +92,39 @@ public class Bartender extends NPC {
 					+ " There is an employee entrance, though. I could tell you about it..."
 					+ "if you brought me a corkscrew. Opening wine bottles has been a"
 					+ " challenge lately. In the meantime, have a cookie.");
+			Player.addItem(new Cookie());
+		}
+	}
+	
+	private void convo4() {
+		say("Ah! Excellent! That's exactly what I need. Actually, it looks just like"
+				+ " one my coworker Steve used to have. Um...so, where did you find this?");
+		String[] options = new String[2];
+		options[0] = "On a dead guy I found stuffed in a closet upstairs.";
+		options[1] = "Oh that? I had that in my pocket all along. Yeah, it was a gift from"
+				+ " my...uh...cousin Marty. He gave it to me for my 21st birthday. What a"
+				+ " guy that Marty always was. Is. Still is. He's not dead or anything. Haha!"
+				+ " Who said anything about a dead guy. Um. Yeah.";
+		int choice = getConvoOption(options);
+		switch(choice) {
+		case 1:
+			say("Well. I see. A dead guy. Stuffed in a closet. Upstairs. How did you get into"
+					+ " the room? You know, it doesn't matter. There are other rooms with"
+					+ " other closets. Some are even empty.");
+			Game.print("The bartender reaches beneath the bar and retrieves a shotgun. He"
+					+ " points it at your chest and pulls the trigger. And just like that,"
+					+ " the hotel has another permanent guest.");
+			Game.endGame();
+			break;
+		case 2:
+			say("Hm. Well, in any case. Thank you for the corkscrew. This will make my life"
+					+ " so much easier. Trying to pry corks out of bottles with my teeth"
+					+ " wasn't going well. As promised, I will tell you about the employee"
+					+ " entrance. Or exit in your case. It's in the basement. Clearly marked."
+					+ " You can reach the basement through the door marked \"Employees Only\"."
+					+ " Here's the key. Come visit again!");
+			Game.print("The bartender hands you a large key.");
+			Player.addItem(new LargeKey());
 		}
 	}
 	
@@ -117,7 +150,9 @@ public class Bartender extends NPC {
 			say("Actually, I'd rather not hold onto that. When the owner sees whatever you"
 					+ " did upstairs, he might blame the one with the sledge hammer. Better"
 					+ " that's you than me.");
-		} else 
+		} else if (itemName.equals("corkscrew")) {
+			convo4();
+		} else
 			super.give(itemName);
 	}
 	

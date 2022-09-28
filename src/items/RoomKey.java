@@ -6,10 +6,12 @@ import game.Player;
 public class RoomKey extends Item {
 
 	private boolean room201unlocked;
+	private boolean room202unlocked;
 	
 	public RoomKey(String name) {
 		super(name);
 		room201unlocked = false;
+		room202unlocked = false;
 	}
 	
 	public void look() {
@@ -41,9 +43,18 @@ public class RoomKey extends Item {
 						+ " shockingly, the key fits and you unlock the door.");
 				Game.getRoom("HOTEL_ROOM_201").setLocked(false);
 				room201unlocked = true;
-			}
+			} else
+				Game.print("The bronze room key doesn't unlock anything in this room.");
 		else
-			Game.print("You don't want to use the silver room key just yet.");
+			if (room202unlocked)
+				Game.print("You're already unlocked Room 202.");
+			else if (Game.getCurrentRoom().equals("HOTEL_HALL_WEST")) {
+				Game.print("You unlock Room 202 with the silver room key. You're getting"
+						+ " good at this whole unlock door thing.");
+				Game.getRoom("HOTEL_ROOM_202").setLocked(false);
+				room202unlocked = true;
+			} else
+				Game.print("The silver room key doesn't unlock anything in this room.");	
 	}
 	
 }

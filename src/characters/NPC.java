@@ -56,12 +56,12 @@ public class NPC implements Serializable {
 	}
 	
 	public void say(String s) {
-		Game.print(name+": "+s);
+		Game.print("\n"+name+": "+s);
 	}
 	
 	public int getConvoOption(String[] options) {
 		for(int i=0; i<options.length; i++) {
-			System.out.println("OPTION "+(i+1)+": "+options[i]);
+			System.out.println("OPTION "+(i+1)+": "+options[i]+"\n");
 		}
 		try {
 			System.out.print("Select an option (1-"+options.length+"): ");

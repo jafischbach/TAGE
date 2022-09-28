@@ -19,7 +19,10 @@ public class World {
 		Room rr = new Room("HOTEL_BAR_RR");
 		Room room101 = new Room("HOTEL_ROOM_101");
 		Room room201 = new Room("HOTEL_ROOM_201");
-
+		Room room202 = new Room("HOTEL_ROOM_202");
+		Room employeesOnly = new Room("HOTEL_EMPLOYEES_ONLY");
+		Room basement = new Room("HOTEL_BASEMENT");
+		
 		lobby.addExit(bar, Room.WEST);
 		lobby.addExit(lounge, Room.EAST);
 		lobby.addExit(hall, Room.NORTH);
@@ -35,13 +38,20 @@ public class World {
 
 		hall.addExit(lobby, Room.SOUTH);
 		hall.addExit(room101, Room.WEST);
-
+		hall.addExit(employeesOnly, Room.EAST);
+		
 		room101.setLocked(true);
 		room101.addExit(hall, Room.EAST);
 		room101.addItem(new Nightstand("nightstand"));
 		room101.addItem(new Closet("closet", 101));
 		room101.addItem(new Bed());
 		room101.addItem(new Picture());
+		
+		employeesOnly.setLocked(true);
+		employeesOnly.addExit(hall, Room.WEST);
+		employeesOnly.addExit(basement, Room.DOWN);
+		
+		basement.addExit(employeesOnly, Room.UP);
 		
 		upperFloor.addExit(lobby, Room.DOWN);
 		upperFloor.addExit(closet, Room.NORTH);
@@ -55,6 +65,7 @@ public class World {
 		upperWestHallway.setLocked(true);
 		upperWestHallway.addExit(upperFloor, Room.EAST);
 		upperWestHallway.addExit(room201, Room.SOUTH);
+		upperWestHallway.addExit(room202, Room.NORTH);
 		
 		room201.setLocked(true);
 		room201.addExit(upperWestHallway, Room.NORTH);
@@ -62,6 +73,11 @@ public class World {
 		room201.addItem(new Nightstand("nightstand"));
 		room201.addItem(new Drawer("drawer", 201));
 		room201.addItem(new Rug());
+		
+		room202.setLocked(true);
+		room202.addExit(upperWestHallway, Room.SOUTH);
+		room202.addItem(new Refrigerator());
+		room202.addItem(new Hole());
 		
 		rr.addExit(bar, Room.SOUTH);
 		rr.addItem(new Toilet("HOTEL_BAR_TOILET", "toilet"));

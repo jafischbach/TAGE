@@ -2,7 +2,7 @@ package items;
 
 import java.io.Serializable;
 
-import game.Game;
+import game.*;
 import game.InvalidLabelException;
 
 public class Item implements Serializable {
@@ -42,7 +42,10 @@ public class Item implements Serializable {
 	}
 	
 	public void take() {
-		Game.print("You can't take "+name+"!");
+		if (Player.has(name))
+			Game.print("You already have the "+name+".");
+		else
+			Game.print("You can't take "+name+"!");
 	}
 	
 	public void move() {

@@ -36,6 +36,14 @@ public class Game {
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
+	
+	public static void setCurrentRoom(String label) {
+		Room r = rooms.get(label);
+		if (r != null)
+			currentRoom = r;
+		else
+			throw new InvalidLabelException(label);
+	}
 
 	public static void addRoom(String label, Room r) {
 		rooms.put(label, r);
