@@ -9,8 +9,16 @@ public class WeeLittleKey extends Item {
 	}
 	
 	public void look() {
-		Game.print("It's a wee little key. Be careful not to drop it! It's actuall smaller than the tiny key you"
-				+ " found earlier.");
+		Game.print("It's a wee little key. Be careful not to drop it! It's actuall smaller than the"
+				+ " tiny key you found earlier.");
+	}
+	
+	public void use() {
+		if(Game.getCurrentRoom().equals("HOTEL_ROOM_202"))
+			Game.print("Try opening something.");
+		else
+			Game.print("You don't see a keyhole nearly small enough for the wee little key"
+					+ " in this room.");
 	}
 	
 	public void take() {
