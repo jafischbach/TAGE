@@ -21,6 +21,7 @@ public class Game {
 	public static HashMap<String, String> itemDescs;
 	public static HashMap<String, String> npcDescs;
 	private static HashMap<String, Room> rooms;
+	private static HashMap<String, Integer> flags;
 
 	private static boolean play = true;
 	public static Room currentRoom;
@@ -45,6 +46,31 @@ public class Game {
 			throw new InvalidLabelException(label);
 	}
 
+	public static void addFlag(String flag) {
+		addFlag(flag, 0);
+	}
+	
+	public static void addFlag(String flag, int value) {
+		if (flags == null)
+			flags = new HashMap<String, Integer>();
+		flags.put(flag, value);
+	}
+	
+	public static int getFlag(String flag) {
+		if (flags == null)
+			throw new InvalidLabelException("no such flag: "+flag);
+		Integer i = flags.get(flag);
+		if (i == null)
+			throw new InvalidLabelException("no such flag: "+flag);
+		return i;
+	}
+	
+	public static boolean hasFlag(String flag) {
+		if (flags == null)
+			return false;
+		return flags.containsKey(flag);
+	}
+	
 	public static void addRoom(String label, Room r) {
 		rooms.put(label, r);
 	}

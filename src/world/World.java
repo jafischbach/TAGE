@@ -22,6 +22,7 @@ public class World {
 		Room room202 = new Room("HOTEL_ROOM_202");
 		Room employeesOnly = new Room("HOTEL_EMPLOYEES_ONLY");
 		Room basement = new Room("HOTEL_BASEMENT");
+		Room utilities = new Room("HOTEL_UTILITIES");
 		
 		lobby.addExit(bar, Room.WEST);
 		lobby.addExit(lounge, Room.EAST);
@@ -52,6 +53,12 @@ public class World {
 		employeesOnly.addExit(basement, Room.DOWN);
 		
 		basement.addExit(employeesOnly, Room.UP);
+		basement.addExit(utilities, Room.NORTH);
+		basement.addItem(new Chainsaw());
+		
+		utilities.setLocked(true);
+		utilities.addExit(basement, Room.SOUTH);
+		utilities.addItem(new GasCan());
 		
 		upperFloor.addExit(lobby, Room.DOWN);
 		upperFloor.addExit(closet, Room.NORTH);

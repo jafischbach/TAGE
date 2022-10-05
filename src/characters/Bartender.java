@@ -130,6 +130,28 @@ public class Bartender extends NPC {
 		}
 	}
 	
+	private void convo5() {
+		say("And you're back. Lovely.");
+		String[] options = new String[2];
+		options[0] = "So, hey, do you know where I can get some gas for this chainsaw that"
+				+ " I most definitely did not just steal from the basement?";
+		options[1] = "Does anyone else work here, or is it just you?";
+		int choice = getConvoOption(options);
+		switch(choice) {
+		case 1:
+			say("I'm sure it's perfectly acceptible for you to be carrying around a"
+					+ " chainsaw. I have no concerns about that at all. And, yes, I"
+					+ " do know where you can find gasoline. If it will hasten your"
+					+ " departure, I'll happily help you.");
+			Game.print("The bartender hands you a utility key.");
+			Player.addItem(new UtilityKey());
+			break;
+		case 2:
+			say("No. We have a full staff. I'm just the only one brave enough to deal"
+					+ " with you. You're very unpleasant. Everyone knows this.");
+		}
+	}
+	
 	private void giveBeer() {
 		if (gaveBeer) {
 			Game.print("The bartender glares at you. His eye starts twitching again.");
@@ -161,7 +183,9 @@ public class Bartender extends NPC {
 		case 2: convo2(); break;
 		case 3: convo3(); break;
 		default:
-			if (gaveBeer)
+			if (Player.has("chainsaw") && !Player.has("gas can")) {
+				convo5();
+			} else if (gaveBeer)
 				say("And you're still here. Wonderful.");
 			else
 				say("Please, sir. I do have other customers to tend to.");

@@ -44,7 +44,10 @@ HOTEL_EMPLOYEES_ONLY
 You're in a small room with a door to the west and a staircase leading to the basement. There's a broom leaning against the wall, but you're not in the mood for sweeping.
 #
 HOTEL_BASEMENT
-The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of dust (like most of the hotel), and very cold. There are two metal doors. One, in the north wall, is marked "Utlities" and is pretty convincingly locked. Another door, in the south wall, is marked "Exit." If you think that's a way out, you're right. Sadly, it's not YOUR way out. You're never getting through that door, not even with the chainsaw that's sitting on the floor nearby. 
+The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of dust (like most of the hotel), and very cold. There are two metal doors. One, in the north wall, is marked "Utlities" and is pretty convincingly locked. Another door, in the south wall, is marked "Exit." If you think that's a way out, you're right. Sadly, it's not YOUR way out. You're never getting through that door, not even with the chainsaw that's sitting on the floor nearby.
+#
+HOTEL_BASEMENT_B
+The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of dust (like most of the hotel), and very cold. There are two metal doors. One, in the north wall, is marked "Utlities" and is pretty convincingly locked. Another door, in the south wall, is marked "Exit." If you think that's a way out, you're right. Sadly, it's not YOUR way out. You're never getting through that door.
 #
 HOTEL_UTILITIES
 In contract to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. A gas canister sits on a shelf next to the electric panel. The only exit leads south.
