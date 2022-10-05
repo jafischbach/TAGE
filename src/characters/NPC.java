@@ -93,7 +93,7 @@ public class NPC implements Serializable {
 	}
 	
 	public void give(String itemName) {
-		Game.print("You can't give "+itemName+" to "+name+".");
+		Game.print(name+" doesn't want "+itemName+".");
 	}
 	
 }

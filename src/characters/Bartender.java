@@ -7,11 +7,13 @@ public class Bartender extends NPC {
 
 	private int convo;
 	private boolean isPolite;
+	private boolean gaveBeer;
 	
 	public Bartender(String name) {
 		super(name);
 		convo = 0;
 		isPolite = true;
+		gaveBeer = false;
 		String d = "The bartender is a tall, thin man. His bored expression suggests"
 				+ " that he'd rather be anywhere else and doing anything else. He doesn't"
 				+ " look surprided or thrilled by your presence in this otherwise deserted hotel.";
@@ -128,6 +130,30 @@ public class Bartender extends NPC {
 		}
 	}
 	
+	private void giveBeer() {
+		if (gaveBeer) {
+			Game.print("The bartender glares at you. His eye starts twitching again.");
+			say("No.");
+			Game.print("He reaches beneath the bar, retrieves a shotgun, and proceeds to end your miserable life,"
+					+ " cackling with glee.");
+			Game.endGame();
+		} else {
+			say("Beer? You're giving me...beer? Beer!? BEER!?");
+			Game.print("As the bartended grips the can of cool Dr. Hops beer, his hand starts to shake. His eye starts to"
+					+ " twitch. His lips start to spasm. Drool dripples over his chin. What the hell is up with this guy?");
+			say("You. You...you...beer-chugging, heathen, barbarian, troglodite...how...why...NO! I will not tolerate your"
+					+ " vile presense here any longer. You will leave! You will leave NOW!");
+			Game.print("More quickly than you thought possible, the bartender leaps across the bar and grabs your ear."
+					+ " He painfully hauls you out of the bar, down a hall, and down a flight of steps to the basement.");
+			say("There. Out you go. Out!");
+			Game.print("The bartender points to a door marked \"Exit\" and then stalks away.");
+			Game.setCurrentRoom("HOTEL_BASEMENT");
+			Game.getRoom("HOTEL_EMPLOYEES_ONLY").setLocked(false);
+			Player.removeItem("beer");
+			gaveBeer = true;
+		}
+	}
+	
 	public void talk() {
 		convo++;
 		switch(convo) {
@@ -135,7 +161,10 @@ public class Bartender extends NPC {
 		case 2: convo2(); break;
 		case 3: convo3(); break;
 		default:
-			say("Please, sir. I do have other customers to tend to.");
+			if (gaveBeer)
+				say("And you're still here. Wonderful.");
+			else
+				say("Please, sir. I do have other customers to tend to.");
 		}
 	}
 	
@@ -152,6 +181,8 @@ public class Bartender extends NPC {
 					+ " that's you than me.");
 		} else if (itemName.equals("corkscrew")) {
 			convo4();
+		} else if (itemName.equals("beer")) {
+			giveBeer();
 		} else
 			super.give(itemName);
 	}

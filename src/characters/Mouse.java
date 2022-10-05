@@ -9,12 +9,22 @@ public class Mouse extends NPC {
 	}
 	
 	public void look() {
-		Game.print("A tiny gray mouse crouches just with the hole. It stares at you with"
+		Game.print("A tiny gray mouse crouches just within the hole. It stares at you with"
 				+ " burning malevolence.");
 	}
 	
 	public void give(String item) {
-		Game.print("The mouse likes cheese!");
+		if (item.equals("cheese")) {
+			Game.print("You place the cheese in front of the hole. The mouse regards you suspiciously."
+					+ " Only when you retreat to the other end of the room does the mouse dare to"
+					+ " venture out of its hole to examine the cheese. Its nose twitches. Satisfied"
+					+ " that you have not laid a trap, the mouse snatches the cheese and scurries"
+					+ " away, leaving its hole undefended.");
+			Game.getCurrentRoom().removeNPC("mouse");
+			Player.removeItem("cheese");
+		} else {
+			super.give(item);
+		}
 	}
 	
 	public void talk() {
