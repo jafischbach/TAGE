@@ -215,10 +215,14 @@ public class Game {
 						print(currentRoom.getDesc());
 				} catch (InvalidDirectionException ex) {
 					print(ex.getMessage());
+				} catch (IndexOutOfBoundsException ex) {
+					// Nothing to do here.
 				}
 			}
 		} while (play);
 		System.out.println("I guess we're done here. Thanks for playing. Bye!");
+		System.out.print("<Press ENTER to exit.>");
+		input.nextLine();
 	}
 
 	public static String[] getSaves() {
@@ -298,6 +302,7 @@ public class Game {
 			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
 			stream.writeObject(Player.inventory);
 			stream.writeObject(rooms);
+			stream.writeObject(flags);
 			stream.writeObject(currentRoom);
 			stream.close();
 			Game.print("Game saved.");
@@ -333,6 +338,7 @@ public class Game {
 			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
 			Player.inventory = (HashMap<String, Item>) stream.readObject();
 			rooms = (HashMap<String, Room>) stream.readObject();
+			flags = (HashMap<String, Integer>) stream.readObject();
 			currentRoom = (Room) stream.readObject();
 			stream.close();
 		} catch (FileNotFoundException ex) {

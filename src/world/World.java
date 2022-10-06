@@ -32,6 +32,7 @@ public class World {
 		lobby.addExit(exit, Room.SOUTH);
 
 		exit.setLocked(true);
+		exit.addExit(lobby, Room.NORTH);
 		exit.addNPC(new Cop());
 		
 		bar.addExit(rr, Room.NORTH);

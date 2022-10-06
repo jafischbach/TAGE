@@ -147,7 +147,7 @@ public class Room implements Serializable {
 				else
 					Game.print("Invalid command.");
 			} catch (NullPointerException ex) {
-				Game.print("There is no "+itemName+" in this room!");
+				Game.print("You don't see a "+itemName+" in this room!");
 			}
 		}
 	}
