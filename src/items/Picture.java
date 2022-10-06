@@ -13,14 +13,21 @@ public class Picture extends Item {
 	}
 	
 	public void look() {
-		Game.print("The bartender actually has a smile in the picture. You wonder if the "
+		if (Game.hasFlag("met bartender"))
+			Game.print("The bartender actually has a smile in the picture. You wonder if the "
 				+ " older gentleman in the picture is the bartender's father or the hotel's"
 				+ " owner? Maybe they're one and the same! Does it matter? Probably not.");
+		else
+			Game.print("It's just an uninteresting picture of two men you don't know or"
+					+ " care about.");
 	}
 	
 	public void take() {
-		Game.print("Why would you want to carry around a picture of the bartender? Actually,"
+		if (Game.hasFlag("met bartender"))
+			Game.print("Why would you want to carry around a picture of the bartender? Actually,"
 				+ " don't answer that. I'd rather not know. Leave the picture on the wall.");
+		else
+			Game.print("Why would you want to carry around a picture of two random dudes?");
 	}
 	
 	public void move() {

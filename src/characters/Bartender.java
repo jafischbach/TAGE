@@ -8,12 +8,14 @@ public class Bartender extends NPC {
 	private int convo;
 	private boolean isPolite;
 	private boolean gaveBeer;
+	private boolean notMet;
 	
 	public Bartender(String name) {
 		super(name);
 		convo = 0;
 		isPolite = true;
 		gaveBeer = false;
+		notMet = true;
 		String d = "The bartender is a tall, thin man. His bored expression suggests"
 				+ " that he'd rather be anywhere else and doing anything else. He doesn't"
 				+ " look surprided or thrilled by your presence in this otherwise deserted hotel.";
@@ -177,6 +179,10 @@ public class Bartender extends NPC {
 	}
 	
 	public void talk() {
+		if (notMet) {
+			notMet = false;
+			Game.addFlag("met bartender");
+		}
 		convo++;
 		switch(convo) {
 		case 1: convo1(); break;
@@ -190,6 +196,14 @@ public class Bartender extends NPC {
 			else
 				say("Please, sir. I do have other customers to tend to.");
 		}
+	}
+	
+	public void look() {
+		if (notMet) {
+			notMet = false;
+			Game.addFlag("met bartender");
+		}
+		super.look();
 	}
 	
 	public void give(String itemName) {

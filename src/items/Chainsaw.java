@@ -41,7 +41,11 @@ public class Chainsaw extends Item {
 						+ " efforts of the buzzing chainsaw. You cease your efforts before"
 						+ " you use up all the gas.");
 			else if (r.equals("HOTEL_LOBBY")) {
-				Game.print("VICTORY!");
+				Game.print("You stand there and relish wielding the raw power of the mighty"
+						+ " chainsaw. You stride toward the door to the outside and proceed"
+						+ " to tear that wooden bastard to shreds. Sun shines through the"
+						+ " opening and you glimpse freedom beyond.");
+				Game.getRoom("EXIT").setLocked(false);
 			} else {
 				Game.print("There's only so much gas in the chainsaw. Don't waste it trying"
 						+ " to destroy everything you see.");

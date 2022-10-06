@@ -30,6 +30,7 @@ public class SledgeHammer extends Item {
 			room101.setLocked(false);
 			Room bar = Game.getRoom("HOTEL_BAR");
 			bar.addNPC(new Bartender("bartender"));
+			bar.setDesc("HOTEL_BAR_B");
 		} else if(r.equals("HOTEL_LOBBY"))
 			Game.print("You swing the sledge hammer at the door leading outside, hoping"
 					+ " to at last secure your freedom from this creepy hotel. Sadly, you"

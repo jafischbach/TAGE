@@ -18,9 +18,14 @@ public class Drawer extends Item {
 		if (!isOpen)
 			Game.print("What a nice drawer. It fits nicely in the nightstand. The wood even matches!");
 		else if (roomNum == 101)
-			Game.print("Wow! Look at all this stuff! You have no use for any of it! The drawer"
+			if (Game.hasFlag("met bartender"))
+				Game.print("Wow! Look at all this stuff! You have no use for any of it! The drawer"
 					+ " just contains a few of the bartender's personal items and nothing of use"
 					+ " to you.");
+			else
+				Game.print("Wow! Look at all this stuff! You have no use for any of it! The drawer"
+						+ " just contains a few personal items and nothing of use"
+						+ " to you.");
 		else if (roomNum == 201)
 			if (Player.has("silver room key"))
 				Game.print("There is nothing else in the drawer.");
@@ -42,8 +47,11 @@ public class Drawer extends Item {
 	public void close() {
 		if (isOpen) {
 			if (roomNum == 101)
-				Game.print("You close the drawer. Wouldn't want the bartender to know you've"
+				if (Game.hasFlag("met bartender"))
+					Game.print("You close the drawer. Wouldn't want the bartender to know you've"
 						+ " been sooping, eh?");
+				else
+					Game.print("You close the drawer.");
 			else
 				Game.print("You close the drawer.");
 			isOpen = false;

@@ -23,12 +23,17 @@ public class World {
 		Room employeesOnly = new Room("HOTEL_EMPLOYEES_ONLY");
 		Room basement = new Room("HOTEL_BASEMENT");
 		Room utilities = new Room("HOTEL_UTILITIES");
+		Room exit = new Room("EXIT");
 		
 		lobby.addExit(bar, Room.WEST);
 		lobby.addExit(lounge, Room.EAST);
 		lobby.addExit(hall, Room.NORTH);
 		lobby.addExit(upperFloor, Room.UP);
+		lobby.addExit(exit, Room.SOUTH);
 
+		exit.setLocked(true);
+		exit.addNPC(new Cop());
+		
 		bar.addExit(rr, Room.NORTH);
 		bar.addExit(lobby, Room.EAST);
 		bar.addItem(new HotelBar("HOTEL_BAR", "bar"));
@@ -78,7 +83,7 @@ public class World {
 		room201.addExit(upperWestHallway, Room.NORTH);
 		room201.addItem(new Closet("closet", 201));
 		room201.addItem(new Nightstand("nightstand"));
-		room201.addItem(new Drawer("drawer", 201));
+		room201.addItem(new Bed());
 		room201.addItem(new Rug());
 		
 		room202.setLocked(true);

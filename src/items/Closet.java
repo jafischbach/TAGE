@@ -20,10 +20,10 @@ public class Closet extends Item {
 		if (isOpen) {
 			if (roomNum == 101) {
 				if (Player.has("crowbar"))
-					Game.print("The closet is full of the bartender's clothes, neatly arranged"
+					Game.print("The closet is full of clothes, neatly arranged"
 							+ " on hangars.");
 				else {
-					Game.print("The closet is full of the bartender's clothes, neatly arranged on"
+					Game.print("The closet is full of clothes, neatly arranged on"
 						+ " hangars. At the bottom of the closet, you find a crowbar. Weird"
 						+ " place for that, but whatever.");
 					Game.getCurrentRoom().addItem(new Crowbar("crowbar"));
@@ -31,11 +31,16 @@ public class Closet extends Item {
 			} else if (corpseFound)
 				Game.print("The closet is still inhabited by a dead guy.");
 			else {
-				Game.print("Well, this is a fun find. A corpse is stuffed into the closet. It doesn't"
+				if (Game.hasFlag("met bartender"))
+					Game.print("Well, this is a fun find. A corpse is stuffed into the closet. It doesn't"
 						+ " look fresh. The bartender's work perhaps? Is this why he hid the key to"
 						+ " this room? You could go ask him, but...probably safest not to unless you"
 						+ " want to join the corpse.");
+				else
+					Game.print("Well, this is a fun find. A corpse is stuffed into the closet. Now"
+							+ " how did this poor guy end up here?");
 				Game.getCurrentRoom().addItem(new Corpse());
+				corpseFound = true;
 			}
 		} else 
 			Game.print("It's a standalone closet positioned in the corner of the room. No, it does"

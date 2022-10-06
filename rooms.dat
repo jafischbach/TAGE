@@ -4,6 +4,9 @@ The lobby is a small room. The exit is to the south. There are doorways east to 
 HOTEL_BAR
 There is a long bar along the west wall. Since the bar is closed, there is no bartender at the moment. There is a closed door in the north wall. Another doorway leads east to the lobby.
 #
+HOTEL_BAR_B
+There is a long bar along the west wall. There is a closed door in the north wall. Another doorway leads east to the lobby. A man now stands behind the bar pretending not to notice you. Must be the hotel bartender.
+#
 HOTEL_LOUNGE
 This is a pleasant room with a couch and two armchairs. An old fellow is sleeping in one of the chairs, an old newspaper lays folded in his lap. A doorway leads west to the lobby.
 #
@@ -38,7 +41,7 @@ HOTEL_ROOM_202
 This was probably a hotel room once upon a time. It's mostly empty now. Just you, lots or dust, a refrigerator that's happily humming away, and a hole in the wall.
 #
 HOTEL_ROOM_101
-What a nice bedroom! There's a neatly made bed, a nightstand, and a closet. A picture of the bartender and an older gentleman hangs on the wall. There's not a speck of dust anywhere!
+What a nice bedroom! There's a neatly made bed, a nightstand, and a closet. A picture of two gentleman hangs on the wall. There's not a speck of dust anywhere!
 #
 HOTEL_EMPLOYEES_ONLY
 You're in a small room with a door to the west and a staircase leading to the basement. There's a broom leaning against the wall, but you're not in the mood for sweeping.
@@ -51,3 +54,6 @@ The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of
 #
 HOTEL_UTILITIES
 In contract to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. A gas canister sits on a shelf next to the electric panel. The only exit leads south.
+#
+EXIT
+Sweet freedom! You finally escape from the worst hotel experience you've ever had. You close your eyes and smell the glorious fresh air. When you open them, you find yourself face to face with an irate office of the law. The cop blocks your way.
