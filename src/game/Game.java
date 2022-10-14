@@ -10,10 +10,16 @@ import world.World;
 
 public class Game {
 
+	public static final String TITLE = "Hotel Escape";
+	public static final boolean CONSOLE = false;
+	
 	public static void main(String[] args) {
 		startGame();
 		World.buildWorld();
-		play();
+		if (CONSOLE)
+			playText();
+		else 
+			playGUI();
 	}
 
 	public static Scanner input = new Scanner(System.in);
@@ -27,9 +33,26 @@ public class Game {
 	public static Room currentRoom;
 
 	public static void print(String s) {
-		System.out.println(s + "\n");
+		if (CONSOLE)
+			System.out.println(s + "\n");
+		else
+			GameGUI.display.append(s + "\n\n");
 	}
 
+	public static void println(String s) {
+		if (CONSOLE)
+			System.out.println(s);
+		else
+			GameGUI.display.append(s + "\n");
+	}
+	
+	public static void prompt(String s) {
+		if (CONSOLE)
+			System.out.print(s);
+		else
+			GameGUI.display.append(s + "\n\n");
+	}
+	
 	public static void endGame() {
 		play = false;
 	}
@@ -80,34 +103,34 @@ public class Game {
 	}
 
 	public static void help() {
-		System.out.println("look - displays desription of current room");
-		System.out.println("n - move north");
-		System.out.println("s - move south");
-		System.out.println("e - move east");
-		System.out.println("w - move west");
-		System.out.println("u - move up");
-		System.out.println("d - move down");
-		System.out.println("x - exit game");
-		System.out.println("save - save current game");
-		System.out.println("load - load previously saved game");
-		System.out.println("help item - displays items help");
-		System.out.println("help npc - displays NPC help\n");
+		println("look - displays desription of current room");
+		println("n - move north");
+		println("s - move south");
+		println("e - move east");
+		println("w - move west");
+		println("u - move up");
+		println("d - move down");
+		println("x - exit game");
+		println("save - save current game");
+		println("load - load previously saved game");
+		println("help item - displays items help");
+		println("help npc - displays NPC help\n");
 	}
 	
 	public static void itemHelp() {
-		System.out.println("look <item> - displays description of item");
-		System.out.println("use <item> - use the item");
-		System.out.println("take <item> - takes the item and adds it to player's inventory");
-		System.out.println("move <item> - move the item");
-		System.out.println("open <item> - open the item");
-		System.out.println("close <item> - close the item\n");
+		println("look <item> - displays description of item");
+		println("use <item> - use the item");
+		println("take <item> - takes the item and adds it to player's inventory");
+		println("move <item> - move the item");
+		println("open <item> - open the item");
+		println("close <item> - close the item\n");
 	}
 	
 	public static void npcHelp() {
-		System.out.println("look <npc> - displays a description of the NPC");
-		System.out.println("talk <npc> - talk to the NPC");
-		System.out.println("give <item> to <npc> - give the item to the NPC"); 
-		System.out.println("attack <npc> with <item> - attack the NPC with the item\n");
+		println("look <npc> - displays a description of the NPC");
+		println("talk <npc> - talk to the NPC");
+		println("give <item> to <npc> - give the item to the NPC"); 
+		println("attack <npc> with <item> - attack the NPC with the item\n");
 	}
 	
 	private static void populateDescs(String fileName, HashMap<String, String> map) 
@@ -149,82 +172,91 @@ public class Game {
 		}
 	}
 
-	private static void play() {
+	private static void playText() {
 //		System.out.print("What is your name? ");
 //		Player.name = input.nextLine();
 		print(currentRoom.getDesc());
 		do {
-			System.out.print("What do you want to do? ");
+			prompt("What do you want to do? ");
 			String command = input.nextLine();
-			if (command.equalsIgnoreCase("look"))
-				print(currentRoom.getDesc());
-			else if (command.equalsIgnoreCase("save"))
-				saveGame();
-			else if (command.equalsIgnoreCase("load"))
-				loadGame();
-			else if (command.equalsIgnoreCase("help"))
-				help();
-			else if (command.equalsIgnoreCase("help item"))
-				itemHelp();
-			else if (command.equalsIgnoreCase("help npc"))
-				npcHelp();
-			else if (command.length() > 1)
-				try {
-					currentRoom.action(command.toLowerCase());
-				} catch(InvalidActionException ex) {
-					Game.print(ex.getMessage());
-				}
-			else {
-				try {
-					char direction = Character.toLowerCase(command.charAt(0));
-					switch (direction) {
-					case 'e':
-						currentRoom = currentRoom.goEast();
-						break;
-					case 'w':
-						currentRoom = currentRoom.goWest();
-						break;
-					case 'n':
-						currentRoom = currentRoom.goNorth();
-						break;
-					case 's':
-						currentRoom = currentRoom.goSouth();
-						break;
-					case 'u':
-						currentRoom = currentRoom.goUp();
-						break;
-					case 'd':
-						currentRoom = currentRoom.goDown();
-						break;
-					case 'i':
-						Player.printInventory();
-						break;
-					case 'x':
-						System.out.print("Are you sure you want to quit the game? (y/n) ");
-						char response = Character.toLowerCase(input.nextLine().charAt(0));
-						if (response == 'y') {
-							play = false;
-						} else {
-							print("Whew. You scared me for a moment there.");
-						}
-						break;
-					default:
-						print("Invalid direction.");
-					}
-					if (direction != 'x' && direction != 'i')
-						print(currentRoom.getDesc());
-				} catch (InvalidDirectionException ex) {
-					print(ex.getMessage());
-				} catch (IndexOutOfBoundsException ex) {
-					// Nothing to do here.
-				}
-			}
+			processCommand(command);
 		} while (play);
-		System.out.println("I guess we're done here. Thanks for playing. Bye!");
-		System.out.print("<Press ENTER to exit.>");
+		print("I guess we're done here. Thanks for playing. Bye!");
+		print("<Press ENTER to exit.>");
 		input.nextLine();
 	}
 
+	private static void playGUI() {
+		GameGUI.buildWindow();
+		print(currentRoom.getDesc());
+	}
+	
+	private static void processCommand(String command) {
+		if (command.equalsIgnoreCase("look"))
+			print(currentRoom.getDesc());
+		else if (command.equalsIgnoreCase("save"))
+			saveGame();
+		else if (command.equalsIgnoreCase("load"))
+			loadGame();
+		else if (command.equalsIgnoreCase("help"))
+			help();
+		else if (command.equalsIgnoreCase("help item"))
+			itemHelp();
+		else if (command.equalsIgnoreCase("help npc"))
+			npcHelp();
+		else if (command.length() > 1)
+			try {
+				currentRoom.action(command.toLowerCase());
+			} catch(InvalidActionException ex) {
+				Game.print(ex.getMessage());
+			}
+		else {
+			try {
+				char direction = Character.toLowerCase(command.charAt(0));
+				switch (direction) {
+				case 'e':
+					currentRoom = currentRoom.goEast();
+					break;
+				case 'w':
+					currentRoom = currentRoom.goWest();
+					break;
+				case 'n':
+					currentRoom = currentRoom.goNorth();
+					break;
+				case 's':
+					currentRoom = currentRoom.goSouth();
+					break;
+				case 'u':
+					currentRoom = currentRoom.goUp();
+					break;
+				case 'd':
+					currentRoom = currentRoom.goDown();
+					break;
+				case 'i':
+					Player.printInventory();
+					break;
+				case 'x':
+					prompt("Are you sure you want to quit the game? (y/n) ");
+					char response = Character.toLowerCase(input.nextLine().charAt(0));
+					if (response == 'y') {
+						play = false;
+					} else {
+						print("Whew. You scared me for a moment there.");
+					}
+					break;
+				default:
+					print("Invalid direction.");
+				}
+				if (direction != 'x' && direction != 'i')
+					print(currentRoom.getDesc());
+			} catch (InvalidDirectionException ex) {
+				print(ex.getMessage());
+			} catch (IndexOutOfBoundsException ex) {
+				// Nothing to do here.
+			}
+		}
+	}
+	
 	public static String[] getSaves() {
 		File files = new File(System.getProperty("user.dir") + "\\saves");
 		if (files.exists()) {
@@ -242,16 +274,16 @@ public class Game {
 
 	public static int getOption(int min, int max) {
 		try {
-			System.out.print("Enter option (" + min + "-" + max + "): ");
+			prompt("Enter option (" + min + "-" + max + "): ");
 			int option = input.nextInt();
 			input.nextLine(); // Consume '\n'
 			if (option < min || option > max) {
-				System.out.println("Invalid option.");
+				print("Invalid option.");
 				return getOption(min, max);
 			}
 			return option;
 		} catch (InputMismatchException ex) {
-			System.out.println("Please enter a number.");
+			print("Please enter a number.");
 			input.nextLine(); // Empty buffer
 			return getOption(min, max);
 		}
@@ -267,11 +299,11 @@ public class Game {
 			files.mkdir();
 			option = 0;
 		} else {
-			System.out.println("0: New Save");
+			println("0: New Save");
 			int i;
 			for (i = 0; i < saves.length; i++)
-				System.out.println((i + 1) + ": " + saves[i]);
-			System.out.println((i + 1) + ": Cancel");
+				println((i + 1) + ": " + saves[i]);
+			println((i + 1) + ": Cancel");
 			option = getOption(0, i + 1);
 			if (option == 0)
 				fileID = i+1;
@@ -291,7 +323,7 @@ public class Game {
 		try {
 			File saveFile = new File(System.getProperty("user.dir") + "\\saves\\save"+fileID+".sav");
 			if(saveFile.exists()) {
-				System.out.print("Overwrite save file (y/n)? ");
+				prompt("Overwrite save file (y/n)? ");
 				char choice = input.nextLine().charAt(0);
 				if (choice != 'y') {
 					Game.print("Save cancelled.");
@@ -321,8 +353,8 @@ public class Game {
 		else {
 			int i;
 			for (i = 0; i < saves.length; i++)
-				System.out.println((i + 1) + ": " + saves[i]);
-			System.out.println((i + 1) + ": Cancel");
+				println((i + 1) + ": " + saves[i]);
+			println((i + 1) + ": Cancel");
 			int option = getOption(1, i + 1);
 			if (option == i+1) {
 				Game.print("Load cancelled.");

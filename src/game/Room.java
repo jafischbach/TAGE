@@ -18,20 +18,23 @@ public class Room implements Serializable {
 	public static final int UP = 4;
 	public static final int DOWN = 5;
 
-	private String desc;
+	private String descLabel;
 	private Room[] go;
 	private HashMap<String, Item> items;
 	private HashMap<String, NPC> npcs;
-	private String label;
+	private String roomLabel;
 	private boolean isLocked;
 
 	public Room(String label) {
-		this.label = label;
-		isLocked = false;
-		desc = Game.roomDescs.get(label);
-		if (desc == null) {
+		roomLabel = label;
+		if (!Game.roomDescs.containsKey(label))
 			throw new InvalidLabelException(label);
-		}
+		descLabel = label;
+		isLocked = false;
+//		desc = Game.roomDescs.get(label);
+//		if (desc == null) {
+//			throw new InvalidLabelException(label);
+//		}
 		go = new Room[6];
 		Game.addRoom(label, this);
 	}
@@ -63,15 +66,20 @@ public class Room implements Serializable {
 	}
 
 	public String getDesc() {
-		return desc;
+		return Game.roomDescs.get(descLabel);
 	}
 
 	public void setDesc(String label) {
-		desc = Game.roomDescs.get(label);
-		if (desc == null)
-			desc = label;
+		if (Game.roomDescs.containsKey(label))
+			descLabel = label;
+		else
+			throw new InvalidLabelException(label);
 	}
 
+	public void setDesc(String label, String desc) {
+		Game.roomDescs.put(label, desc);
+	}
+	
 	public void setLocked(boolean isLocked) {
 		this.isLocked = isLocked;
 	}
@@ -188,7 +196,7 @@ public class Room implements Serializable {
 	}
 
 	public boolean equals(String label) {
-		return this.label.equals(label);
+		return roomLabel.equals(label);
 	}
 
 }

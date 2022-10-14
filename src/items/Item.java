@@ -10,12 +10,12 @@ public class Item implements Serializable {
 	public static final long serialVersionUID = 1L;
 	
 	private String name;
-	private String desc;
+	private String descLabel;
 	
 	public Item(String label, String name) {
 		this.name = name;
-		desc = Game.itemDescs.get(label);
-		if (desc == null)
+		descLabel = label;
+		if (!Game.itemDescs.containsKey(descLabel))
 			throw new InvalidLabelException(label);
 	}
 	
@@ -24,9 +24,17 @@ public class Item implements Serializable {
 	}
 	
 	public void setDesc(String label) {
-		desc = Game.itemDescs.get(label);
-		if (desc == null)
-			desc = label;
+		if (Game.itemDescs.containsKey(label))
+			descLabel = label;
+		else
+			throw new InvalidLabelException(label);
+//		desc = Game.itemDescs.get(label);
+//		if (desc == null)
+//			desc = label;
+	}
+	
+	public void setDesc(String label, String desc) {
+		Game.itemDescs.put(label, desc);
 	}
 	
 	public String getName() {
@@ -34,7 +42,7 @@ public class Item implements Serializable {
 	}
 	
 	public void look() {
-		Game.print(desc);
+		Game.print(Game.itemDescs.get(descLabel));
 	}
 	
 	public void use() {

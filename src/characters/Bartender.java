@@ -16,10 +16,6 @@ public class Bartender extends NPC {
 		isPolite = true;
 		gaveBeer = false;
 		notMet = true;
-		String d = "The bartender is a tall, thin man. His bored expression suggests"
-				+ " that he'd rather be anywhere else and doing anything else. He doesn't"
-				+ " look surprided or thrilled by your presence in this otherwise deserted hotel.";
-		setDesc(d);
 	}
 	
 	private void convo1() {
@@ -203,7 +199,10 @@ public class Bartender extends NPC {
 			notMet = false;
 			Game.addFlag("met bartender");
 		}
-		super.look();
+		String d = "The bartender is a tall, thin man. His bored expression suggests"
+				+ " that he'd rather be anywhere else and doing anything else. He doesn't"
+				+ " look surprided or thrilled by your presence in this otherwise deserted hotel.";
+		Game.print(d);
 	}
 	
 	public void give(String itemName) {

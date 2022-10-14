@@ -3,28 +3,38 @@ package characters;
 import java.io.Serializable;
 import java.util.InputMismatchException;
 
-import game.Game;
+import game.*;
 
 public class NPC implements Serializable {
 
 	public static final long serialVersionUID = 1L;
 	
 	private String name;
-	private String desc;
+	private String descLabel;
 	private int health;
 	
 	public NPC(String name) {
 		this.name = name;
+		descLabel = name;
 		health = 100;
-		desc = Game.npcDescs.get(name);
 	}
 	
 	public String getDesc() {
-		return desc;
+		if (Game.npcDescs.containsKey(descLabel))
+			return Game.npcDescs.get(descLabel);
+		else
+			throw new InvalidLabelException(descLabel);
 	}
 	
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDesc(String label) {
+		if (Game.npcDescs.containsKey(label))
+			descLabel = label;
+		else
+			throw new InvalidLabelException(label);
+	}
+	
+	public void setDesc(String label, String desc) {
+		Game.npcDescs.put(label, desc);
 	}
 	
 	public String getName() {
@@ -89,7 +99,7 @@ public class NPC implements Serializable {
 	}
 	
 	public void look() {
-		Game.print(desc);
+		Game.print(Game.npcDescs.get(descLabel));
 	}
 	
 	public void give(String itemName) {

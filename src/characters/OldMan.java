@@ -6,8 +6,10 @@ public class OldMan extends NPC {
 
 	public OldMan() {
 		super("old man");
-		String d = "The old man is sleeping peacefully.";
-		setDesc(d);
+	}
+	
+	public void look() {
+		Game.print("The old man is sleeping peacefully.");
 	}
 	
 	public void talk() {
