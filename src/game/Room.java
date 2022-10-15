@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import items.Item;
 import characters.NPC;
-import game.*;
 
 public class Room implements Serializable {
 

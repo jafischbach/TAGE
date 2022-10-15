@@ -39,7 +39,7 @@ public class GasCan extends Item {
 				Game.print("There's nothing else in there.");
 			else
 				Game.print("You remove the cap from the cannister. Smells like gas. You take a"
-						+ " glorious wiff and replace the cap.");
+						+ " glorious whiff and replace the cap.");
 		else
 			Game.print("You don't have the gas can.");
 	}
@@ -51,7 +51,7 @@ public class GasCan extends Item {
 			else {
 				Game.print("You remove the cap and empty the contents of the can into the "
 					+ "chainsaw's tank. Now you have a working chainsaw! You briefly fantasize"
-					+ " about the bartended and your favorite scene from Scarface, but then"
+					+ " about the bartender and your favorite scene from Scarface, but then"
 					+ " you realize that the chainsaw only has so much gas and you should"
 					+ " probably use it strategically...you know, in a way that won't land"
 					+ " you in prison for eternity.");

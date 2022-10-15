@@ -14,7 +14,7 @@ public class Picture extends Item {
 	
 	public void look() {
 		if (Game.hasFlag("met bartender"))
-			Game.print("The bartender actually has a smile in the picture. You wonder if the "
+			Game.print("The bartender actually has a smile in the picture. You wonder if the"
 				+ " older gentleman in the picture is the bartender's father or the hotel's"
 				+ " owner? Maybe they're one and the same! Does it matter? Probably not.");
 		else

@@ -15,7 +15,7 @@ public class Cop extends NPC {
 	}
 	
 	public void attack(String weapon) {
-		Game.print("You brought a chainsaw to a gun fight. You're not going to win that one.");
+		Game.print("You brought a " + weapon + " to a gun fight. You're not going to win that one.");
 	}
 	
 	public void talk() {
@@ -24,7 +24,7 @@ public class Cop extends NPC {
 				+ " of the trade, eh? You been doing a little unconventional work on this here"
 				+ " fine hotel? I see what you've done to the front door. A stately entrance"
 				+ " that was. Passed through many times myself. No more though. You saw to that,"
-				+ " didn't you. (No pun intended, I suppose.) In any case, I'm gonna have to"
+				+ " didn't you? (No pun intended, I suppose.) In any case, I'm gonna have to"
 				+ " arrest your delinquint vandal ass. You're looking at hard time. Hard time.");
 		String[] option = new String[2];
 		option[0] = "I had to! I was trapped! There was no other way out. Look! This freakin'"
@@ -49,7 +49,7 @@ public class Cop extends NPC {
 			if (Player.has("cash")) {
 				Game.print("The cop eagerly accepts the proferred bribe. Well, there goes your"
 						+ " beach house fund.");
-				Game.print("Congratulations! You excaped the hotel and avoided doing hard time"
+				Game.print("Congratulations! You escaped the hotel and avoided doing hard time"
 						+ " in the state pen. What a day, am I right?");
 				Game.endGame();
 			} else {
@@ -66,7 +66,7 @@ public class Cop extends NPC {
 		if (item.equals("cash")) {
 			Game.print("The cop eagerly accepts the proferred bribe. Well, there goes your"
 					+ " beach house fund.");
-			Game.print("Congratulations! You excaped the hotel and avoided doing hard time"
+			Game.print("Congratulations! You escaped the hotel and avoided doing hard time"
 					+ " in the state pen. What a day, am I right?");
 			Game.endGame();
 		} else

@@ -16,7 +16,7 @@ public class Game {
 	public static final String VERSION = "ALPHA";
 	public static final String DEVELOPER = "The Steve Machine";
 	public static final boolean CONSOLE = false;
-	
+
 	public static void main(String[] args) {
 		startGame();
 		World.buildWorld();
@@ -50,13 +50,6 @@ public class Game {
 			GameGUI.display.append(s + "\n");
 	}
 
-//	public static void prompt(String s) {
-//		if (CONSOLE)
-//			System.out.print(s);
-//		else
-//			GameGUI.display.append(s + "\n\n");
-//	}
-
 	public static char getYesNo(String prompt) {
 		if (CONSOLE) {
 			System.out.print(prompt);
@@ -70,22 +63,33 @@ public class Game {
 
 	public static int getInt(String prompt) throws CancelledInputException {
 		if (CONSOLE) {
-			System.out.print(prompt);
-			int x = input.nextInt();
-			input.nextLine();
-			return x;
+			try {
+				System.out.print(prompt);
+				int x = input.nextInt();
+				input.nextLine();
+				return x;
+			} catch (InputMismatchException ex) {
+				Game.print("You must enter a number.");
+				return getInt(prompt);
+			}
 		} else {
-			String s = JOptionPane.showInputDialog(GameGUI.window, prompt);
-			if (s == null)
-				throw new CancelledInputException();
-			return Integer.parseInt(s);
+			try {
+				String s = JOptionPane.showInputDialog(GameGUI.window, prompt);
+				if (s == null)
+					throw new CancelledInputException();
+				return Integer.parseInt(s);
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(GameGUI.window, "You must enter a number.", "Error",
+						JOptionPane.INFORMATION_MESSAGE);
+				return getInt(prompt);
+			}
 		}
 	}
 
 	public static void endGame() {
 		if (CONSOLE)
 			play = false;
-		else 
+		else
 			gameOverMessage();
 	}
 
@@ -100,7 +104,7 @@ public class Game {
 			GameGUI.saveMenuItem.setEnabled(false);
 		}
 	}
-	
+
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
@@ -312,26 +316,16 @@ public class Game {
 	}
 
 	public static int getOption(String s, int min, int max) throws CancelledInputException {
-		try {
-			int option = getInt(s + "\nEnter option (" + min + "-" + max + "): ");
-			if (option < min || option > max) {
-				if (CONSOLE)
-					print("Invalid option.");
-				else
-					JOptionPane.showMessageDialog(GameGUI.window, "Invalid option.", "Error",
-							JOptionPane.INFORMATION_MESSAGE);
-				return getOption(s, min, max);
-			}
-			return option;
-		} catch (InputMismatchException ex) {
-			print("Please enter a number.");
-			input.nextLine(); // Empty buffer
-			return getOption(s, min, max);
-		} catch (NumberFormatException ex) {
-			JOptionPane.showMessageDialog(GameGUI.window, "Please enter a number.", "Error",
-					JOptionPane.INFORMATION_MESSAGE);
+		int option = getInt(s + "\nEnter option (" + min + "-" + max + "): ");
+		if (option < min || option > max) {
+			if (CONSOLE)
+				print("Invalid option.");
+			else
+				JOptionPane.showMessageDialog(GameGUI.window, "Invalid option.", "Error",
+						JOptionPane.INFORMATION_MESSAGE);
 			return getOption(s, min, max);
 		}
+		return option;
 	}
 
 	public static void saveGame() {

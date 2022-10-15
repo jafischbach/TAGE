@@ -1,7 +1,8 @@
 package characters;
 
 import java.io.Serializable;
-import java.util.InputMismatchException;
+
+import javax.swing.JOptionPane;
 
 import game.*;
 
@@ -66,26 +67,26 @@ public class NPC implements Serializable {
 	}
 	
 	public void say(String s) {
-		Game.print("\n"+name+": "+s);
+		Game.print(name+": "+s);
 	}
 	
 	public int getConvoOption(String[] options) {
+		String s = "";
 		for(int i=0; i<options.length; i++) {
-			System.out.println("OPTION "+(i+1)+": "+options[i]+"\n");
+			s += "OPTION "+(i+1)+": "+options[i]+"\n\n";
 		}
 		try {
-			System.out.print("Select an option (1-"+options.length+"): ");
-			int choice = Game.input.nextInt();
-			Game.input.nextLine(); // consumer the '\n'
+			s += "Select an option (1-"+options.length+"): ";
+			int choice = Game.getInt(s);
 			if (choice > 0 && choice <= options.length)
 				return choice;
 			else {
 				Game.print("That is not a valid option.");
 				return getConvoOption(options);
 			}
-		} catch (InputMismatchException ex) {
-			Game.input.nextLine(); // empty buffer
-			Game.print("Please enter a number.");
+		} catch (CancelledInputException ex) {
+			JOptionPane.showMessageDialog(GameGUI.window, "You must select an option.",
+					"Error", JOptionPane.INFORMATION_MESSAGE);
 			return getConvoOption(options);
 		}
 	}

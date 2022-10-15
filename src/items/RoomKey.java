@@ -27,7 +27,7 @@ public class RoomKey extends Item {
 		else if (Player.has("silver room key"))
 			Game.print("You already have the silver room key.");
 		else {
-			Game.print("You reach into the draw and add the silver room key to your collection."
+			Game.print("You reach into the drawer and add the silver room key to your collection."
 					+ " You regret not bringing a keyring.");
 			Player.addItem(this);
 			Game.getCurrentRoom().removeItem("silver room key");

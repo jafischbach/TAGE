@@ -201,7 +201,7 @@ public class Bartender extends NPC {
 		}
 		String d = "The bartender is a tall, thin man. His bored expression suggests"
 				+ " that he'd rather be anywhere else and doing anything else. He doesn't"
-				+ " look surprided or thrilled by your presence in this otherwise deserted hotel.";
+				+ " look surprised or thrilled by your presence in this otherwise deserted hotel.";
 		Game.print(d);
 	}
 	
@@ -232,7 +232,7 @@ public class Bartender extends NPC {
 					+ " a shotgun, which he uses to blow a hole through your chest.");
 			Game.endGame();
 		} else if (weaponName.equals("sledge hammer")) {
-			Game.print("You swing the sledge hammer and pulverize the bartended into a gory heap"
+			Game.print("You swing the sledge hammer and pulverize the bartender into a gory heap"
 					+ " of bone, blood, and organs. I hope you're proud of yourself. As the"
 					+ " bartender was your only means of escaping the hotel, you're now trapped"
 					+ " here for the rest of your miserable life. Too bad you skipped those"

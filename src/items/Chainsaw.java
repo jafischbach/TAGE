@@ -35,7 +35,7 @@ public class Chainsaw extends Item {
 		if (Game.hasFlag("chainsaw gassed")) {
 			Room r = Game.getCurrentRoom();
 			if (r.equals("HOTEL_BASEMENT"))
-				Game.print("You rev up the might chainsaw and proceed to attack the door"
+				Game.print("You rev up the mighty chainsaw and proceed to attack the door"
 						+ " marked \"Exit\" hoping that, at long last, you've found your"
 						+ " freedom! Alas, the door is impervious even to the violent"
 						+ " efforts of the buzzing chainsaw. You cease your efforts before"

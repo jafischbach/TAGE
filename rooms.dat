@@ -32,7 +32,7 @@ HOTEL_CLOSET_TOP
 You have discovered a supply closet! It's full of junk. Congratulations on your amazing discovery. Actually, there is a cool chest sitting on the floor.
 #
 HOTEL_HALL_WEST
-This creepy hallway extends west into darkness, but it's too darl to go that way. The carpet is dusty and littered with various broken and torn items of no interest to you. Cobwebs hang from a naked bulb dangling from the ceiling. There are doors leading to hotel rooms to the north and south. The south door is smarked "201" and the north door is marked "202". You can return east to the stairway.
+This creepy hallway extends west into darkness, but it's too dark to go that way. The carpet is dusty and littered with various broken and torn items of no interest to you. Cobwebs hang from a naked bulb dangling from the ceiling. There are doors leading to hotel rooms to the north and south. The south door is smarked "201" and the north door is marked "202". You can return east to the stairway.
 #
 HOTEL_ROOM_201
 You are standing in a typical hotel bedroom. Well, typical except for the excessive amount of dust. It's clear that no one (other than you) has set foot in this room in years. There is a bed, a nightstand, and a closet. A rug keeps the dust off part of the hardwood floor.
@@ -53,7 +53,7 @@ HOTEL_BASEMENT_B
 The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of dust (like most of the hotel), and very cold. There are two metal doors. One, in the north wall, is marked "Utlities" and is pretty convincingly locked. Another door, in the south wall, is marked "Exit." If you think that's a way out, you're right. Sadly, it's not YOUR way out. You're never getting through that door.
 #
 HOTEL_UTILITIES
-In contract to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. A gas can sits on a shelf next to the electric panel. The only exit leads south.
+In contrast to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. A gas can sits on a shelf next to the electric panel. The only exit leads south.
 #
 EXIT
-Sweet freedom! You finally escape from the worst hotel experience you've ever had. You close your eyes and smell the glorious fresh air. When you open them, you find yourself face to face with an irate office of the law. The cop blocks your way.
+Sweet freedom! You finally escape from the worst hotel experience you've ever had. You close your eyes and smell the glorious fresh air. When you open them, you find yourself face to face with an irate officer of the law. The cop blocks your way.

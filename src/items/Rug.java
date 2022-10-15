@@ -17,7 +17,7 @@ public class Rug extends Item {
 	}
 	
 	public void take() {
-		Game.print("Were you planning to take the rug outside and beat all the dust away. Nice"
+		Game.print("Were you planning to take the rug outside and beat all the dust away? Nice"
 				+ " thought and I'm sure the hotel's housekeeping staff (should they exist)"
 				+ " would appreciate the gesture. But, you might recall that you can't get"
 				+ " outside. So, leave the rug on the floor.");
@@ -27,8 +27,8 @@ public class Rug extends Item {
 		if(isMoved) {
 			Game.print("You don't work here! Just leave the rug where it is.");
 		} else {
-			Game.print("Good idea. You never know when you'll find a trap door underneath "
-					+ " a rug in a creepy, dusty room, am I right? You shove the rug aside "
+			Game.print("Good idea. You never know when you'll find a trap door underneath"
+					+ " a rug in a creepy, dusty room, am I right? You shove the rug aside"
 					+ " with your foot. Huh. Look at that. A trap door.");
 			Game.getCurrentRoom().addItem(new TrapDoor());
 			isMoved = true;

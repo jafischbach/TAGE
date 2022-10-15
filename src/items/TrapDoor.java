@@ -34,7 +34,7 @@ public class TrapDoor extends Item {
 			}
 		else
 			Game.print("There is a trap door embedded in the floor with no handle or key"
-					+ "hole");
+					+ "hole.");
 	}
 	
 	public void open() {

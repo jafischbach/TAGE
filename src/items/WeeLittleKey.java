@@ -9,7 +9,7 @@ public class WeeLittleKey extends Item {
 	}
 	
 	public void look() {
-		Game.print("It's a wee little key. Be careful not to drop it! It's actuall smaller than the"
+		Game.print("It's a wee little key. Be careful not to drop it! It's actually smaller than the"
 				+ " tiny key you found earlier.");
 	}
 	
