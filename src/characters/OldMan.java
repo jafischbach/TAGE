@@ -17,9 +17,8 @@ public class OldMan extends NPC {
 	}
 	
 	public void attack(String weapon) {
-		System.out.print("Really? You really want to attack the gentle old man"
+		char response = Game.getYesNo("Really? You really want to attack the gentle old man"
 				+ " with the "+weapon+"? Really? (y/n) ");
-		char response = Character.toLowerCase(Game.input.nextLine().charAt(0));
 		if (response == 'y') {
 			if (weapon.equals("bottle") || weapon.equals("sledge hammer")
 					|| weapon.equals("crowbar") || weapon.equals("chainsaw")) {

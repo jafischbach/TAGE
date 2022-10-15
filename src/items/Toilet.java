@@ -15,8 +15,7 @@ public class Toilet extends Item {
 	
 	@Override
 	public void open() {
-		System.out.print("Dude. Seriously? Are you sure? (y/n) ");
-		char response = Character.toLowerCase(Game.input.nextLine().charAt(0));
+		char response = Game.getYesNo("Dude. Seriously? Are you sure? (y/n) ");
 		if (response == 'y') {
 			String s = "You lift the toilet seat. You cannot unsee the horror " +
 					   "that you find in that bowl. Fortunately, you don't have " +

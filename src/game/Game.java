@@ -5,12 +5,16 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import javax.swing.JOptionPane;
+
 import items.Item;
 import world.World;
 
 public class Game {
 
 	public static final String TITLE = "Hotel Escape";
+	public static final String VERSION = "ALPHA";
+	public static final String DEVELOPER = "The Steve Machine";
 	public static final boolean CONSOLE = false;
 	
 	public static void main(String[] args) {
@@ -18,7 +22,7 @@ public class Game {
 		World.buildWorld();
 		if (CONSOLE)
 			playText();
-		else 
+		else
 			playGUI();
 	}
 
@@ -45,22 +49,62 @@ public class Game {
 		else
 			GameGUI.display.append(s + "\n");
 	}
-	
-	public static void prompt(String s) {
-		if (CONSOLE)
-			System.out.print(s);
-		else
-			GameGUI.display.append(s + "\n\n");
-	}
-	
-	public static void endGame() {
-		play = false;
+
+//	public static void prompt(String s) {
+//		if (CONSOLE)
+//			System.out.print(s);
+//		else
+//			GameGUI.display.append(s + "\n\n");
+//	}
+
+	public static char getYesNo(String prompt) {
+		if (CONSOLE) {
+			System.out.print(prompt);
+			return Character.toLowerCase(input.nextLine().charAt(0));
+		} else {
+			int option = JOptionPane.showConfirmDialog(GameGUI.window, prompt, "Decision time!",
+					JOptionPane.YES_NO_OPTION);
+			return option == JOptionPane.YES_OPTION ? 'y' : 'n';
+		}
 	}
 
+	public static int getInt(String prompt) throws CancelledInputException {
+		if (CONSOLE) {
+			System.out.print(prompt);
+			int x = input.nextInt();
+			input.nextLine();
+			return x;
+		} else {
+			String s = JOptionPane.showInputDialog(GameGUI.window, prompt);
+			if (s == null)
+				throw new CancelledInputException();
+			return Integer.parseInt(s);
+		}
+	}
+
+	public static void endGame() {
+		if (CONSOLE)
+			play = false;
+		else 
+			gameOverMessage();
+	}
+
+	public static void gameOverMessage() {
+		print("I guess we're done here. Thanks for playing. Bye!");
+		if (CONSOLE) {
+			print("<Press ENTER to exit.>");
+			input.nextLine();
+		} else {
+			print("Select New or Load game from File menu or exit.");
+			GameGUI.command.setEditable(false);
+			GameGUI.saveMenuItem.setEnabled(false);
+		}
+	}
+	
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
-	
+
 	public static void setCurrentRoom(String label) {
 		Room r = rooms.get(label);
 		if (r != null)
@@ -72,32 +116,32 @@ public class Game {
 	public static void addFlag(String flag) {
 		addFlag(flag, 0);
 	}
-	
+
 	public static void addFlag(String flag, int value) {
 		if (flags == null)
 			flags = new HashMap<String, Integer>();
 		flags.put(flag, value);
 	}
-	
+
 	public static int getFlag(String flag) {
 		if (flags == null)
-			throw new InvalidLabelException("no such flag: "+flag);
+			throw new InvalidLabelException("no such flag: " + flag);
 		Integer i = flags.get(flag);
 		if (i == null)
-			throw new InvalidLabelException("no such flag: "+flag);
+			throw new InvalidLabelException("no such flag: " + flag);
 		return i;
 	}
-	
+
 	public static boolean hasFlag(String flag) {
 		if (flags == null)
 			return false;
 		return flags.containsKey(flag);
 	}
-	
+
 	public static void addRoom(String label, Room r) {
 		rooms.put(label, r);
 	}
-	
+
 	public static Room getRoom(String label) {
 		return rooms.get(label);
 	}
@@ -116,7 +160,7 @@ public class Game {
 		println("help item - displays items help");
 		println("help npc - displays NPC help\n");
 	}
-	
+
 	public static void itemHelp() {
 		println("look <item> - displays description of item");
 		println("use <item> - use the item");
@@ -125,17 +169,15 @@ public class Game {
 		println("open <item> - open the item");
 		println("close <item> - close the item\n");
 	}
-	
+
 	public static void npcHelp() {
 		println("look <npc> - displays a description of the NPC");
 		println("talk <npc> - talk to the NPC");
-		println("give <item> to <npc> - give the item to the NPC"); 
+		println("give <item> to <npc> - give the item to the NPC");
 		println("attack <npc> with <item> - attack the NPC with the item\n");
 	}
-	
-	private static void populateDescs(String fileName, HashMap<String, String> map) 
-		throws FileNotFoundException
-	{
+
+	private static void populateDescs(String fileName, HashMap<String, String> map) throws FileNotFoundException {
 		Scanner descReader = new Scanner(new File(fileName));
 		while (descReader.hasNextLine()) {
 			String label = descReader.nextLine();
@@ -149,8 +191,8 @@ public class Game {
 			map.put(label, desc);
 		}
 	}
-	
-	private static void startGame() {
+
+	public static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
 		npcDescs = new HashMap<String, String>();
@@ -177,21 +219,19 @@ public class Game {
 //		Player.name = input.nextLine();
 		print(currentRoom.getDesc());
 		do {
-			prompt("What do you want to do? ");
+			System.out.print("What do you want to do? ");
 			String command = input.nextLine();
 			processCommand(command);
 		} while (play);
-		print("I guess we're done here. Thanks for playing. Bye!");
-		print("<Press ENTER to exit.>");
-		input.nextLine();
+		gameOverMessage();
 	}
 
 	private static void playGUI() {
 		GameGUI.buildWindow();
 		print(currentRoom.getDesc());
 	}
-	
-	private static void processCommand(String command) {
+
+	public static void processCommand(String command) {
 		if (command.equalsIgnoreCase("look"))
 			print(currentRoom.getDesc());
 		else if (command.equalsIgnoreCase("save"))
@@ -207,7 +247,7 @@ public class Game {
 		else if (command.length() > 1)
 			try {
 				currentRoom.action(command.toLowerCase());
-			} catch(InvalidActionException ex) {
+			} catch (InvalidActionException ex) {
 				Game.print(ex.getMessage());
 			}
 		else {
@@ -236,10 +276,9 @@ public class Game {
 					Player.printInventory();
 					break;
 				case 'x':
-					prompt("Are you sure you want to quit the game? (y/n) ");
-					char response = Character.toLowerCase(input.nextLine().charAt(0));
+					char response = getYesNo("Are you sure you want to quit the game? (y/n) ");
 					if (response == 'y') {
-						play = false;
+						endGame();
 					} else {
 						print("Whew. You scared me for a moment there.");
 					}
@@ -256,7 +295,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	public static String[] getSaves() {
 		File files = new File(System.getProperty("user.dir") + "\\saves");
 		if (files.exists()) {
@@ -272,20 +311,26 @@ public class Game {
 		}
 	}
 
-	public static int getOption(int min, int max) {
+	public static int getOption(String s, int min, int max) throws CancelledInputException {
 		try {
-			prompt("Enter option (" + min + "-" + max + "): ");
-			int option = input.nextInt();
-			input.nextLine(); // Consume '\n'
+			int option = getInt(s + "\nEnter option (" + min + "-" + max + "): ");
 			if (option < min || option > max) {
-				print("Invalid option.");
-				return getOption(min, max);
+				if (CONSOLE)
+					print("Invalid option.");
+				else
+					JOptionPane.showMessageDialog(GameGUI.window, "Invalid option.", "Error",
+							JOptionPane.INFORMATION_MESSAGE);
+				return getOption(s, min, max);
 			}
 			return option;
 		} catch (InputMismatchException ex) {
 			print("Please enter a number.");
 			input.nextLine(); // Empty buffer
-			return getOption(min, max);
+			return getOption(s, min, max);
+		} catch (NumberFormatException ex) {
+			JOptionPane.showMessageDialog(GameGUI.window, "Please enter a number.", "Error",
+					JOptionPane.INFORMATION_MESSAGE);
+			return getOption(s, min, max);
 		}
 	}
 
@@ -299,18 +344,22 @@ public class Game {
 			files.mkdir();
 			option = 0;
 		} else {
-			println("0: New Save");
+			String s = "0: New Save\n";
 			int i;
 			for (i = 0; i < saves.length; i++)
-				println((i + 1) + ": " + saves[i]);
-			println((i + 1) + ": Cancel");
-			option = getOption(0, i + 1);
-			if (option == 0)
-				fileID = i+1;
-			else if (option == i + 1)
+				s += (i + 1) + ": " + saves[i] + "\n";
+			s += (i + 1) + ": Cancel\n";
+			try {
+				option = getOption(s, 0, i + 1);
+				if (option == 0)
+					fileID = i + 1;
+				else if (option == i + 1)
+					cancel = true;
+				else
+					fileID = option;
+			} catch (CancelledInputException ex) {
 				cancel = true;
-			else
-				fileID = option;
+			}
 		}
 		if (cancel) {
 			Game.print("Save cancelled.");
@@ -321,10 +370,9 @@ public class Game {
 
 	public static void saveGame(int fileID) {
 		try {
-			File saveFile = new File(System.getProperty("user.dir") + "\\saves\\save"+fileID+".sav");
-			if(saveFile.exists()) {
-				prompt("Overwrite save file (y/n)? ");
-				char choice = input.nextLine().charAt(0);
+			File saveFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
+			if (saveFile.exists()) {
+				char choice = getYesNo("Overwrite save file (y/n)? ");
 				if (choice != 'y') {
 					Game.print("Save cancelled.");
 					return;
@@ -352,21 +400,26 @@ public class Game {
 			Game.print("No saved games.");
 		else {
 			int i;
+			String s = "";
 			for (i = 0; i < saves.length; i++)
-				println((i + 1) + ": " + saves[i]);
-			println((i + 1) + ": Cancel");
-			int option = getOption(1, i + 1);
-			if (option == i+1) {
-				Game.print("Load cancelled.");
-			} else {
-				loadGame(option);
+				s += (i + 1) + ": " + saves[i] + "\n";
+			s += (i + 1) + ": Cancel\n";
+			try {
+				int option = getOption(s, 1, i + 1);
+				if (option == i + 1) {
+					Game.print("Load cancelled.");
+				} else {
+					loadGame(option);
+				}
+			} catch (CancelledInputException ex) {
+				print("Load cancelled.");
 			}
 		}
 	}
-	
+
 	public static void loadGame(int fileID) {
 		try {
-			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save"+fileID+".sav");
+			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
 			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
 			Player.inventory = (HashMap<String, Item>) stream.readObject();
 			rooms = (HashMap<String, Room>) stream.readObject();

@@ -33,10 +33,10 @@ public class Player {
 		if (inventory.keySet().isEmpty())
 			Game.print("You are carrying nothing!");
 		else {
-			System.out.println("You are carrying:");
+			Game.println("You are carrying:");
 			for(String item : inventory.keySet())
-				System.out.println(item);
-			System.out.println();
+				Game.println(item);
+			Game.println("");
 		}
 	}
 	
