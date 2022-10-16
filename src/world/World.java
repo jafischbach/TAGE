@@ -30,6 +30,7 @@ public class World {
 		lobby.addExit(hall, Room.NORTH);
 		lobby.addExit(upperFloor, Room.UP);
 		lobby.addExit(exit, Room.SOUTH);
+		lobby.addNPC(new Bartender("bartender"));
 
 		exit.setLocked(true);
 		exit.addExit(lobby, Room.NORTH);

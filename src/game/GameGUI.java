@@ -12,13 +12,17 @@ import java.util.HashMap;
 
 public class GameGUI {
 
-	private static final int FONT_SIZE = 18;
+	public static final int FONT_SIZE = 18;
 
 	public static JTextArea display;
 	public static JTextField command;
 	public static JFrame window;
 	public static JMenuItem saveMenuItem;
 
+	public static void switchColor() {
+		display.setForeground(display.getForeground()==Color.BLUE?Color.BLACK:Color.BLUE);
+	}
+	
 	public static void buildWindow() {
 		window = new JFrame();
 		window.setTitle(Game.TITLE);
@@ -27,9 +31,18 @@ public class GameGUI {
 		window.setJMenuBar(buildMenuBar());
 
 		window.setLayout(new BorderLayout());
+		window.add(buildDisplay(), BorderLayout.CENTER);
+		window.add(buildCommandPanel(), BorderLayout.SOUTH);
 
+		window.setSize(800, 500);
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
+	}
+
+	private static JScrollPane buildDisplay() {
 		display = new JTextArea();
 		display.setFont(new Font(null, Font.PLAIN, FONT_SIZE));
+		display.setForeground(Color.BLUE);
 		display.setEditable(false);
 		display.setFocusable(false);
 		display.setLineWrap(true);
@@ -39,8 +52,10 @@ public class GameGUI {
 		display.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10),
 				BorderFactory.createEtchedBorder()));
 		JScrollPane scrollPane = new JScrollPane(display);
-		window.add(scrollPane, BorderLayout.CENTER);
-
+		return scrollPane;
+	}
+	
+	private static JPanel buildCommandPanel() {
 		JPanel commandPanel = new JPanel(new GridLayout(2, 1));
 		commandPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		JLabel commandLabel = new JLabel("What do you want to do?");
@@ -51,6 +66,7 @@ public class GameGUI {
 		command.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent event) {
 				if (event.getKeyChar() == '\n') {
+					Game.print("--------------------------------------");
 					Game.processCommand(command.getText());
 					command.setText("");
 				}
@@ -65,13 +81,9 @@ public class GameGUI {
 			}
 		});
 		commandPanel.add(command);
-		window.add(commandPanel, BorderLayout.SOUTH);
-
-		window.setSize(800, 500);
-		window.setLocationRelativeTo(null);
-		window.setVisible(true);
+		return commandPanel;
 	}
-
+	
 	private static JMenuBar buildMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");

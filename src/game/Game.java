@@ -61,7 +61,11 @@ public class Game {
 		}
 	}
 
-	public static int getInt(String prompt) throws CancelledInputException {
+	public static int getInt(Object prompt) throws CancelledInputException {
+		return getInt(prompt, "Input");
+	}
+	
+	public static int getInt(Object prompt, String title) throws CancelledInputException {
 		if (CONSOLE) {
 			try {
 				System.out.print(prompt);
@@ -70,18 +74,20 @@ public class Game {
 				return x;
 			} catch (InputMismatchException ex) {
 				Game.print("You must enter a number.");
-				return getInt(prompt);
+				return getInt(prompt, title);
 			}
 		} else {
 			try {
-				String s = JOptionPane.showInputDialog(GameGUI.window, prompt);
+				String s = JOptionPane.showInputDialog(
+						title.equals("Dialog")?GameGUI.command:GameGUI.window, prompt, title,
+						JOptionPane.QUESTION_MESSAGE);
 				if (s == null)
 					throw new CancelledInputException();
 				return Integer.parseInt(s);
 			} catch (NumberFormatException ex) {
 				JOptionPane.showMessageDialog(GameGUI.window, "You must enter a number.", "Error",
 						JOptionPane.INFORMATION_MESSAGE);
-				return getInt(prompt);
+				return getInt(prompt, title);
 			}
 		}
 	}
@@ -151,13 +157,14 @@ public class Game {
 	}
 
 	public static void help() {
-		println("look - displays desription of current room");
+		println("look - display desription of current room");
 		println("n - move north");
 		println("s - move south");
 		println("e - move east");
 		println("w - move west");
 		println("u - move up");
 		println("d - move down");
+		println("i - display player's inventory");
 		println("x - exit game");
 		println("save - save current game");
 		println("load - load previously saved game");
@@ -315,15 +322,15 @@ public class Game {
 		}
 	}
 
-	public static int getOption(String s, int min, int max) throws CancelledInputException {
-		int option = getInt(s + "\nEnter option (" + min + "-" + max + "): ");
+	public static int getOption(String s, int min, int max, String title) throws CancelledInputException {
+		int option = getInt(s + "\nEnter option (" + min + "-" + max + "): ", title);
 		if (option < min || option > max) {
 			if (CONSOLE)
 				print("Invalid option.");
 			else
 				JOptionPane.showMessageDialog(GameGUI.window, "Invalid option.", "Error",
 						JOptionPane.INFORMATION_MESSAGE);
-			return getOption(s, min, max);
+			return getOption(s, min, max, title);
 		}
 		return option;
 	}
@@ -344,7 +351,7 @@ public class Game {
 				s += (i + 1) + ": " + saves[i] + "\n";
 			s += (i + 1) + ": Cancel\n";
 			try {
-				option = getOption(s, 0, i + 1);
+				option = getOption(s, 0, i + 1, "Save Game");
 				if (option == 0)
 					fileID = i + 1;
 				else if (option == i + 1)
@@ -399,7 +406,7 @@ public class Game {
 				s += (i + 1) + ": " + saves[i] + "\n";
 			s += (i + 1) + ": Cancel\n";
 			try {
-				int option = getOption(s, 1, i + 1);
+				int option = getOption(s, 1, i + 1, "Load Game");
 				if (option == i + 1) {
 					Game.print("Load cancelled.");
 				} else {

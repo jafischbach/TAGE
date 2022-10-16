@@ -1,8 +1,10 @@
 package characters;
 
+import java.awt.Font;
 import java.io.Serializable;
 
 import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 
 import game.*;
 
@@ -70,24 +72,31 @@ public class NPC implements Serializable {
 		Game.print(name+": "+s);
 	}
 	
-	public int getConvoOption(String[] options) {
-		String s = "";
+	public int sayResponse(String dialog, String[] options) {
+		String s = dialog+"\n\n";
 		for(int i=0; i<options.length; i++) {
 			s += "OPTION "+(i+1)+": "+options[i]+"\n\n";
 		}
+		say(s.substring(0, s.length()-2));
 		try {
-			s += "Select an option (1-"+options.length+"): ";
-			int choice = Game.getInt(s);
+			s = "Select an option (1-"+options.length+"): ";
+//			JTextArea text = new JTextArea(s);
+//			text.setFont(new Font(null, Font.PLAIN, GameGUI.FONT_SIZE));
+//			text.setEditable(false);
+//			text.setFocusable(false);
+//			text.setLineWrap(true);
+//			text.setWrapStyleWord(true);
+			int choice = Game.getInt(s, "Dialog"); 
 			if (choice > 0 && choice <= options.length)
 				return choice;
 			else {
 				Game.print("That is not a valid option.");
-				return getConvoOption(options);
+				return sayResponse(dialog, options);
 			}
 		} catch (CancelledInputException ex) {
 			JOptionPane.showMessageDialog(GameGUI.window, "You must select an option.",
 					"Error", JOptionPane.INFORMATION_MESSAGE);
-			return getConvoOption(options);
+			return sayResponse(dialog, options);
 		}
 	}
 	
