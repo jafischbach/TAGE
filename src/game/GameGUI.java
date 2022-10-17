@@ -20,9 +20,9 @@ public class GameGUI {
 	public static JMenuItem saveMenuItem;
 
 	public static void switchColor() {
-		display.setForeground(display.getForeground()==Color.BLUE?Color.BLACK:Color.BLUE);
+		display.setForeground(display.getForeground() == Color.BLUE ? Color.BLACK : Color.BLUE);
 	}
-	
+
 	public static void buildWindow() {
 		window = new JFrame();
 		window.setTitle(Game.TITLE);
@@ -54,7 +54,7 @@ public class GameGUI {
 		JScrollPane scrollPane = new JScrollPane(display);
 		return scrollPane;
 	}
-	
+
 	private static JPanel buildCommandPanel() {
 		JPanel commandPanel = new JPanel(new GridLayout(2, 1));
 		commandPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -66,8 +66,22 @@ public class GameGUI {
 		command.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent event) {
 				if (event.getKeyChar() == '\n') {
-					Game.print("--------------------------------------");
-					Game.processCommand(command.getText());
+					if (Game.convo) {
+						try {
+							int choice = Integer.parseInt(command.getText());
+							if (choice > 0 && choice <= Game.convoOptions) {
+								Game.convo = false;
+								Game.character.response(choice);
+							} else {
+								Game.print("That is not a valid option.");
+							}
+						} catch (NumberFormatException ex) {
+							Game.print("You must enter a number.");
+						}
+					} else {
+						Game.print("--------------------------------------");
+						Game.processCommand(command.getText());
+					}
 					command.setText("");
 				}
 			}
@@ -83,7 +97,7 @@ public class GameGUI {
 		commandPanel.add(command);
 		return commandPanel;
 	}
-	
+
 	private static JMenuBar buildMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
@@ -97,7 +111,7 @@ public class GameGUI {
 					Player.inventory = new HashMap<String, Item>();
 					Game.startGame();
 					World.buildWorld();
-					display.setText(Game.currentRoom.getDesc()+"\n\n");
+					display.setText(Game.currentRoom.getDesc() + "\n\n");
 					command.setEditable(true);
 					saveMenuItem.setEnabled(true);
 				}
@@ -135,7 +149,7 @@ public class GameGUI {
 		fileMenu.add(clearMenuItem);
 		fileMenu.add(exitMenuItem);
 		menuBar.add(fileMenu);
-		
+
 		JMenu helpMenu = new JMenu("Help");
 		JMenuItem helpMenuItem = new JMenuItem("Command help");
 		helpMenuItem.addActionListener(new ActionListener() {
@@ -158,9 +172,9 @@ public class GameGUI {
 		JMenuItem aboutMenuItem = new JMenuItem("About");
 		aboutMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String s = Game.TITLE+"\n";
-				s += "Version: "+Game.VERSION+"\n\n";
-				s += "Developer: "+Game.DEVELOPER+"\n\n";
+				String s = Game.TITLE + "\n";
+				s += "Version: " + Game.VERSION + "\n\n";
+				s += "Developer: " + Game.DEVELOPER + "\n\n";
 				s += "FlossTAGE Version: ALPHA";
 				JOptionPane.showMessageDialog(window, s, "About", JOptionPane.INFORMATION_MESSAGE);
 			}
@@ -170,7 +184,7 @@ public class GameGUI {
 		helpMenu.add(helpNpcsMenuItem);
 		helpMenu.add(aboutMenuItem);
 		menuBar.add(helpMenu);
-		
+
 		return menuBar;
 	}
 

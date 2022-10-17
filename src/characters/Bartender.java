@@ -19,13 +19,16 @@ public class Bartender extends NPC {
 	}
 	
 	private void convo1() {
-		String d = "Hello, sir. I was taking a nap just now, but I woke up when some imbecile"
+		say("Hello, sir. I was taking a nap just now, but I woke up when some imbecile"
 				+ " decided to start demolishing something on the second floor. Was"
-				+ " that you, perhaps?";
+				+ " that you, perhaps?");
 		String[] options = new String[2];
 		options[0] = "Yes.";
 		options[1] = "Nope. Wasn't me.";
-		int choice = sayResponse(d, options);
+		getResponse(options);
+	}
+	
+	private void response1(int choice) {
 		if (choice == 1)
 			say("Please refrain from destroying any more of the hotel. It's probably"
 					+ " best if you give me that sledge hammer lest you succumb to"
@@ -39,16 +42,18 @@ public class Bartender extends NPC {
 	}
 	
 	private void convo2() {
-		String d;
 		if(isPolite)
-			d = "Yes, sir. What can I do for you?";
+			say("Yes, sir. What can I do for you?");
 		else
-			d = "What do you want, you filthy, lying bastard?";
+			say("What do you want, you filthy, lying bastard?");
 		String[] options = new String[3];
 		options[0] = "Can I get a rum and coke?";
 		options[1] = "Got any beer?";
 		options[2] = "You wouldn't believe the day I've had...";
-		int choice = sayResponse(d, options);
+		getResponse(options);
+	}
+	
+	private void response2(int choice) {
 		switch(choice) {
 		case 1:
 			if (isPolite)
@@ -68,14 +73,17 @@ public class Bartender extends NPC {
 	}
 	
 	private void convo3() {
-		String d = "You're still here. Wonderful. I wouldn't want the opportunity to return"
+		say("You're still here. Wonderful. I wouldn't want the opportunity to return"
 				+ " to my nap. Thank you for keeping me occupied. Was there something"
-				+ " you needed?";
+				+ " you needed?");
 		String[] options = new String[3];
 		options[0] = "Beer. I want beer.";
 		options[1] = "Got any cheese?";
 		options[2] = "So, the front door is locked. Do you have the key?";
-		int choice = sayResponse(d, options);
+		getResponse(options);
+	}
+	
+	private void response3(int choice) {
 		switch(choice) {
 		case 1:
 			say("Then feel free to visit your local convenience store. Pick up some"
@@ -98,15 +106,18 @@ public class Bartender extends NPC {
 	}
 	
 	private void convo4() {
-		String d = "Ah! Excellent! That's exactly what I need. Actually, it looks just like"
-				+ " one my coworker Steve used to have. Um...so, where did you find this?";
+		say("Ah! Excellent! That's exactly what I need. Actually, it looks just like"
+				+ " one my coworker Steve used to have. Um...so, where did you find this?");
 		String[] options = new String[2];
 		options[0] = "On a dead guy I found stuffed in a closet upstairs.";
 		options[1] = "Oh that? I had that in my pocket all along. Yeah, it was a gift from"
 				+ " my...uh...cousin Marty. He gave it to me for my 21st birthday. What a"
 				+ " guy that Marty always was. Is. Still is. He's not dead or anything. Haha!"
 				+ " Who said anything about a dead guy. Um. Yeah.";
-		int choice = sayResponse(d, options);
+		getResponse(options);
+	}
+	
+	private void response4(int choice) {
 		switch(choice) {
 		case 1:
 			say("Well. I see. A dead guy. Stuffed in a closet. Upstairs. How did you get into"
@@ -130,12 +141,15 @@ public class Bartender extends NPC {
 	}
 	
 	private void convo5() {
-		String d = "And you're back. Lovely.";
+		say("And you're back. Lovely.");
 		String[] options = new String[2];
 		options[0] = "So, hey, do you know where I can get some gas for this chainsaw that"
 				+ " I most definitely did not just steal from the basement?";
 		options[1] = "Does anyone else work here, or is it just you?";
-		int choice = sayResponse(d, options);
+		getResponse(options);
+	}
+	
+	private void response5(int choice) {
 		switch(choice) {
 		case 1:
 			say("I'm sure it's perfectly acceptible for you to be carrying around a"
@@ -192,6 +206,16 @@ public class Bartender extends NPC {
 				say("And you're still here. Wonderful.");
 			else
 				say("Please, sir. I do have other customers to tend to.");
+		}
+	}
+	
+	public void response(int choice) {
+		switch(convo) {
+		case 1: response1(choice); break;
+		case 2: response2(choice); break;
+		case 3: response3(choice); break;
+		case 4: response4(choice); break;
+		case 5: response5(choice); break;
 		}
 	}
 	

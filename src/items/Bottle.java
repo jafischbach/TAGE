@@ -19,6 +19,7 @@ public class Bottle extends Item {
 			Player.addItem("bottle", this);
 			Game.getCurrentRoom().removeItem("bottle");
 			isTaken = true;
+			Game.addFlag("bottleTaken");
 		}
 	}
 

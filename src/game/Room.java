@@ -48,6 +48,10 @@ public class Room implements Serializable {
 		if (items != null)
 			items.remove(name);
 	}
+	
+	public boolean hasItem(String name) {
+		return items.containsKey(name);
+	}
 
 	public void addNPC(NPC npc) {
 		if (npcs == null)

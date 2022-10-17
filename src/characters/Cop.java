@@ -19,13 +19,13 @@ public class Cop extends NPC {
 	}
 	
 	public void talk() {
-		String d = "Well, well, well. Who do we have here. Chainsaw. Crowbar. Slegde hammer. Looks like"
+		say("Well, well, well. Who do we have here. Chainsaw. Crowbar. Slegde hammer. Looks like"
 				+ " a vandal to me. A professional vandal. Those are some serious tools. Master"
 				+ " of the trade, eh? You been doing a little unconventional work on this here"
 				+ " fine hotel? I see what you've done to the front door. A stately entrance"
 				+ " that was. Passed through many times myself. No more though. You saw to that,"
 				+ " didn't you? (No pun intended, I suppose.) In any case, I'm gonna have to"
-				+ " arrest your delinquint vandal ass. You're looking at hard time. Hard time.";
+				+ " arrest your delinquint vandal ass. You're looking at hard time. Hard time.");
 		String[] option = new String[2];
 		option[0] = "I had to! I was trapped! There was no other way out. Look! This freakin'"
 				+ " hotel doesn't even have windows. What kind of hotel doesn't have windows?"
@@ -36,7 +36,10 @@ public class Cop extends NPC {
 					+ " the situation here, would it?";
 		else
 			option[1] = "Nuts.";
-		int choice = sayResponse(d, option);
+		getResponse(option);
+	}
+	
+	public void response(int choice) {
 		switch(choice) {
 		case 1:
 			say("The bartender is my little brother Fitzroy. I'll not hear a cross word about"

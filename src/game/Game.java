@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import characters.NPC;
 
 import javax.swing.JOptionPane;
 
@@ -34,6 +35,9 @@ public class Game {
 	private static HashMap<String, Integer> flags;
 
 	private static boolean play = true;
+	public static boolean convo = false;
+	public static int convoOptions;
+	public static NPC character;
 	public static Room currentRoom;
 
 	public static void print(String s) {
@@ -50,6 +54,12 @@ public class Game {
 			GameGUI.display.append(s + "\n");
 	}
 
+	public static void convoResponseGUI(NPC character, int convoOptions) {
+		convo = true;
+		Game.character = character;
+		Game.convoOptions = convoOptions;
+	}
+	
 	public static char getYesNo(String prompt) {
 		if (CONSOLE) {
 			System.out.print(prompt);
@@ -155,7 +165,7 @@ public class Game {
 	public static Room getRoom(String label) {
 		return rooms.get(label);
 	}
-
+	
 	public static void help() {
 		println("look - display desription of current room");
 		println("n - move north");
