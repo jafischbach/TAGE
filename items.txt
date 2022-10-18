@@ -1,0 +1,20 @@
+HOTEL_BAR_TOILET
+Grody, man. The thing that was once a toilet is absolutely grody. It is encrusted with numerous, presumably biological, substances that you'd rather not inspect too closely. An "Out of Order" sign might be approrpiate, but would also be a severe understatement.
+#
+HOTEL_LOUNGE_NEWSPAPER
+You glance at the newspaper and see that it is a morning edition from four years ago. The headline screams "RICH PEOPLE WHINE ABOUT TAXES". You also note that the local sports teams all lost badly because of a spate of injuries to star players.
+#
+HOTEL_BAR
+The bar is old and stained. If a bartender actually works here, he doesn't take his job too seriously. There is a bottle sitting on the bar, but you find nothing else.
+#
+HOTEL_BAR_B
+The bar is old and stained. If a bartender actually works here, he doesn't take his job too seriously.
+#
+HOTEL_BAR_BOTTLE
+It is a tall glass bottle labelled "Smokin' Joe's Whiskey" and features a sketched image of Smokin' Joe's deranged grin.
+#
+HOTEL_HALL_LARGE_BOX
+A large wooden box sits in the hallway. It's too tall to climb over and too large to go around. It moves slightly when you push it, but there's no where to move it to.
+#
+HOTEL_CLOSET_TOP_CHEST
+A old chest sits on the floor. The name of the hotel has been branded into the wood. It looks like it's been sitting here undisturbed for years.

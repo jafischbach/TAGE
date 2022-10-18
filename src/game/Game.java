@@ -3,6 +3,7 @@ package game;
 import java.io.*;
 import java.util.HashMap;
 import java.util.InputMismatchException;
+import java.util.Map.Entry;
 import java.util.Scanner;
 import characters.NPC;
 
@@ -33,6 +34,8 @@ public class Game {
 	public static HashMap<String, String> npcDescs;
 	private static HashMap<String, Room> rooms;
 	private static HashMap<String, Integer> flags;
+	
+	private static int OFFSET = 113;
 
 	private static boolean play = true;
 	public static boolean convo = false;
@@ -213,31 +216,54 @@ public class Game {
 		}
 	}
 
+	private static void loadDataFile(String fileName, HashMap<String, String> map) {
+		try {
+			File dataFile = new File(fileName);
+			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(dataFile));
+			HashMap<String, String> dataMap = (HashMap<String, String>) stream.readObject();
+			unobscure(dataMap, map);
+			stream.close();
+		} catch (FileNotFoundException ex) {
+			// Nothing to do here (data files may not be present)
+		} catch (IOException ex) {
+			Game.print("Error reading data file "+fileName+ ".");
+		} catch (ClassNotFoundException ex) {
+			ex.printStackTrace();
+		}
+	}
+	
+	private static void unobscure(HashMap<String, String> dataMap, HashMap<String, String> map) {
+		for(Entry<String, String> entry : dataMap.entrySet()) {
+			String key = entry.getKey();
+			String value = entry.getValue();
+			String newKey = "";
+			String newValue = "";
+			for(char c : key.toCharArray())
+				newKey += (char) (c-OFFSET);
+			for(char c : value.toCharArray())
+				newValue += (char) (c-OFFSET);
+			map.put(newKey, newValue);
+		}
+	}
+	
 	public static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
 		npcDescs = new HashMap<String, String>();
 		rooms = new HashMap<String, Room>();
-		try {
-			populateDescs("rooms.dat", roomDescs);
-		} catch (FileNotFoundException ex) {
-			// Nothing to do here.
-		}
-		try {
-			populateDescs("items.dat", itemDescs);
-		} catch (FileNotFoundException ex) {
-			// Nothing to do here.
-		}
-		try {
-			populateDescs("npcs.dat", npcDescs);
-		} catch (FileNotFoundException ex) {
-			// Nothing to do here.
-		}
+		
+			//populateDescs("rooms.txt", roomDescs);
+			loadDataFile("rooms.dat", roomDescs);
+		
+			//populateDescs("items.txt", itemDescs);
+			loadDataFile("items.dat", itemDescs);
+		
+			//populateDescs("npcs.txt", npcDescs);
+			loadDataFile("npcs.dat", npcDescs);
+			
 	}
 
 	private static void playText() {
-//		System.out.print("What is your name? ");
-//		Player.name = input.nextLine();
 		print(currentRoom.getDesc());
 		do {
 			System.out.print("What do you want to do? ");

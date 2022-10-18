@@ -17,6 +17,8 @@ public class Room implements Serializable {
 	public static final int UP = 4;
 	public static final int DOWN = 5;
 
+	private HashMap<String, String> simpleItems;
+
 	private String descLabel;
 	private Room[] go;
 	private HashMap<String, Item> items;
@@ -30,10 +32,6 @@ public class Room implements Serializable {
 			throw new InvalidLabelException(label);
 		descLabel = label;
 		isLocked = false;
-//		desc = Game.roomDescs.get(label);
-//		if (desc == null) {
-//			throw new InvalidLabelException(label);
-//		}
 		go = new Room[6];
 		Game.addRoom(label, this);
 	}
@@ -48,7 +46,7 @@ public class Room implements Serializable {
 		if (items != null)
 			items.remove(name);
 	}
-	
+
 	public boolean hasItem(String name) {
 		return items.containsKey(name);
 	}
@@ -82,13 +80,31 @@ public class Room implements Serializable {
 	public void setDesc(String label, String desc) {
 		Game.roomDescs.put(label, desc);
 	}
-	
+
 	public void setLocked(boolean isLocked) {
 		this.isLocked = isLocked;
 	}
 
 	public boolean isLocked() {
 		return isLocked;
+	}
+
+	public void addSimpleItem(String name, String desc) {
+		if (simpleItems == null)
+			simpleItems = new HashMap<String, String>();
+		simpleItems.put(name, desc);
+	}
+
+	public String getSimpleItemDesc(String name) {
+		try {
+			String desc = simpleItems.get(name);
+			if (desc != null)
+				return desc;
+			else
+				return null;
+		} catch (NullPointerException ex) {
+			return null;
+		}
 	}
 
 	public void action(String command) {
@@ -113,7 +129,7 @@ public class Room implements Serializable {
 				if (Player.has(itemName))
 					npc.give(itemName);
 				else
-					Game.print("You don't have a "+itemName);
+					Game.print("You don't have a " + itemName);
 			}
 		} else if (action.equalsIgnoreCase("attack")) {
 			if (npcs == null)
@@ -130,7 +146,7 @@ public class Room implements Serializable {
 				if (Player.has(weaponName))
 					npc.attack(weaponName);
 				else
-					Game.print("You don't have a "+weaponName+".");
+					Game.print("You don't have a " + weaponName + ".");
 			}
 		} else {
 			String itemName = command.substring(index + 1);
@@ -139,10 +155,15 @@ public class Room implements Serializable {
 				i = items.get(itemName);
 			try {
 				if (action.equalsIgnoreCase("look"))
-					if (i == null)
-						npcs.get(itemName).look();
-					else
+					if (i != null)
 						i.look();
+					else {
+						String itemDesc = getSimpleItemDesc(itemName);
+						if (itemDesc != null)
+							Game.print(itemDesc);
+						else
+							npcs.get(itemName).look();
+					}
 				else if (action.equalsIgnoreCase("talk"))
 					npcs.get(itemName).talk();
 				else if (action.equalsIgnoreCase("take"))
@@ -158,9 +179,14 @@ public class Room implements Serializable {
 				else
 					Game.print("Invalid command.");
 			} catch (NullPointerException ex) {
-				Game.print("You don't see a "+itemName+" in this room!");
+				String itemDesc = getSimpleItemDesc(itemName);
+				if (itemDesc == null)
+					Game.print("You don't see a " + itemName + " in this room!");
+				else
+					Game.print("You can't do that with the " + itemName + ".");
 			}
 		}
+
 	}
 
 	public Room goEast() {

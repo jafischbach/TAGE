@@ -43,6 +43,9 @@ public class World {
 		lounge.addExit(lobby, Room.WEST);
 		lounge.addItem(new Newspaper("HOTEL_LOUNGE_NEWSPAPER", "newspaper"));
 		lounge.addNPC(new OldMan());
+		lounge.addSimpleItem("couch", "It's a ratty old couch. This isn't a luxury hotel.");
+		lounge.addSimpleItem("armchair", "Identical armchairs sit in the room. An old man"
+				+ " occupies one of them.");
 
 		hall.addExit(lobby, Room.SOUTH);
 		hall.addExit(room101, Room.WEST);
@@ -71,6 +74,9 @@ public class World {
 		upperFloor.addExit(closet, Room.NORTH);
 		upperFloor.addExit(upperWestHallway, Room.WEST);
 		upperFloor.addItem(new LargeBox("HOTEL_HALL_LARGE_BOX", "large box"));
+		upperFloor.addSimpleItem("furniture", "Various pieces of furniture are stacked"
+				+ " hapazardly in the hallway, barring your way. There are too many peices"
+				+ " of furniture for you to move yourself. You will not be able to go that way.");
 		
 		closet.setLocked(true);
 		closet.addExit(upperFloor, Room.SOUTH);

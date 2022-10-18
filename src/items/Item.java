@@ -1,6 +1,7 @@
 package items;
 
 import java.io.Serializable;
+import java.util.HashMap;
 
 import game.*;
 import game.InvalidLabelException;
@@ -28,9 +29,6 @@ public class Item implements Serializable {
 			descLabel = label;
 		else
 			throw new InvalidLabelException(label);
-//		desc = Game.itemDescs.get(label);
-//		if (desc == null)
-//			desc = label;
 	}
 	
 	public void setDesc(String label, String desc) {
