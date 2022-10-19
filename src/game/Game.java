@@ -18,6 +18,7 @@ public class Game {
 	public static final String VERSION = "ALPHA";
 	public static final String DEVELOPER = "The Steve Machine";
 	public static final boolean CONSOLE = false;
+	public static final boolean TEXT_DATA_FILES = false;
 
 	public static void main(String[] args) {
 		startGame();
@@ -34,7 +35,7 @@ public class Game {
 	public static HashMap<String, String> npcDescs;
 	private static HashMap<String, Room> rooms;
 	private static HashMap<String, Integer> flags;
-	
+
 	private static int OFFSET = 113;
 
 	private static boolean play = true;
@@ -62,7 +63,7 @@ public class Game {
 		Game.character = character;
 		Game.convoOptions = convoOptions;
 	}
-	
+
 	public static char getYesNo(String prompt) {
 		if (CONSOLE) {
 			System.out.print(prompt);
@@ -77,7 +78,7 @@ public class Game {
 	public static int getInt(Object prompt) throws CancelledInputException {
 		return getInt(prompt, "Input");
 	}
-	
+
 	public static int getInt(Object prompt, String title) throws CancelledInputException {
 		if (CONSOLE) {
 			try {
@@ -91,9 +92,8 @@ public class Game {
 			}
 		} else {
 			try {
-				String s = JOptionPane.showInputDialog(
-						title.equals("Dialog")?GameGUI.command:GameGUI.window, prompt, title,
-						JOptionPane.QUESTION_MESSAGE);
+				String s = JOptionPane.showInputDialog(title.equals("Dialog") ? GameGUI.command : GameGUI.window,
+						prompt, title, JOptionPane.QUESTION_MESSAGE);
 				if (s == null)
 					throw new CancelledInputException();
 				return Integer.parseInt(s);
@@ -168,7 +168,7 @@ public class Game {
 	public static Room getRoom(String label) {
 		return rooms.get(label);
 	}
-	
+
 	public static void help() {
 		println("look - display desription of current room");
 		println("n - move north");
@@ -186,33 +186,37 @@ public class Game {
 	}
 
 	public static void itemHelp() {
-		println("look <item> - displays description of item");
+		println("look <item> - display description of item");
 		println("use <item> - use the item");
-		println("take <item> - takes the item and adds it to player's inventory");
+		println("take <item> - take the item and add it to player's inventory");
 		println("move <item> - move the item");
 		println("open <item> - open the item");
 		println("close <item> - close the item\n");
 	}
 
 	public static void npcHelp() {
-		println("look <npc> - displays a description of the NPC");
+		println("look <npc> - display a description of the NPC");
 		println("talk <npc> - talk to the NPC");
 		println("give <item> to <npc> - give the item to the NPC");
 		println("attack <npc> with <item> - attack the NPC with the item\n");
 	}
 
-	private static void populateDescs(String fileName, HashMap<String, String> map) throws FileNotFoundException {
-		Scanner descReader = new Scanner(new File(fileName));
-		while (descReader.hasNextLine()) {
-			String label = descReader.nextLine();
-			String desc = descReader.nextLine();
+	private static void populateDescs(String fileName, HashMap<String, String> map) {
+		try {
+			Scanner descReader = new Scanner(new File(fileName));
 			while (descReader.hasNextLine()) {
-				String line = descReader.nextLine();
-				if (line.equals("#"))
-					break;
-				desc += line;
+				String label = descReader.nextLine();
+				String desc = descReader.nextLine();
+				while (descReader.hasNextLine()) {
+					String line = descReader.nextLine();
+					if (line.equals("#"))
+						break;
+					desc += line;
+				}
+				map.put(label, desc);
 			}
-			map.put(label, desc);
+		} catch (FileNotFoundException ex) {
+			// Nothing to do here (text file may not be present)
 		}
 	}
 
@@ -224,43 +228,43 @@ public class Game {
 			unobscure(dataMap, map);
 			stream.close();
 		} catch (FileNotFoundException ex) {
-			// Nothing to do here (data files may not be present)
+			// Nothing to do here (data file may not be present)
 		} catch (IOException ex) {
-			Game.print("Error reading data file "+fileName+ ".");
+			Game.print("Error reading data file " + fileName + ".");
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
 	}
-	
+
 	private static void unobscure(HashMap<String, String> dataMap, HashMap<String, String> map) {
-		for(Entry<String, String> entry : dataMap.entrySet()) {
+		for (Entry<String, String> entry : dataMap.entrySet()) {
 			String key = entry.getKey();
 			String value = entry.getValue();
 			String newKey = "";
 			String newValue = "";
-			for(char c : key.toCharArray())
-				newKey += (char) (c-OFFSET);
-			for(char c : value.toCharArray())
-				newValue += (char) (c-OFFSET);
+			for (char c : key.toCharArray())
+				newKey += (char) (c - OFFSET);
+			for (char c : value.toCharArray())
+				newValue += (char) (c - OFFSET);
 			map.put(newKey, newValue);
 		}
 	}
-	
+
 	public static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
 		npcDescs = new HashMap<String, String>();
 		rooms = new HashMap<String, Room>();
-		
-			//populateDescs("rooms.txt", roomDescs);
+
+		if (TEXT_DATA_FILES) {
+			populateDescs("rooms.txt", roomDescs);
+			populateDescs("items.txt", itemDescs);
+			populateDescs("npcs.txt", npcDescs);
+		} else {
 			loadDataFile("rooms.dat", roomDescs);
-		
-			//populateDescs("items.txt", itemDescs);
 			loadDataFile("items.dat", itemDescs);
-		
-			//populateDescs("npcs.txt", npcDescs);
 			loadDataFile("npcs.dat", npcDescs);
-			
+		}
 	}
 
 	private static void playText() {

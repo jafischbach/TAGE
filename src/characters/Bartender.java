@@ -60,7 +60,7 @@ public class Bartender extends NPC {
 				say("Sorry, sir. The bar is not very well stocked I'm afraid.");
 			else
 				say("Of course, sir. I have a bottle of rum back here, but I keep"
-						+ " the coke on ice in the rest room right over there. In"
+						+ " the coke on ice in the restroom right over there. In"
 						+ " the toilet. Go fetch me a can, won't you?");
 			break;
 		case 2:
@@ -107,13 +107,14 @@ public class Bartender extends NPC {
 	
 	private void convo4() {
 		say("Ah! Excellent! That's exactly what I need. Actually, it looks just like"
-				+ " one my coworker Steve used to have. Um...so, where did you find this?");
+				+ " one my coworker Rupert used to have. Um...so, where did you find this?");
 		String[] options = new String[2];
 		options[0] = "On a dead guy I found stuffed in a closet upstairs.";
 		options[1] = "Oh that? I had that in my pocket all along. Yeah, it was a gift from"
 				+ " my...uh...cousin Marty. He gave it to me for my 21st birthday. What a"
-				+ " guy that Marty always was. Is. Still is. He's not dead or anything. Haha!"
-				+ " Who said anything about a dead guy. Um. Yeah.";
+				+ " guy that Marty always was! Is. Still is. He's not dead or anything. Haha!"
+				+ " Who said anything about a dead guy? Um. Yeah.";
+		convo = 4;
 		getResponse(options);
 	}
 	
@@ -146,6 +147,7 @@ public class Bartender extends NPC {
 		options[0] = "So, hey, do you know where I can get some gas for this chainsaw that"
 				+ " I most definitely did not just steal from the basement?";
 		options[1] = "Does anyone else work here, or is it just you?";
+		convo = 5;
 		getResponse(options);
 	}
 	
@@ -175,7 +177,7 @@ public class Bartender extends NPC {
 		} else {
 			say("Beer? You're giving me...beer? Beer!? BEER!?");
 			Game.print("As the bartended grips the can of cool Dr. Hops beer, his hand starts to shake. His eye starts to"
-					+ " twitch. His lips start to spasm. Drool dripples over his chin. What the hell is up with this guy?");
+					+ " twitch. His lips start to spasm. Drool dribbles over his chin. What the hell is up with this guy?");
 			say("You. You...you...beer-chugging, heathen, barbarian, troglodite...how...why...NO! I will not tolerate your"
 					+ " vile presense here any longer. You will leave! You will leave NOW!");
 			Game.print("More quickly than you thought possible, the bartender leaps across the bar and grabs your ear."
@@ -245,6 +247,22 @@ public class Bartender extends NPC {
 			convo4();
 		} else if (itemName.equals("beer")) {
 			giveBeer();
+		} else if (itemName.equals("cash")) {
+			say("Wow! Well, that's quite generous of you. Quite generous. Thank you, sir."
+					+ " Thank you! Only once have I received a tip more generous, but that"
+					+ " was another time. A quieter time.");
+			Game.print("The bartender stares off into space. Just as the moment starts to"
+					+ " get awkward...");
+			say("Oh? You're still here? Um. Well. Thanks for the tip. Now off you go.");
+			Player.removeItem("cash");
+		} else if (itemName.equals("bronze room key") || itemName.equals("silver room key")) {
+			say("I'm the bartender, sir. This is why I stand behind the bar. You see? If you"
+					+ " want to check out, please bring your key to the receptionist. I'm"
+					+ " sure he'll be back from his lunch break any day now.");
+		} else if (itemName.equals("utility key")) {
+			say("And you want to give this back to me because...?");
+		} else if (itemName.equals("large key")) {
+			say("That's the key to the basement. You can keep it.");
 		} else
 			super.give(itemName);
 	}
@@ -256,8 +274,8 @@ public class Bartender extends NPC {
 					+ " to do is upset the bartender. He reaches beneath the bar and brings out"
 					+ " a shotgun, which he uses to blow a hole through your chest.");
 			Game.endGame();
-		} else if (weaponName.equals("sledge hammer")) {
-			Game.print("You swing the sledge hammer and pulverize the bartender into a gory heap"
+		} else if (weaponName.equals("sledge hammer") || weaponName.equals("crowbar")) {
+			Game.print("You swing the "+weaponName+" and pulverize the bartender into a gory heap"
 					+ " of bone, blood, and organs. I hope you're proud of yourself. As the"
 					+ " bartender was your only means of escaping the hotel, you're now trapped"
 					+ " here for the rest of your miserable life. Too bad you skipped those"
@@ -267,6 +285,18 @@ public class Bartender extends NPC {
 			Game.print("You repeatedly smack the bartender with your folded newspaper. He just"
 					+ " looks at you, bemused, and then snatches the newspaper away from you.");
 			Player.removeItem("newspaper");
+		} else if (weaponName.equals("chainsaw")) {
+			if (Player.has("gas can")) {
+				Game.print("With sadistic glee, you start the chainsaw and proceed to carve"
+						+ " the defenseless bartender into fun size bartender bits. What a"
+						+ " gory mess you've made. Had fun?");
+				Room r = Game.getCurrentRoom();
+				r.removeNPC("bartender");
+				r.setDesc("HOTEL_BAR_C");
+			} else {
+				Game.print("While you'd love to put a permanent end to the bartender, your"
+						+ " weapon of choice is lacking in power.");
+			}
 		} else {
 			Game.print("You can't do that.");
 		}

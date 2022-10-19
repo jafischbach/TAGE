@@ -30,7 +30,7 @@ public class OldMan extends NPC {
 						+ " artery with a fingernail. You die in gurgling agony.");
 				Game.endGame();
 			} else {
-				Game.print("How desparate are you? You can't attach the old man with"
+				Game.print("How desparate are you? You can't attack the old man with"
 						+ " a "+weapon+"!");
 			}
 		} else {

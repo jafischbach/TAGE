@@ -1,11 +1,14 @@
 HOTEL_LOBBY
-The lobby is a small room. The exit is to the south. There are doorways east to a lounge, west to a bar, and north to a hallway. A staircase leads up to the second floor.
+The LOBBY is a small room. The exit is to the south. There are doorways east to a lounge, west to a bar, and north to a hallway. A staircase leads up to the second floor.
 #
 HOTEL_BAR
 There is a long bar along the west wall. Since the bar is closed, there is no bartender at the moment. There is a closed door marked "Rest Room" in the north wall. Another doorway leads east to the lobby.
 #
 HOTEL_BAR_B
 There is a long bar along the west wall. There is a closed door marked "Rest Room" in the north wall. Another doorway leads east to the lobby. A man now stands behind the bar pretending not to notice you. Must be the hotel bartender.
+#
+HOTEL_BAR_C
+This used to be a bar. Now it's nothing more than the bartender's gruesome tomb. There is a closed door, dripping with former bertender, in the north wall. Another doorway leads east to the lobby.
 #
 HOTEL_LOUNGE
 This is a pleasant room with a couch and two armchairs. An old man is sleeping in one of the chairs, an old newspaper lays folded in his lap. A doorway leads west to the lobby.

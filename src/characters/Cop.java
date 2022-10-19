@@ -19,7 +19,7 @@ public class Cop extends NPC {
 	}
 	
 	public void talk() {
-		say("Well, well, well. Who do we have here. Chainsaw. Crowbar. Slegde hammer. Looks like"
+		say("Well, well, well. Who do we have here? Chainsaw. Crowbar. Slegde hammer. Looks like"
 				+ " a vandal to me. A professional vandal. Those are some serious tools. Master"
 				+ " of the trade, eh? You been doing a little unconventional work on this here"
 				+ " fine hotel? I see what you've done to the front door. A stately entrance"
