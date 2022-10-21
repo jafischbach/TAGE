@@ -10,6 +10,9 @@ The bar is old and stained. If a bartender actually works here, he doesn't take 
 HOTEL_BAR_B
 The bar is old and stained. If a bartender actually works here, he doesn't take his job too seriously.
 #
+HOTEL_BAR_C
+The bar is old and stained. The bartender clearly doesn't take his job too seriously.
+#
 HOTEL_BAR_BOTTLE
 It is a tall glass bottle labelled "Smokin' Joe's Whiskey" and features a sketched image of Smokin' Joe's deranged grin.
 #

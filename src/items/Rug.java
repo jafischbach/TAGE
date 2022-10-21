@@ -12,7 +12,7 @@ public class Rug extends Item {
 	}
 	
 	public void look() {
-		Game.print("A small, oval run lays on the floor at the foot of the bed. It's caked in"
+		Game.print("A small, oval rug lays on the floor at the foot of the bed. It's caked in"
 				+ " dust, but you think it was once a nice shade of burgundy.");
 	}
 	

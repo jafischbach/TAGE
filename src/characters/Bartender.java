@@ -9,7 +9,7 @@ public class Bartender extends NPC {
 	private boolean isPolite;
 	private boolean gaveBeer;
 	private boolean notMet;
-	
+
 	public Bartender(String name) {
 		super(name);
 		convo = 0;
@@ -17,22 +17,20 @@ public class Bartender extends NPC {
 		gaveBeer = false;
 		notMet = true;
 	}
-	
+
 	private void convo1() {
 		say("Hello, sir. I was taking a nap just now, but I woke up when some imbecile"
-				+ " decided to start demolishing something on the second floor. Was"
-				+ " that you, perhaps?");
+				+ " decided to start demolishing something on the second floor. Was" + " that you, perhaps?");
 		String[] options = new String[2];
 		options[0] = "Yes.";
 		options[1] = "Nope. Wasn't me.";
 		getResponse(options);
 	}
-	
+
 	private void response1(int choice) {
 		if (choice == 1)
 			say("Please refrain from destroying any more of the hotel. It's probably"
-					+ " best if you give me that sledge hammer lest you succumb to"
-					+ " temptation later.");
+					+ " best if you give me that sledge hammer lest you succumb to" + " temptation later.");
 		else {
 			isPolite = false;
 			say("Hm. You had nothing to do with the noise upstairs. And you just happen"
@@ -40,9 +38,9 @@ public class Bartender extends NPC {
 					+ " bastard, sir. A filthy, lying bastard.");
 		}
 	}
-	
+
 	private void convo2() {
-		if(isPolite)
+		if (isPolite)
 			say("Yes, sir. What can I do for you?");
 		else
 			say("What do you want, you filthy, lying bastard?");
@@ -52,9 +50,9 @@ public class Bartender extends NPC {
 		options[2] = "You wouldn't believe the day I've had...";
 		getResponse(options);
 	}
-	
+
 	private void response2(int choice) {
-		switch(choice) {
+		switch (choice) {
 		case 1:
 			if (isPolite)
 				say("Sorry, sir. The bar is not very well stocked I'm afraid.");
@@ -71,20 +69,19 @@ public class Bartender extends NPC {
 					+ " listen to you whine about your lousy day.");
 		}
 	}
-	
+
 	private void convo3() {
 		say("You're still here. Wonderful. I wouldn't want the opportunity to return"
-				+ " to my nap. Thank you for keeping me occupied. Was there something"
-				+ " you needed?");
+				+ " to my nap. Thank you for keeping me occupied. Was there something" + " you needed?");
 		String[] options = new String[3];
 		options[0] = "Beer. I want beer.";
 		options[1] = "Got any cheese?";
 		options[2] = "So, the front door is locked. Do you have the key?";
 		getResponse(options);
 	}
-	
+
 	private void response3(int choice) {
-		switch(choice) {
+		switch (choice) {
 		case 1:
 			say("Then feel free to visit your local convenience store. Pick up some"
 					+ " slim jims while you're at it. I hear the sushi is lovely as well."
@@ -104,7 +101,7 @@ public class Bartender extends NPC {
 			Player.addItem(new Cookie());
 		}
 	}
-	
+
 	private void convo4() {
 		say("Ah! Excellent! That's exactly what I need. Actually, it looks just like"
 				+ " one my coworker Rupert used to have. Um...so, where did you find this?");
@@ -117,9 +114,9 @@ public class Bartender extends NPC {
 		convo = 4;
 		getResponse(options);
 	}
-	
+
 	private void response4(int choice) {
-		switch(choice) {
+		switch (choice) {
 		case 1:
 			say("Well. I see. A dead guy. Stuffed in a closet. Upstairs. How did you get into"
 					+ " the room? You know, it doesn't matter. There are other rooms with"
@@ -140,7 +137,7 @@ public class Bartender extends NPC {
 			Player.addItem(new LargeKey());
 		}
 	}
-	
+
 	private void convo5() {
 		say("And you're back. Lovely.");
 		String[] options = new String[2];
@@ -150,9 +147,9 @@ public class Bartender extends NPC {
 		convo = 5;
 		getResponse(options);
 	}
-	
+
 	private void response5(int choice) {
-		switch(choice) {
+		switch (choice) {
 		case 1:
 			say("I'm sure it's perfectly acceptible for you to be carrying around a"
 					+ " chainsaw. I have no concerns about that at all. And, yes, I"
@@ -166,7 +163,7 @@ public class Bartender extends NPC {
 					+ " with you. You're very unpleasant. Everyone knows this.");
 		}
 	}
-	
+
 	private void giveBeer() {
 		if (gaveBeer) {
 			Game.print("The bartender glares at you. His eye starts twitching again.");
@@ -176,8 +173,9 @@ public class Bartender extends NPC {
 			Game.endGame();
 		} else {
 			say("Beer? You're giving me...beer? Beer!? BEER!?");
-			Game.print("As the bartended grips the can of cool Dr. Hops beer, his hand starts to shake. His eye starts to"
-					+ " twitch. His lips start to spasm. Drool dribbles over his chin. What the hell is up with this guy?");
+			Game.print(
+					"As the bartended grips the can of cool Dr. Hops beer, his hand starts to shake. His eye starts to"
+							+ " twitch. His lips start to spasm. Drool dribbles over his chin. What the hell is up with this guy?");
 			say("You. You...you...beer-chugging, heathen, barbarian, troglodite...how...why...NO! I will not tolerate your"
 					+ " vile presense here any longer. You will leave! You will leave NOW!");
 			Game.print("More quickly than you thought possible, the bartender leaps across the bar and grabs your ear."
@@ -190,17 +188,23 @@ public class Bartender extends NPC {
 			gaveBeer = true;
 		}
 	}
-	
+
 	public void talk() {
 		if (notMet) {
 			notMet = false;
 			Game.addFlag("met bartender");
 		}
 		convo++;
-		switch(convo) {
-		case 1: convo1(); break;
-		case 2: convo2(); break;
-		case 3: convo3(); break;
+		switch (convo) {
+		case 1:
+			convo1();
+			break;
+		case 2:
+			convo2();
+			break;
+		case 3:
+			convo3();
+			break;
 		default:
 			if (Player.has("chainsaw") && !Player.has("gas can")) {
 				convo5();
@@ -210,17 +214,27 @@ public class Bartender extends NPC {
 				say("Please, sir. I do have other customers to tend to.");
 		}
 	}
-	
+
 	public void response(int choice) {
-		switch(convo) {
-		case 1: response1(choice); break;
-		case 2: response2(choice); break;
-		case 3: response3(choice); break;
-		case 4: response4(choice); break;
-		case 5: response5(choice); break;
+		switch (convo) {
+		case 1:
+			response1(choice);
+			break;
+		case 2:
+			response2(choice);
+			break;
+		case 3:
+			response3(choice);
+			break;
+		case 4:
+			response4(choice);
+			break;
+		case 5:
+			response5(choice);
+			break;
 		}
 	}
-	
+
 	public void look() {
 		if (notMet) {
 			notMet = false;
@@ -231,18 +245,16 @@ public class Bartender extends NPC {
 				+ " look surprised or thrilled by your presence in this otherwise deserted hotel.";
 		Game.print(d);
 	}
-	
+
 	public void give(String itemName) {
 		if (itemName.equals("bottle")) {
 			say("What are you doing with that? Just help yourself while"
 					+ " the bartender is off taking a nap. Is that how it is? It's empty!"
-					+ " Did you drink it all? <mumbles something inaudible but probably not"
-					+ " flattering>");
+					+ " Did you drink it all? <mumbles something inaudible but probably not" + " flattering>");
 			Player.removeItem("bottle");
 		} else if (itemName.equals("sledge hammer")) {
 			say("Actually, I'd rather not hold onto that. When the owner sees whatever you"
-					+ " did upstairs, he might blame the one with the sledge hammer. Better"
-					+ " that's you than me.");
+					+ " did upstairs, he might blame the one with the sledge hammer. Better" + " that's you than me.");
 		} else if (itemName.equals("corkscrew")) {
 			convo4();
 		} else if (itemName.equals("beer")) {
@@ -251,8 +263,7 @@ public class Bartender extends NPC {
 			say("Wow! Well, that's quite generous of you. Quite generous. Thank you, sir."
 					+ " Thank you! Only once have I received a tip more generous, but that"
 					+ " was another time. A quieter time.");
-			Game.print("The bartender stares off into space. Just as the moment starts to"
-					+ " get awkward...");
+			Game.print("The bartender stares off into space. Just as the moment starts to" + " get awkward...");
 			say("Oh? You're still here? Um. Well. Thanks for the tip. Now off you go.");
 			Player.removeItem("cash");
 		} else if (itemName.equals("bronze room key") || itemName.equals("silver room key")) {
@@ -266,7 +277,7 @@ public class Bartender extends NPC {
 		} else
 			super.give(itemName);
 	}
-	
+
 	public void attack(String weaponName) {
 		if (weaponName.equals("bottle")) {
 			Game.print("You whack the bartender over the head with the glass bottle. The bottle"
@@ -275,13 +286,21 @@ public class Bartender extends NPC {
 					+ " a shotgun, which he uses to blow a hole through your chest.");
 			Game.endGame();
 		} else if (weaponName.equals("sledge hammer") || weaponName.equals("crowbar")) {
-			Game.print("You swing the "+weaponName+" and pulverize the bartender into a gory heap"
-					+ " of bone, blood, and organs. I hope you're proud of yourself. As the"
-					+ " bartender was your only means of escaping the hotel, you're now trapped"
-					+ " here for the rest of your miserable life. Too bad you skipped those"
-					+ " anger management classes.");
-			Game.endGame();
-		} else if (weaponName.equals("newspaper")){
+			if (Player.has("gas can")) {
+				Game.print("You swing the " + weaponName + " and pulverize the bartender into a gory heap"
+						+ " of bone, blood, and organs. I hope you're proud of yourself.");
+				Room r = Game.getCurrentRoom();
+				r.removeNPC("bartender");
+				r.setDesc("HOTEL_BAR_C");
+			} else {
+				Game.print("You swing the " + weaponName + " and pulverize the bartender into a gory heap"
+						+ " of bone, blood, and organs. I hope you're proud of yourself. As the"
+						+ " bartender was your only means of escaping the hotel, you're now trapped"
+						+ " here for the rest of your miserable life. Too bad you skipped those"
+						+ " anger management classes.");
+				Game.endGame();
+			}
+		} else if (weaponName.equals("newspaper")) {
 			Game.print("You repeatedly smack the bartender with your folded newspaper. He just"
 					+ " looks at you, bemused, and then snatches the newspaper away from you.");
 			Player.removeItem("newspaper");
@@ -301,5 +320,5 @@ public class Bartender extends NPC {
 			Game.print("You can't do that.");
 		}
 	}
-	
+
 }

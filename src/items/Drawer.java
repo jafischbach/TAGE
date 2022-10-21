@@ -30,7 +30,7 @@ public class Drawer extends Item {
 			if (Player.has("silver room key"))
 				Game.print("There is nothing else in the drawer.");
 			else {
-				Game.print("The only thing in the draw is a silver room key.");
+				Game.print("The only thing in the drawer is a silver room key.");
 				Game.getCurrentRoom().addItem(new RoomKey("silver room key"));
 			}
 	}

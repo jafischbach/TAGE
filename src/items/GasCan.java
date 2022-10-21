@@ -47,7 +47,7 @@ public class GasCan extends Item {
 	public void use() {
 		if (Player.has("gas can"))
 			if (isEmpty)
-				Game.print("The can is empty. Where you planning to use it as a...no, never mind.");
+				Game.print("The can is empty. Were you planning to use it as a...no, never mind.");
 			else {
 				Game.print("You remove the cap and empty the contents of the can into the "
 					+ "chainsaw's tank. Now you have a working chainsaw! You briefly fantasize"

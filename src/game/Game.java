@@ -18,7 +18,7 @@ public class Game {
 	public static final String VERSION = "ALPHA";
 	public static final String DEVELOPER = "The Steve Machine";
 	public static final boolean CONSOLE = false;
-	public static final boolean TEXT_DATA_FILES = false;
+	public static final boolean TEXT_DATA_FILES = true;
 
 	public static void main(String[] args) {
 		startGame();
@@ -35,6 +35,7 @@ public class Game {
 	public static HashMap<String, String> npcDescs;
 	private static HashMap<String, Room> rooms;
 	private static HashMap<String, Integer> flags;
+	private static HashMap<String, String> simpleItems;
 
 	private static int OFFSET = 113;
 
@@ -161,6 +162,14 @@ public class Game {
 		return flags.containsKey(flag);
 	}
 
+	public static void addSimpleItem(String name, String desc) {
+		simpleItems.put(name, desc);
+	}
+	
+	public static String getSimpleItem(String name) {
+		return simpleItems.get(name);
+	}
+	
 	public static void addRoom(String label, Room r) {
 		rooms.put(label, r);
 	}
@@ -255,6 +264,7 @@ public class Game {
 		itemDescs = new HashMap<String, String>();
 		npcDescs = new HashMap<String, String>();
 		rooms = new HashMap<String, Room>();
+		simpleItems = new HashMap<String, String>();
 
 		if (TEXT_DATA_FILES) {
 			populateDescs("rooms.txt", roomDescs);

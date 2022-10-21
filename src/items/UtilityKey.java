@@ -12,7 +12,10 @@ public class UtilityKey extends Item {
 	}
 	
 	public void look() {
-		Game.print("Yet another key. The bartender called it a utility key.");
+		if (roomUnlocked)
+			Game.print("It's the key that opens the door in the utilities room in the basement.");
+		else
+			Game.print("Yet another key. The bartender called it a utility key.");
 	}
 	
 	public void use() {
@@ -21,6 +24,7 @@ public class UtilityKey extends Item {
 		else if (Game.getCurrentRoom().equals("HOTEL_BASEMENT")) {
 			Game.print("Well, imagine that. Your utility key does, in fact, open"
 					+ " a door maked \"Utilities.\" Amazing.");
+			Game.getCurrentRoom().setDesc("HOTEL_BASEMENT_C");
 			Game.getRoom("HOTEL_UTILITIES").setLocked(false);
 			roomUnlocked = true;
 		} else {

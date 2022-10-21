@@ -1,6 +1,7 @@
 package game;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import items.Item;
@@ -17,12 +18,11 @@ public class Room implements Serializable {
 	public static final int UP = 4;
 	public static final int DOWN = 5;
 
-	private HashMap<String, String> simpleItems;
-
 	private String descLabel;
 	private Room[] go;
 	private HashMap<String, Item> items;
 	private HashMap<String, NPC> npcs;
+	private ArrayList<String> simpleItems;
 	private String roomLabel;
 	private boolean isLocked;
 
@@ -49,6 +49,10 @@ public class Room implements Serializable {
 
 	public boolean hasItem(String name) {
 		return items.containsKey(name);
+	}
+
+	public Item getItem(String name) {
+		return items.get(name);
 	}
 
 	public void addNPC(NPC npc) {
@@ -91,18 +95,23 @@ public class Room implements Serializable {
 
 	public void addSimpleItem(String name, String desc) {
 		if (simpleItems == null)
-			simpleItems = new HashMap<String, String>();
-		simpleItems.put(name, desc);
+			simpleItems = new ArrayList<String>();
+		simpleItems.add(name);
+		Game.addSimpleItem(name, desc);
 	}
 
 	public String getSimpleItemDesc(String name) {
-		try {
-			String desc = simpleItems.get(name);
-			if (desc != null)
-				return desc;
-			else
+		if (simpleItems != null && simpleItems.contains(name)) {
+			try {
+				String desc = Game.getSimpleItem(name);
+				if (desc != null)
+					return desc;
+				else
+					return null;
+			} catch (NullPointerException ex) {
 				return null;
-		} catch (NullPointerException ex) {
+			}
+		} else {
 			return null;
 		}
 	}
@@ -161,8 +170,13 @@ public class Room implements Serializable {
 						String itemDesc = getSimpleItemDesc(itemName);
 						if (itemDesc != null)
 							Game.print(itemDesc);
-						else
-							npcs.get(itemName).look();
+						else {
+							NPC npc = npcs.get(itemName);
+							if (npc != null)
+								npc.look();
+							else
+								Game.print("You don't see a " + itemName + " here.");
+						}
 					}
 				else if (action.equalsIgnoreCase("talk"))
 					npcs.get(itemName).talk();

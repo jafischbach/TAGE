@@ -27,6 +27,10 @@ public class Newspaper extends Item {
 		}
 	}
 	
+	public void close() {
+		Game.print("The newspaper is already closed.");
+	}
+	
 	public void take() {
 		if (!taken) {
 			Game.print("You gently lift the newspaper from the old man's lap, being " + 

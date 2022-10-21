@@ -1,5 +1,5 @@
 HOTEL_LOBBY
-The LOBBY is a small room. The exit is to the south. There are doorways east to a lounge, west to a bar, and north to a hallway. A staircase leads up to the second floor.
+The lobby is a small room. The exit is to the south. There are doorways east to a lounge, west to a bar, and north to a hallway. A staircase leads up to the second floor.
 #
 HOTEL_BAR
 There is a long bar along the west wall. Since the bar is closed, there is no bartender at the moment. There is a closed door marked "Rest Room" in the north wall. Another doorway leads east to the lobby.
@@ -8,7 +8,7 @@ HOTEL_BAR_B
 There is a long bar along the west wall. There is a closed door marked "Rest Room" in the north wall. Another doorway leads east to the lobby. A man now stands behind the bar pretending not to notice you. Must be the hotel bartender.
 #
 HOTEL_BAR_C
-This used to be a bar. Now it's nothing more than the bartender's gruesome tomb. There is a closed door, dripping with former bertender, in the north wall. Another doorway leads east to the lobby.
+This used to be a bar. Now it's nothing more than the bartender's gruesome tomb. There is a closed door, dripping with former bartender, in the north wall. Another doorway leads east to the lobby.
 #
 HOTEL_LOUNGE
 This is a pleasant room with a couch and two armchairs. An old man is sleeping in one of the chairs, an old newspaper lays folded in his lap. A doorway leads west to the lobby.
@@ -41,7 +41,7 @@ HOTEL_ROOM_201
 You are standing in a typical hotel bedroom. Well, typical except for the excessive amount of dust. It's clear that no one (other than you) has set foot in this room in years. There is a bed, a nightstand, and a closet. A rug keeps the dust off part of the hardwood floor.
 #
 HOTEL_ROOM_202
-This was probably a hotel room once upon a time. It's mostly empty now. Just you, lots or dust, a refrigerator that's happily humming away, and a hole in the wall.
+This was probably a hotel room once upon a time. It's mostly empty now. Just you, lots of dust, a refrigerator that's happily humming away, and a hole in the wall.
 #
 HOTEL_ROOM_101
 What a nice bedroom! There's a neatly made bed, a nightstand, and a closet. A picture of two gentleman hangs on the wall. There's not a speck of dust anywhere!
@@ -54,6 +54,9 @@ The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of
 #
 HOTEL_BASEMENT_B
 The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of dust (like most of the hotel), and very cold. There are two metal doors. One, in the north wall, is marked "Utlities" and is pretty convincingly locked. Another door, in the south wall, is marked "Exit." If you think that's a way out, you're right. Sadly, it's not YOUR way out. You're never getting through that door.
+#
+HOTEL_BASEMENT_C
+The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of dust (like most of the hotel), and very cold. There are two metal doors. One, in the north wall, is marked "Utlities". Another door, in the south wall, is marked "Exit." If you think that's a way out, you're right. Sadly, it's not YOUR way out. You're never getting through that door.
 #
 HOTEL_UTILITIES
 In contrast to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. A gas can sits on a shelf next to the electric panel. The only exit leads south.

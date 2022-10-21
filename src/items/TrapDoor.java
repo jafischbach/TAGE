@@ -22,13 +22,17 @@ public class TrapDoor extends Item {
 							+ " take.");
 					Player.addItem(new WeeLittleKey());
 				} else 
-					Game.print("There is nothing else hidden beneath the trap door.");
+					Game.print("You don't see anything else hidden beneath the trap door.");
 			else if (cashFound)
 				Game.print("That's a lot of cash. You're not really just going to"
 						+ " leave it there, are you?");
 			else {
-				Game.print("Well, damn! There's a whole lot of cash stashed beneath the"
+				if (Game.hasFlag("met bartender"))
+					Game.print("Well, damn! There's a whole lot of cash stashed beneath the"
 						+ " trap door. The bartender's perhaps?");
+				else 
+					Game.print("Well, damn! There's a whole lot of cash stashed beneath the"
+							+ " trap door.");
 				cashFound = true;
 				Game.getCurrentRoom().addItem(new Cash());
 			}

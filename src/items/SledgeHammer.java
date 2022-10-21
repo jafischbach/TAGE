@@ -24,6 +24,9 @@ public class SledgeHammer extends Item {
 			r.setDesc("HOTEL_HALL_TOP_C");
 			boxSmashed = true;
 			r.removeItem("large box");
+			r.addSimpleItem("debris", "You admire the evidence of your prowess with the mighty"
+					+ " sledge hammer. All large boxes beware! Now careful where you step. You"
+					+ " don't want to get a splinter.");
 			Room hallway = Game.getRoom("HOTEL_HALL_WEST");
 			hallway.setLocked(false);
 			Room room101 = Game.getRoom("HOTEL_ROOM_101");
@@ -35,6 +38,11 @@ public class SledgeHammer extends Item {
 			Game.print("You swing the sledge hammer at the door leading outside, hoping"
 					+ " to at last secure your freedom from this creepy hotel. Sadly, you"
 					+ " lack the strength to smash down this door.");
+		else if (r.equals("HOTEL_BASEMENT"))
+			Game.print("You swing the mighty sledge hammer against the door marked \"Exit\""
+					+ " and the sledge hammer bounces off the metal surface of the door so"
+					+ " hard that you nearly lose your grip. You didn't really expect that"
+					+ " to actually work, did you?");
 		else
 			Game.print("Stop swinging that thing around. You can't smash everything!");
 	}

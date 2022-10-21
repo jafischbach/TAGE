@@ -44,14 +44,14 @@ public class Item implements Serializable {
 	}
 	
 	public void use() {
-		Game.print("You can't use "+name+"!");
+		Game.print("You can't use the "+name+"!");
 	}
 	
 	public void take() {
 		if (Player.has(name))
 			Game.print("You already have the "+name+".");
 		else
-			Game.print("You can't take "+name+"!");
+			Game.print("You can't take the "+name+"!");
 	}
 	
 	public void move() {
@@ -63,7 +63,7 @@ public class Item implements Serializable {
 	}
 	
 	public void close() {
-		Game.print("You can't close "+name+"!");
+		Game.print("You can't close the "+name+"!");
 	}
 	
 }

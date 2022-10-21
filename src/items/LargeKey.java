@@ -12,7 +12,11 @@ public class LargeKey extends Item {
 	}
 	
 	public void look() {
-		Game.print("It's a large, metal key that opens the door marked \"Employees Only\".");
+		if (roomFound)
+			Game.print("It's a large, metal key that opens the door marked \"Employees Only\".");
+		else
+			Game.print("It's a large, metal key. It doesn't look like one of the hotel room"
+					+ " keys, but it probably opens a door somewhere.");
 	}
 	
 	public void use() {

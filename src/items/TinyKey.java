@@ -11,7 +11,10 @@ public class TinyKey extends Item {
 	}
 	
 	public void look() {
-		Game.print("It's a tiny key. Probably too small for a door lock.");
+		if (lockFound)
+			Game.print("That's the key that opened the chest on the second floor.");
+		else
+			Game.print("It's a tiny key. Probably too small for a door lock.");
 	}
 	
 	public void take() {
@@ -28,7 +31,7 @@ public class TinyKey extends Item {
 				lockFound = true;
 			}
 		else
-			Game.print("There's no lock in this room small enough for the tiny key.");
+			Game.print("The tiny key doesn't fit any lock in this room.");
 	}
 	
 }

@@ -12,12 +12,12 @@ public class Corpse extends Item {
 		if (Game.hasFlag("met bartender"))
 			Game.print("Yup. It's a dead guy. It's hard to tell how long he's been dead,"
 				+ " but the remains are definitely not fresh. You have no idea who he"
-				+ " is or how he died or why someone stuffed him in the closet. You"
+				+ " was or how he died or why someone stuffed him in the closet. You"
 				+ " should probably be nice to the bartender from now on though.");
 		else
 			Game.print("Yup. It's a dead guy. It's hard to tell how long he's been dead,"
 					+ " but the remains are definitely not fresh. You have no idea who he"
-					+ " is or how he died or why someone stuffed him in the closet.");
+					+ " was or how he died or why someone stuffed him in the closet.");
 	}
 	
 	public void use() {

@@ -30,7 +30,7 @@ public class Bottle extends Item {
 			if (isOpen)
 				Game.print("You already opened the bottle. Still no genie inside." + " Stop looking.");
 			else {
-				Game.print("You pop open the cork and peer inside the bottle."
+				Game.print("You pull out the cork and peer inside the bottle."
 						+ " You find a tiny key! Tipping the bottle, you extract the tiny key.");
 				Player.addItem("tiny key", new TinyKey("tiny key"));
 				isOpen = true;

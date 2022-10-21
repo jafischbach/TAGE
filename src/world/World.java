@@ -61,6 +61,9 @@ public class World {
 		employeesOnly.setLocked(true);
 		employeesOnly.addExit(hall, Room.WEST);
 		employeesOnly.addExit(basement, Room.DOWN);
+		employeesOnly.addSimpleItem("broom", "Yeah. It's a broom. Don't tell me you want to carry"
+				+ " that around too? Where are you putting all the crap you've been collecting"
+				+ " anyway?");
 		
 		basement.addExit(employeesOnly, Room.UP);
 		basement.addExit(utilities, Room.NORTH);
@@ -69,6 +72,16 @@ public class World {
 		utilities.setLocked(true);
 		utilities.addExit(basement, Room.SOUTH);
 		utilities.addItem(new GasCan());
+		utilities.addSimpleItem("boiler", "The thing looks ancient. You doubt it's been inspected"
+				+ " within the last several decades. With your luck, it'll probably explode"
+				+ " any second now. You probably don't want to linger here.");
+		utilities.addSimpleItem("electric panel", "Looks complicated. Nothing is labelled."
+				+ " You briefly flirt with the idea of flipping some of the switches, but, as this"
+				+ " would almost certainly leave you in the dark in the basement of a creepy"
+				+ " hotel, you quickly reconsider.");
+		utilities.addSimpleItem("laundry machines", "Damn. Those look new. The bartender must"
+				+ " really care about clean underwear.");
+		utilities.addSimpleItem("shelf", "Just a wooden shelf.");
 		
 		upperFloor.addExit(lobby, Room.DOWN);
 		upperFloor.addExit(closet, Room.NORTH);
@@ -81,11 +94,20 @@ public class World {
 		closet.setLocked(true);
 		closet.addExit(upperFloor, Room.SOUTH);
 		closet.addItem(new Chest("HOTEL_CLOSET_TOP_CHEST", "chest"));
+		closet.addSimpleItem("junk", "Just an assortment of (mostly broken) cleaning supplies"
+				+ " of absolutely no use to you.");
 
 		upperWestHallway.setLocked(true);
 		upperWestHallway.addExit(upperFloor, Room.EAST);
 		upperWestHallway.addExit(room201, Room.SOUTH);
 		upperWestHallway.addExit(room202, Room.NORTH);
+		upperWestHallway.addSimpleItem("carpet", "What a boring carpet. You find yourself starting"
+				+ " to fall asleep while gazing at it.");
+		upperWestHallway.addSimpleItem("cobwebs", "You peer up at the ceiling and find numerous"
+				+ " webs. Some just look like globs of dust while others look constructed."
+				+ " You would prefer not to meet the architects.");
+		upperWestHallway.addSimpleItem("bulb", "The single light bulb barely illuminates this"
+				+ " stretch of hallway. You have no desire to venture further.");
 		
 		room201.setLocked(true);
 		room201.addExit(upperWestHallway, Room.NORTH);
@@ -101,6 +123,9 @@ public class World {
 		
 		rr.addExit(bar, Room.SOUTH);
 		rr.addItem(new Toilet("HOTEL_BAR_TOILET", "toilet"));
+		rr.addSimpleItem("sink", "It's a dirty sink. You try turning on the faucet,"
+				+ " but find both handles stuck. You wonder how the staff wash their"
+				+ " hands.");
 	}
 
 	
