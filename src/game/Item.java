@@ -2,7 +2,7 @@ package game;
 
 import java.io.Serializable;
 
-public class Item implements Serializable {
+public abstract class Item implements Serializable {
 
 	public static final long serialVersionUID = 1L;
 	

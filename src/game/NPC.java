@@ -3,7 +3,7 @@ package game;
 import java.io.Serializable;
 import javax.swing.JOptionPane;
 
-public class NPC implements Serializable {
+public abstract class NPC implements Serializable {
 
 	public static final long serialVersionUID = 1L;
 

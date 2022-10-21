@@ -14,6 +14,7 @@ public class GameUtility {
 		Scanner input = new Scanner(System.in);
 		System.out.print("Enter filename to convert: ");
 		fileName = input.nextLine();
+		input.close();
 		convertGameFiles();
 	}
 
@@ -65,7 +66,7 @@ public class GameUtility {
 	private static String obscure(String s) {
 		String o = "";
 		for (char c : s.toCharArray())
-			o += (char) (c + 113);
+			o += (char) (c + OFFSET);
 		return o;
 	}
 

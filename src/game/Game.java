@@ -10,14 +10,48 @@ import javax.swing.JOptionPane;
 
 import world.World;
 
+/**
+ * FlossTAGE (Text Adventure Game Engine) - A game system 
+ * for the development of simple text adventure games in Java.
+ * 
+ * This class contains global game data structures and numerous
+ * utility methods (particularly for I/O).
+ * 
+ * @author J Adam Fischbach
+ * @version beta (2022)
+ */
 public class Game {
 
+	/**
+	 * Game title.
+	 */
 	public static final String TITLE = "Hotel Escape";
-	public static final String VERSION = "ALPHA";
+	
+	/**
+	 * Version number.
+	 */
+	public static final String VERSION = "beta";
+	
+	/**
+	 * Developer name.
+	 */
 	public static final String DEVELOPER = "The Steve Machine";
+	
+	/**
+	 * Is the game a console application? 
+	 * If false, the game will compile as a GUI application.
+	 */
 	public static final boolean CONSOLE = false;
-	public static final boolean TEXT_DATA_FILES = true;
+	
+	/**
+	 * Import data from raw text files? 
+	 * If false, the game will import data from obscured data files.
+	 */
+	public static final boolean TEXT_DATA_FILES = false;
 
+	/**
+	 * Launches the game!
+	 */
 	public static void main(String[] args) {
 		startGame();
 		World.buildWorld();
@@ -27,27 +61,39 @@ public class Game {
 			playGUI();
 	}
 
+	// Data structures containing descriptions of rooms, items, and NPCs.
 	protected static HashMap<String, String> roomDescs;
 	protected static HashMap<String, String> itemDescs;
 	protected static HashMap<String, String> npcDescs;
 
+	// These fields are used by GameGUI to manage user responses to NPC
+	// conversations.
 	protected static boolean convo = false;
 	protected static int convoOptions;
 	protected static NPC character;
 
 	protected static Room currentRoom;
 
-	protected static HashMap<String, Room> rooms;
-	protected static HashMap<String, Integer> flags;
+	protected static HashMap<String, Room> rooms; // All room objects
+	protected static HashMap<String, Integer> flags; // Game state flags
 
+	// Scanner for user input when game is a console application.
 	private static Scanner input = new Scanner(System.in);
 
+	// Descriptions of non-interactive items.
 	private static HashMap<String, String> simpleItems;
 
+	// Shift cipher offset used to obscure data files.
 	private static int OFFSET = 113;
 
+	// Controls game loop for console applications.
 	private static boolean play = true;
 
+	/**
+	 * Standard game output method. Prints the given message.
+	 * 
+	 * @param s message to print
+	 */
 	public static void print(String s) {
 		if (CONSOLE)
 			System.out.println(s + "\n");
@@ -55,6 +101,14 @@ public class Game {
 			GameGUI.display.append(s + "\n\n");
 	}
 
+	/**
+	 * Same as print() but does not add a blank line after
+	 * printing the given message.
+	 * 
+	 * For typical game output, use print().
+	 * 
+	 * @param s message to print
+	 */
 	public static void println(String s) {
 		if (CONSOLE)
 			System.out.println(s);
@@ -62,12 +116,30 @@ public class Game {
 			GameGUI.display.append(s + "\n");
 	}
 
+	/**
+	 * Alerts GameGUI that the next command entered by the user
+	 * is the response to a NPC dialog prompt.
+	 * 
+	 * @param character NPC engaged in dialog with the player
+	 * @param convoOptions number of potential player responses
+	 */
 	public static void convoResponseGUI(NPC character, int convoOptions) {
 		convo = true;
 		Game.character = character;
 		Game.convoOptions = convoOptions;
 	}
 
+	/**
+	 * Prompts the player for a Yes/No response.
+	 * 
+	 * For GUI applications, this will open a dialog box.
+	 * 
+	 * For console applications, this method does not verify
+	 * user input.
+	 * 
+	 * @param prompt prompt to display to player
+	 * @return player's response
+	 */
 	public static char getYesNo(String prompt) {
 		if (CONSOLE) {
 			System.out.print(prompt);
@@ -79,10 +151,29 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Prompts the player to enter a number.
+	 * 
+	 * Will ensure player enters a number (unless cancelled).
+	 * 
+	 * @param prompt prompt to display to player
+	 * @return number entered by player
+	 * @throws CancelledInputException if player clicks Cancel (GUI only)
+	 */
 	public static int getInt(Object prompt) throws CancelledInputException {
 		return getInt(prompt, "Input");
 	}
 
+	/**
+	 * Prompts the player to enter a number.
+	 * 
+	 * Will ensure player enters a number (unless cancelled).
+	 * 
+	 * @param prompt prompt to display to player
+	 * @param title title for dialog box (GUI only)
+	 * @return number entered by player
+	 * @throws CancelledInputException if player clicks Cancel (GUI only)
+	 */
 	public static int getInt(Object prompt, String title) throws CancelledInputException {
 		if (CONSOLE) {
 			try {
@@ -96,8 +187,9 @@ public class Game {
 			}
 		} else {
 			try {
-				String s = JOptionPane.showInputDialog(title.equals("Dialog") ? GameGUI.command : GameGUI.window,
-						prompt, title, JOptionPane.QUESTION_MESSAGE);
+				String s = JOptionPane.showInputDialog(title.equals("Dialog") ? 
+						   GameGUI.command : 
+						   GameGUI.window, prompt, title, JOptionPane.QUESTION_MESSAGE);
 				if (s == null)
 					throw new CancelledInputException();
 				return Integer.parseInt(s);
@@ -109,6 +201,9 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Ends the game.
+	 */
 	public static void endGame() {
 		if (CONSOLE)
 			play = false;
@@ -116,7 +211,8 @@ public class Game {
 			gameOverMessage();
 	}
 
-	public static void gameOverMessage() {
+	// Displays the game over message when game ends.
+	private static void gameOverMessage() {
 		print("I guess we're done here. Thanks for playing. Bye!");
 		if (CONSOLE) {
 			print("<Press ENTER to exit.>");
@@ -128,14 +224,35 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Returns the room the player is currently in.
+	 * @return current room
+	 */
 	public static Room getCurrentRoom() {
 		return currentRoom;
 	}
 
+	/**
+	 * Sets the current room to the given room.
+	 * 
+	 * This essentially "moves" the player to the
+	 * given room.
+	 * 
+	 * @param r room player will move to
+	 */
 	public static void setCurrentRoom(Room r) {
 		currentRoom = r;
 	}
 
+	/**
+	 * Sets the current room to the room with the
+	 * given label.
+	 * 
+	 * This essentially "moves" the player to the
+	 * given room.
+	 * 
+	 * @param label label of room player will move to
+	 */
 	public static void setCurrentRoom(String label) {
 		Room r = rooms.get(label);
 		if (r != null)
@@ -144,16 +261,43 @@ public class Game {
 			throw new InvalidLabelException(label);
 	}
 
+	/**
+	 * Adds the given status flag to the list of global game flags.
+	 * 
+	 * This can be used to indicate that some event has
+	 * occurred in the game.
+	 * 
+	 * @param flag name of flag
+	 */
 	public static void addFlag(String flag) {
 		addFlag(flag, 0);
 	}
 
+	/**
+	 * Adds or updates the given status flag with the given value 
+	 * to the list of global game flags.
+	 * 
+	 * If flag has already been added, this will update the flag's
+	 * value.
+	 * 
+	 * This can be used to add or update an attribute for the
+	 * player, for example.
+	 * 
+	 * @param flag name of flag/attribute
+	 * @param value value of attribute
+	 */
 	public static void addFlag(String flag, int value) {
 		if (flags == null)
 			flags = new HashMap<String, Integer>();
 		flags.put(flag, value);
 	}
 
+	/**
+	 * Returns the specified flag's (or attribute's) value.
+	 * 
+	 * @param flag name of flag/attribute
+	 * @return flag's value
+	 */
 	public static int getFlag(String flag) {
 		if (flags == null)
 			throw new InvalidLabelException("no such flag: " + flag);
@@ -163,28 +307,66 @@ public class Game {
 		return i;
 	}
 
+	/**
+	 * Returns true if the specified flag exists.
+	 * 
+	 * @param flag name of flag
+	 * @return true if flag exists
+	 */
 	public static boolean hasFlag(String flag) {
 		if (flags == null)
 			return false;
 		return flags.containsKey(flag);
 	}
 
+	/**
+	 * Adds the given simple item and item description to the
+	 * global list of simple items.
+	 * 
+	 * A "simple item" is an item that the player can look at but
+	 * not otherwise interact with.
+	 * 
+	 * @param name name of simple item
+	 * @param desc item description
+	 */
 	public static void addSimpleItem(String name, String desc) {
 		simpleItems.put(name, desc);
 	}
 
-	public static String getSimpleItem(String name) {
+	/**
+	 * Returns the description of the specified simple item.
+	 * 
+	 * @param name name of simple item
+	 * @return simple item's description
+	 */
+	protected static String getSimpleItem(String name) {
 		return simpleItems.get(name);
 	}
 
-	public static void addRoom(String label, Room r) {
+	/**
+	 * Add the given room with the given label to the global
+	 * list of rooms.
+	 * 
+	 * @param label
+	 * @param r
+	 */
+	protected static void addRoom(String label, Room r) {
 		rooms.put(label, r);
 	}
 
+	/**
+	 * Returns the room with the specified label.
+	 * 
+	 * @param label label of room
+	 * @return room object
+	 */
 	public static Room getRoom(String label) {
 		return rooms.get(label);
 	}
 
+	/**
+	 * Displays the list of general player commands.
+	 */
 	public static void help() {
 		println("look - display desription of current room");
 		println("n - move north");
@@ -201,6 +383,9 @@ public class Game {
 		println("help npc - displays NPC help\n");
 	}
 
+	/**
+	 * Displays the list of commands player can use with items.
+	 */
 	public static void itemHelp() {
 		println("look <item> - display description of item");
 		println("use <item> - use the item");
@@ -210,6 +395,9 @@ public class Game {
 		println("close <item> - close the item\n");
 	}
 
+	/**
+	 * Displays the list of commands player can use with NPCs.
+	 */
 	public static void npcHelp() {
 		println("look <npc> - display a description of the NPC");
 		println("talk <npc> - talk to the NPC");
@@ -217,6 +405,8 @@ public class Game {
 		println("attack <npc> with <item> - attack the NPC with the item\n");
 	}
 
+	// Populates the specified game data structure with data from the specified 
+	// game text file. Used if application reads data as raw text.
 	private static void populateDescs(String fileName, HashMap<String, String> map) {
 		try {
 			Scanner descReader = new Scanner(new File(fileName));
@@ -236,6 +426,9 @@ public class Game {
 		}
 	}
 
+	// Populates the specified game data structure with data from the specified
+	// game data file. Used if application reads data from obscured data file.
+	@SuppressWarnings("unchecked")
 	private static void loadDataFile(String fileName, HashMap<String, String> map) {
 		try {
 			File dataFile = new File(fileName);
@@ -252,6 +445,7 @@ public class Game {
 		}
 	}
 
+	// Used by loadDataFile() to decrypt the data read from a data file.
 	private static void unobscure(HashMap<String, String> dataMap, HashMap<String, String> map) {
 		for (Entry<String, String> entry : dataMap.entrySet()) {
 			String key = entry.getKey();
@@ -266,7 +460,11 @@ public class Game {
 		}
 	}
 
-	public static void startGame() {
+	/**
+	 * Starts the game by initializing and populating core game
+	 * data structures.
+	 */
+	protected static void startGame() {
 		roomDescs = new HashMap<String, String>();
 		itemDescs = new HashMap<String, String>();
 		npcDescs = new HashMap<String, String>();
@@ -284,6 +482,7 @@ public class Game {
 		}
 	}
 
+	// Main game loop for console applications. 
 	private static void playText() {
 		print(currentRoom.getDesc());
 		do {
@@ -294,12 +493,22 @@ public class Game {
 		gameOverMessage();
 	}
 
+	// Initializes the GUI for GUI applications.
 	private static void playGUI() {
 		GameGUI.buildWindow();
 		print(currentRoom.getDesc());
 	}
 
-	public static void processCommand(String command) {
+	/**
+	 * Processes the given command entered by the player.
+	 * 
+	 * This method handles directional commands as well as
+	 * i (inventory) and x (exit game). Other commands are
+	 * set to Parser for processing.
+	 * 
+	 * @param command command entered by player
+	 */
+	protected static void processCommand(String command) {
 		try {
 			command = command.trim();
 			if (command.length() > 1)

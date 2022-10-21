@@ -125,6 +125,7 @@ public class SaveLoad {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static void loadGame(int fileID) {
 		try {
 			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
