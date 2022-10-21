@@ -1,8 +1,7 @@
-package characters;
+package game;
 
 import java.io.Serializable;
 import javax.swing.JOptionPane;
-import game.*;
 
 public class NPC implements Serializable {
 
@@ -97,13 +96,6 @@ public class NPC implements Serializable {
 					JOptionPane.INFORMATION_MESSAGE);
 			getResponse(options);
 		}
-//			int choice = Game.getInt(s, "Dialog"); 
-//			if (choice > 0 && choice <= options.length)
-//				return choice;
-//			else {
-//				Game.print("That is not a valid option.");
-//				return sayResponse(dialog, options);
-//			}
 	}
 
 	public int sayResponse(String dialog, String[] options) {
@@ -114,12 +106,6 @@ public class NPC implements Serializable {
 		say(s.substring(0, s.length() - 2));
 		try {
 			s = "Select an option (1-" + options.length + "): ";
-//			JTextArea text = new JTextArea(s);
-//			text.setFont(new Font(null, Font.PLAIN, GameGUI.FONT_SIZE));
-//			text.setEditable(false);
-//			text.setFocusable(false);
-//			text.setLineWrap(true);
-//			text.setWrapStyleWord(true);
 			int choice = Game.getInt(s, "Dialog");
 			if (choice > 0 && choice <= options.length)
 				return choice;

@@ -1,10 +1,6 @@
-package items;
+package game;
 
 import java.io.Serializable;
-import java.util.HashMap;
-
-import game.*;
-import game.InvalidLabelException;
 
 public class Item implements Serializable {
 

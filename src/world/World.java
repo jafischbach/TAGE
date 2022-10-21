@@ -8,8 +8,8 @@ public class World {
 
 	public static void buildWorld() {
 		Room lobby = new Room("HOTEL_LOBBY");
-		Game.currentRoom = lobby;
-
+		Game.setCurrentRoom(lobby);
+		
 		Room bar = new Room("HOTEL_BAR");
 		Room lounge = new Room("HOTEL_LOUNGE");
 		Room hall = new Room("HOTEL_HALL_1ST");

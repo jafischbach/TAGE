@@ -22,7 +22,7 @@ public class TinyKey extends Item {
 	}
 	
 	public void use() {
-		if (Game.currentRoom.equals("HOTEL_CLOSET_TOP"))
+		if (Game.getCurrentRoom().equals("HOTEL_CLOSET_TOP"))
 			if(lockFound)
 				Game.print("The tiny key unlocks the chest.");
 			else {

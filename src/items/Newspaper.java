@@ -37,7 +37,7 @@ public class Newspaper extends Item {
 					"careful not to disturb him.");
 			Player.addItem(getName(), this);
 			Game.getCurrentRoom().removeItem("newspaper");
-			Game.currentRoom.setDesc("HOTEL_LOUNGE_B");
+			Game.getCurrentRoom().setDesc("HOTEL_LOUNGE_B");
 			taken = true;
 		} else {
 			Game.print("You already took the paper.");

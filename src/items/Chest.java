@@ -25,7 +25,7 @@ public class Chest extends Item {
 				Game.print("The tiny key fits snugly into the lock and you soon have"
 						+ " the chest open. You lift the lid and see a slegde hammer inside.");
 				isOpen = true;
-				Game.currentRoom.addItem(new SledgeHammer("sledge hammer"));
+				Game.getCurrentRoom().addItem(new SledgeHammer("sledge hammer"));
 			} else {
 				Game.print("The chest is locked.");
 			}

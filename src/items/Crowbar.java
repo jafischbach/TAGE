@@ -1,6 +1,7 @@
 package items;
 
 import game.Game;
+import game.Item;
 import game.Player;
 import game.Room;
 

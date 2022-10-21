@@ -2,8 +2,6 @@ package game;
 
 import java.util.HashMap;
 
-import items.Item;
-
 public class Player {
 
 	public static String name;

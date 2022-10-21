@@ -5,11 +5,9 @@ import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
 import java.util.Scanner;
-import characters.NPC;
 
 import javax.swing.JOptionPane;
 
-import items.Item;
 import world.World;
 
 public class Game {
@@ -29,21 +27,26 @@ public class Game {
 			playGUI();
 	}
 
-	public static Scanner input = new Scanner(System.in);
-	public static HashMap<String, String> roomDescs;
-	public static HashMap<String, String> itemDescs;
-	public static HashMap<String, String> npcDescs;
-	private static HashMap<String, Room> rooms;
-	private static HashMap<String, Integer> flags;
+	protected static HashMap<String, String> roomDescs;
+	protected static HashMap<String, String> itemDescs;
+	protected static HashMap<String, String> npcDescs;
+
+	protected static boolean convo = false;
+	protected static int convoOptions;
+	protected static NPC character;
+
+	protected static Room currentRoom;
+
+	protected static HashMap<String, Room> rooms;
+	protected static HashMap<String, Integer> flags;
+
+	private static Scanner input = new Scanner(System.in);
+
 	private static HashMap<String, String> simpleItems;
 
 	private static int OFFSET = 113;
 
 	private static boolean play = true;
-	public static boolean convo = false;
-	public static int convoOptions;
-	public static NPC character;
-	public static Room currentRoom;
 
 	public static void print(String s) {
 		if (CONSOLE)
@@ -129,6 +132,10 @@ public class Game {
 		return currentRoom;
 	}
 
+	public static void setCurrentRoom(Room r) {
+		currentRoom = r;
+	}
+
 	public static void setCurrentRoom(String label) {
 		Room r = rooms.get(label);
 		if (r != null)
@@ -165,11 +172,11 @@ public class Game {
 	public static void addSimpleItem(String name, String desc) {
 		simpleItems.put(name, desc);
 	}
-	
+
 	public static String getSimpleItem(String name) {
 		return simpleItems.get(name);
 	}
-	
+
 	public static void addRoom(String label, Room r) {
 		rooms.put(label, r);
 	}
@@ -293,26 +300,11 @@ public class Game {
 	}
 
 	public static void processCommand(String command) {
-		if (command.equalsIgnoreCase("look"))
-			print(currentRoom.getDesc());
-		else if (command.equalsIgnoreCase("save"))
-			saveGame();
-		else if (command.equalsIgnoreCase("load"))
-			loadGame();
-		else if (command.equalsIgnoreCase("help"))
-			help();
-		else if (command.equalsIgnoreCase("help item"))
-			itemHelp();
-		else if (command.equalsIgnoreCase("help npc"))
-			npcHelp();
-		else if (command.length() > 1)
-			try {
-				currentRoom.action(command.toLowerCase());
-			} catch (InvalidActionException ex) {
-				Game.print(ex.getMessage());
-			}
-		else {
-			try {
+		try {
+			command = command.trim();
+			if (command.length() > 1)
+				Parser.processCommand(currentRoom, command.toLowerCase());
+			else {
 				char direction = Character.toLowerCase(command.charAt(0));
 				switch (direction) {
 				case 'e':
@@ -349,140 +341,13 @@ public class Game {
 				}
 				if (direction != 'x' && direction != 'i')
 					print(currentRoom.getDesc());
-			} catch (InvalidDirectionException ex) {
-				print(ex.getMessage());
-			} catch (IndexOutOfBoundsException ex) {
-				// Nothing to do here.
 			}
-		}
-	}
-
-	public static String[] getSaves() {
-		File files = new File(System.getProperty("user.dir") + "\\saves");
-		if (files.exists()) {
-			String[] list = files.list(new FilenameFilter() {
-				public boolean accept(File f, String name) {
-					int len = name.length();
-					return len < 4 ? false : name.substring(len - 3, len).equals("sav");
-				}
-			});
-			return list;
-		} else {
-			return null;
-		}
-	}
-
-	public static int getOption(String s, int min, int max, String title) throws CancelledInputException {
-		int option = getInt(s + "\nEnter option (" + min + "-" + max + "): ", title);
-		if (option < min || option > max) {
-			if (CONSOLE)
-				print("Invalid option.");
-			else
-				JOptionPane.showMessageDialog(GameGUI.window, "Invalid option.", "Error",
-						JOptionPane.INFORMATION_MESSAGE);
-			return getOption(s, min, max, title);
-		}
-		return option;
-	}
-
-	public static void saveGame() {
-		int option;
-		int fileID = 1;
-		boolean cancel = false;
-		String[] saves = getSaves();
-		if (saves == null) {
-			File files = new File(System.getProperty("user.dir") + "\\saves");
-			files.mkdir();
-			option = 0;
-		} else {
-			String s = "0: New Save\n";
-			int i;
-			for (i = 0; i < saves.length; i++)
-				s += (i + 1) + ": " + saves[i] + "\n";
-			s += (i + 1) + ": Cancel\n";
-			try {
-				option = getOption(s, 0, i + 1, "Save Game");
-				if (option == 0)
-					fileID = i + 1;
-				else if (option == i + 1)
-					cancel = true;
-				else
-					fileID = option;
-			} catch (CancelledInputException ex) {
-				cancel = true;
-			}
-		}
-		if (cancel) {
-			Game.print("Save cancelled.");
-		} else {
-			saveGame(fileID);
-		}
-	}
-
-	public static void saveGame(int fileID) {
-		try {
-			File saveFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
-			if (saveFile.exists()) {
-				char choice = getYesNo("Overwrite save file (y/n)? ");
-				if (choice != 'y') {
-					Game.print("Save cancelled.");
-					return;
-				}
-			}
-			saveFile.createNewFile();
-			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
-			stream.writeObject(Player.inventory);
-			stream.writeObject(rooms);
-			stream.writeObject(flags);
-			stream.writeObject(currentRoom);
-			stream.close();
-			Game.print("Game saved.");
-		} catch (FileNotFoundException ex) {
-			Game.print("Error accessing save file.");
-		} catch (IOException ex) {
-			Game.print("Error creating save file.");
-			ex.printStackTrace();
-		}
-	}
-
-	public static void loadGame() {
-		String[] saves = getSaves();
-		if (saves == null)
-			Game.print("No saved games.");
-		else {
-			int i;
-			String s = "";
-			for (i = 0; i < saves.length; i++)
-				s += (i + 1) + ": " + saves[i] + "\n";
-			s += (i + 1) + ": Cancel\n";
-			try {
-				int option = getOption(s, 1, i + 1, "Load Game");
-				if (option == i + 1) {
-					Game.print("Load cancelled.");
-				} else {
-					loadGame(option);
-				}
-			} catch (CancelledInputException ex) {
-				print("Load cancelled.");
-			}
-		}
-	}
-
-	public static void loadGame(int fileID) {
-		try {
-			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
-			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
-			Player.inventory = (HashMap<String, Item>) stream.readObject();
-			rooms = (HashMap<String, Room>) stream.readObject();
-			flags = (HashMap<String, Integer>) stream.readObject();
-			currentRoom = (Room) stream.readObject();
-			stream.close();
-		} catch (FileNotFoundException ex) {
-			Game.print("Save file not found.");
-		} catch (IOException ex) {
-			Game.print("Error loading save file.");
-		} catch (ClassNotFoundException ex) {
-			ex.printStackTrace();
+		} catch (InvalidDirectionException ex) {
+			print(ex.getMessage());
+		} catch (InvalidActionException ex) {
+			Game.print(ex.getMessage());
+		} catch (IndexOutOfBoundsException ex) {
+			// Nothing to do here.
 		}
 	}
 

@@ -3,7 +3,6 @@ package game;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
-import items.Item;
 import world.World;
 
 import java.awt.*;
@@ -111,7 +110,7 @@ public class GameGUI {
 					Player.inventory = new HashMap<String, Item>();
 					Game.startGame();
 					World.buildWorld();
-					display.setText(Game.currentRoom.getDesc() + "\n\n");
+					display.setText(Game.getCurrentRoom().getDesc() + "\n\n");
 					command.setEditable(true);
 					saveMenuItem.setEnabled(true);
 				}
@@ -120,13 +119,13 @@ public class GameGUI {
 		saveMenuItem = new JMenuItem("Save");
 		saveMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Game.saveGame();
+				SaveLoad.saveGame();
 			}
 		});
 		JMenuItem loadMenuItem = new JMenuItem("Load");
 		loadMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Game.loadGame();
+				SaveLoad.loadGame();
 				command.setEditable(true);
 				saveMenuItem.setEnabled(true);
 			}

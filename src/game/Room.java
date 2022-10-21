@@ -2,10 +2,9 @@ package game;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-
-import items.Item;
-import characters.NPC;
+import java.util.List;
 
 public class Room implements Serializable {
 
@@ -20,8 +19,8 @@ public class Room implements Serializable {
 
 	private String descLabel;
 	private Room[] go;
-	private HashMap<String, Item> items;
-	private HashMap<String, NPC> npcs;
+	protected HashMap<String, Item> items;
+	protected HashMap<String, NPC> npcs;
 	private ArrayList<String> simpleItems;
 	private String roomLabel;
 	private boolean isLocked;
@@ -114,93 +113,6 @@ public class Room implements Serializable {
 		} else {
 			return null;
 		}
-	}
-
-	public void action(String command) {
-		int index = command.indexOf(' ');
-		if (index < 0)
-			throw new InvalidActionException("Invalid command.");
-		String action = command.substring(0, index);
-		if (command.length() == action.length())
-			throw new InvalidActionException("Invalid command.");
-		if (action.equalsIgnoreCase("give")) {
-			if (npcs == null)
-				throw new InvalidActionException("There's no one here, dude!");
-			index = command.indexOf(" to ");
-			if (index < 0)
-				throw new InvalidActionException("Give what to whom?");
-			String itemName = command.substring(5, index);
-			String npcName = command.substring(index + 4, command.length());
-			NPC npc = npcs.get(npcName);
-			if (npc == null)
-				Game.print("There is no " + npcName + " in the room.");
-			else {
-				if (Player.has(itemName))
-					npc.give(itemName);
-				else
-					Game.print("You don't have a " + itemName);
-			}
-		} else if (action.equalsIgnoreCase("attack")) {
-			if (npcs == null)
-				throw new InvalidActionException("There's no one here, dude!");
-			index = command.indexOf(" with ");
-			if (index < 0)
-				throw new InvalidActionException("Attack whom with what?");
-			String npcName = command.substring(7, index);
-			String weaponName = command.substring(index + 6, command.length());
-			NPC npc = npcs.get(npcName);
-			if (npc == null)
-				Game.print("There is no " + npcName + " in the room.");
-			else {
-				if (Player.has(weaponName))
-					npc.attack(weaponName);
-				else
-					Game.print("You don't have a " + weaponName + ".");
-			}
-		} else {
-			String itemName = command.substring(index + 1);
-			Item i = Player.getItem(itemName);
-			if (i == null && items != null)
-				i = items.get(itemName);
-			try {
-				if (action.equalsIgnoreCase("look"))
-					if (i != null)
-						i.look();
-					else {
-						String itemDesc = getSimpleItemDesc(itemName);
-						if (itemDesc != null)
-							Game.print(itemDesc);
-						else {
-							NPC npc = npcs.get(itemName);
-							if (npc != null)
-								npc.look();
-							else
-								Game.print("You don't see a " + itemName + " here.");
-						}
-					}
-				else if (action.equalsIgnoreCase("talk"))
-					npcs.get(itemName).talk();
-				else if (action.equalsIgnoreCase("take"))
-					i.take();
-				else if (action.equalsIgnoreCase("move"))
-					i.move();
-				else if (action.equalsIgnoreCase("use"))
-					i.use();
-				else if (action.equalsIgnoreCase("open"))
-					i.open();
-				else if (action.equalsIgnoreCase("close"))
-					i.close();
-				else
-					Game.print("Invalid command.");
-			} catch (NullPointerException ex) {
-				String itemDesc = getSimpleItemDesc(itemName);
-				if (itemDesc == null)
-					Game.print("You don't see a " + itemName + " in this room!");
-				else
-					Game.print("You can't do that with the " + itemName + ".");
-			}
-		}
-
 	}
 
 	public Room goEast() {
