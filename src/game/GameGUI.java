@@ -1,5 +1,6 @@
 package game;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.text.DefaultCaret;
 
@@ -7,47 +8,100 @@ import world.World;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 
 public class GameGUI {
 
 	public static final int FONT_SIZE = 18;
+	public static final String ICON_FILENAME = "bartenderIcon.png";
 
+	public static JLabel roomNameLabel;
+	public static JTextArea roomDisplay;
 	public static JTextArea display;
 	public static JTextField command;
 	public static JFrame window;
 	public static JMenuItem saveMenuItem;
+	private static String lastCommand = "";
 
-	public static void switchColor() {
-		display.setForeground(display.getForeground() == Color.BLUE ? Color.BLACK : Color.BLUE);
+	public static void displayRoom(Room r) {
+		roomNameLabel.setText(r.getName());
+		roomDisplay.setText(r.getDesc());
+	}
+	
+	public static void setResponseColor(Color c) {
+		display.setForeground(c);
 	}
 
+	public static void setRoomColor(Color c) {
+		roomDisplay.setForeground(c);
+	}
+	
 	public static void buildWindow() {
 		window = new JFrame();
 		window.setTitle(Game.TITLE);
+		try {
+			window.setIconImage(ImageIO.read(new File(ICON_FILENAME)));
+		} catch(IOException ex) {
+			
+		}
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		window.setJMenuBar(buildMenuBar());
 
 		window.setLayout(new BorderLayout());
-		window.add(buildDisplay(), BorderLayout.CENTER);
+		
+		roomNameLabel = new JLabel("Room");
+		roomNameLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		roomNameLabel.setFont(new Font(null, Font.BOLD, FONT_SIZE));
+		window.add(roomNameLabel, BorderLayout.NORTH);
+		
+		JPanel mainPanel = new JPanel(new GridBagLayout());
+		GridBagConstraints c = new GridBagConstraints();
+		c.fill = GridBagConstraints.BOTH;
+		c.gridx = 0;
+		c.gridy = 0;
+		c.weightx = 1.0;
+		c.weighty = 0.5;
+		mainPanel.add(buildRoomDisplay(), c);
+		c.gridy = 1;
+		c.gridheight = 2;
+		c.ipady = 100;
+		mainPanel.add(buildDisplay(), c);
+		window.add(mainPanel, BorderLayout.CENTER);
 		window.add(buildCommandPanel(), BorderLayout.SOUTH);
 
-		window.setSize(800, 500);
+		window.setSize(800, 550);
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
+	}
+	
+	private static JScrollPane buildRoomDisplay() {
+		roomDisplay = new JTextArea();
+		roomDisplay.setFont(new Font(null, Font.PLAIN, FONT_SIZE));
+		roomDisplay.setEditable(false);
+		roomDisplay.setFocusable(false);
+		roomDisplay.setLineWrap(true);
+		roomDisplay.setWrapStyleWord(true);
+		DefaultCaret caret = (DefaultCaret) roomDisplay.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
+		roomDisplay.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10),
+				BorderFactory.createEtchedBorder()));
+		JScrollPane scrollPane = new JScrollPane(roomDisplay);
+		return scrollPane;
 	}
 
 	private static JScrollPane buildDisplay() {
 		display = new JTextArea();
 		display.setFont(new Font(null, Font.PLAIN, FONT_SIZE));
-		display.setForeground(Color.BLUE);
+		setResponseColor(Color.BLUE);
 		display.setEditable(false);
 		display.setFocusable(false);
 		display.setLineWrap(true);
 		display.setWrapStyleWord(true);
 		DefaultCaret caret = (DefaultCaret) display.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		caret.setUpdatePolicy(DefaultCaret.NEVER_UPDATE);
 		display.setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10),
 				BorderFactory.createEtchedBorder()));
 		JScrollPane scrollPane = new JScrollPane(display);
@@ -65,6 +119,7 @@ public class GameGUI {
 		command.addKeyListener(new KeyListener() {
 			public void keyTyped(KeyEvent event) {
 				if (event.getKeyChar() == '\n') {
+					display.setText("");
 					if (Game.convo) {
 						try {
 							int choice = Integer.parseInt(command.getText());
@@ -78,19 +133,24 @@ public class GameGUI {
 							Game.print("You must enter a number.");
 						}
 					} else {
-						Game.print("--------------------------------------");
+						//Game.print("--------------------------------------");
 						Game.processCommand(command.getText());
 					}
+					lastCommand = command.getText();
 					command.setText("");
 				}
 			}
 
 			@Override
 			public void keyPressed(KeyEvent e) {
+				
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_UP) {
+					command.setText(lastCommand);
+				}
 			}
 		});
 		commandPanel.add(command);
@@ -104,7 +164,7 @@ public class GameGUI {
 		newMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int option = JOptionPane.showConfirmDialog(window,
-						"Are you sure you want to " + "start a new game? You will lose all unsaved progress.",
+						"Are you sure you want to start a new game? You will lose all unsaved progress.",
 						"New Game", JOptionPane.YES_NO_OPTION);
 				if (option == JOptionPane.YES_OPTION) {
 					Player.inventory = new HashMap<String, Item>();
@@ -174,7 +234,7 @@ public class GameGUI {
 				String s = Game.TITLE + "\n";
 				s += "Version: " + Game.VERSION + "\n\n";
 				s += "Developer: " + Game.DEVELOPER + "\n\n";
-				s += "FlossTAGE Version: ALPHA";
+				s += "FlossTAGE Version: beta";
 				JOptionPane.showMessageDialog(window, s, "About", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});

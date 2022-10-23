@@ -22,6 +22,7 @@ public class SledgeHammer extends Item {
 			Game.print("With a mighty swing, you smite the large box. Ten minutes later,"
 					+ " you manage to reduce the large box to a pile of splinters.");
 			r.setDesc("HOTEL_HALL_TOP_C");
+			Game.printRoom();
 			boxSmashed = true;
 			r.removeItem("large box");
 			r.addSimpleItem("debris", "You admire the evidence of your prowess with the mighty"

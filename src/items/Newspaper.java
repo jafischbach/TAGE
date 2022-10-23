@@ -36,8 +36,10 @@ public class Newspaper extends Item {
 			Game.print("You gently lift the newspaper from the old man's lap, being " + 
 					"careful not to disturb him.");
 			Player.addItem(getName(), this);
-			Game.getCurrentRoom().removeItem("newspaper");
-			Game.getCurrentRoom().setDesc("HOTEL_LOUNGE_B");
+			Room r = Game.getCurrentRoom();
+			r.removeItem("newspaper");
+			r.setDesc("HOTEL_LOUNGE_B");
+			Game.printRoom();
 			taken = true;
 		} else {
 			Game.print("You already took the paper.");

@@ -16,6 +16,7 @@ public class Room implements Serializable {
 	public static final int DOWN = 5;
 
 	private String descLabel;
+	private String roomName;
 	private Room[] go;
 	protected HashMap<String, Item> items;
 	protected HashMap<String, NPC> npcs;
@@ -23,8 +24,9 @@ public class Room implements Serializable {
 	private String roomLabel;
 	private boolean isLocked;
 
-	public Room(String label) {
+	public Room(String label, String name) {
 		roomLabel = label;
+		roomName = name;
 		if (!Game.roomDescs.containsKey(label))
 			throw new InvalidLabelException(label);
 		descLabel = label;
@@ -34,11 +36,15 @@ public class Room implements Serializable {
 	}
 
 	public void addItem(Item item) {
-		if (items == null)
-			items = new HashMap<String, Item>();
-		items.put(item.getName(), item);
+		addItem(item, item.getName());
 	}
 
+	public void addItem(Item item, String name) {
+		if (items == null)
+			items = new HashMap<String, Item>();
+		items.put(name, item);
+	}
+	
 	public void removeItem(String name) {
 		if (items != null)
 			items.remove(name);
@@ -67,6 +73,14 @@ public class Room implements Serializable {
 		go[direction] = room;
 	}
 
+	public String getName() {
+		return roomName;
+	}
+	
+	public void setName(String name) {
+		roomName = name;
+	}
+	
 	public String getDesc() {
 		return Game.roomDescs.get(descLabel);
 	}

@@ -61,5 +61,8 @@ The hotel's basement. What a dank and unpleasant place. It's poorly lit, full of
 HOTEL_UTILITIES
 In contrast to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. A gas can sits on a shelf next to the electric panel. The only exit leads south.
 #
+HOTEL_UTILITIES_B
+In contrast to the previous room, this one is hot enough to make you sweat. There's a boiler along one wall, a large electric panel on another, and the hotel's laundry machines along a third. The only exit leads south.
+#
 EXIT
 Sweet freedom! You finally escape from the worst hotel experience you've ever had. You close your eyes and smell the glorious fresh air. When you open them, you find yourself face to face with an irate officer of the law. The cop blocks your way.

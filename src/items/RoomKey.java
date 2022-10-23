@@ -40,7 +40,7 @@ public class RoomKey extends Item {
 			if (room201unlocked)
 				Game.print("You've already unlocked Room 201.");
 			else if (Game.getCurrentRoom().equals("HOTEL_HALL_WEST")) {
-				Game.print("You insert the bronze room key into the look of Room 201. Not"
+				Game.print("You insert the bronze room key into the lock of Room 201. Not"
 						+ " shockingly, the key fits and you unlock the door.");
 				Game.getRoom("HOTEL_ROOM_201").setLocked(false);
 				room201unlocked = true;

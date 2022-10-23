@@ -29,7 +29,10 @@ public class GasCan extends Item {
 		else {
 			Game.print("You retrieve the gas can from the shelf.");
 			Player.addItem(this);
-			Game.getCurrentRoom().removeItem("gas can");
+			Room r = Game.getCurrentRoom();
+			r.removeItem("gas can");
+			r.setDesc("HOTEL_UTILITIES_B");
+			Game.printRoom();
 		}
 	}
 	

@@ -186,6 +186,7 @@ public class Bartender extends NPC {
 			Game.getRoom("HOTEL_EMPLOYEES_ONLY").setLocked(false);
 			Player.removeItem("beer");
 			gaveBeer = true;
+			Game.printRoom();
 		}
 	}
 
@@ -292,6 +293,7 @@ public class Bartender extends NPC {
 				Room r = Game.getCurrentRoom();
 				r.removeNPC("bartender");
 				r.setDesc("HOTEL_BAR_C");
+				Game.printRoom();
 			} else {
 				Game.print("You swing the " + weaponName + " and pulverize the bartender into a gory heap"
 						+ " of bone, blood, and organs. I hope you're proud of yourself. As the"
@@ -312,6 +314,7 @@ public class Bartender extends NPC {
 				Room r = Game.getCurrentRoom();
 				r.removeNPC("bartender");
 				r.setDesc("HOTEL_BAR_C");
+				Game.printRoom();
 			} else {
 				Game.print("While you'd love to put a permanent end to the bartender, your"
 						+ " weapon of choice is lacking in power.");

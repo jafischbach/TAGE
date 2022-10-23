@@ -24,6 +24,7 @@ public class Chainsaw extends Item {
 			Room r = Game.getCurrentRoom();
 			r.removeItem("chainsaw");
 			r.setDesc("HOTEL_BASEMENT_B");
+			Game.printRoom();
 		}
 	}
 	

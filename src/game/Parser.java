@@ -6,8 +6,7 @@ import java.util.List;
 public class Parser {
 
 	private static final List<String> complexCommands = Arrays.asList("give", "attack");
-	private static final List<String> simpleCommands = Arrays.asList("look", "save", "load", "help", "help item",
-			"help npc");
+	private static final List<String> simpleCommands = Arrays.asList("look", "save", "load", "help", "help item", "help npc");
 
 	private static NPC getNPC(Room r, String name) {
 		NPC npc = r.npcs.get(name);
@@ -48,7 +47,8 @@ public class Parser {
 
 	private static void processSimpleCommand(Room r, String command) {
 		if (command.equalsIgnoreCase("look"))
-			Game.print(r.getDesc());
+			if (Game.CONSOLE)
+				Game.print(r.getDesc());
 		else if (command.equalsIgnoreCase("save"))
 			SaveLoad.saveGame();
 		else if (command.equalsIgnoreCase("load"))

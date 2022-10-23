@@ -10,7 +10,7 @@ import characters.*;
  * This short game consists of 15 rooms, 32 items, and 4 NPCs.
  * 
  * The World class constructs the game world by creating all rooms,
- * most items and one NPC. Additional items and NPCs are created
+ * most items and two NPCs. Additional items and NPCs are created
  * dynamically as the player progresses through the game.
  * 
  * @version beta (2022)
@@ -19,30 +19,29 @@ import characters.*;
 public class World {
 
 	public static void buildWorld() {
-		Room lobby = new Room("HOTEL_LOBBY");
+		Room lobby = new Room("HOTEL_LOBBY", "Lobby");
 		Game.setCurrentRoom(lobby);
 		
-		Room bar = new Room("HOTEL_BAR");
-		Room lounge = new Room("HOTEL_LOUNGE");
-		Room hall = new Room("HOTEL_HALL_1ST");
-		Room upperFloor = new Room("HOTEL_HALL_TOP");
-		Room closet = new Room("HOTEL_CLOSET_TOP");
-		Room upperWestHallway = new Room("HOTEL_HALL_WEST");
-		Room rr = new Room("HOTEL_BAR_RR");
-		Room room101 = new Room("HOTEL_ROOM_101");
-		Room room201 = new Room("HOTEL_ROOM_201");
-		Room room202 = new Room("HOTEL_ROOM_202");
-		Room employeesOnly = new Room("HOTEL_EMPLOYEES_ONLY");
-		Room basement = new Room("HOTEL_BASEMENT");
-		Room utilities = new Room("HOTEL_UTILITIES");
-		Room exit = new Room("EXIT");
+		Room bar = new Room("HOTEL_BAR", "Bar");
+		Room lounge = new Room("HOTEL_LOUNGE", "Lounge");
+		Room hall = new Room("HOTEL_HALL_1ST", "First Floor Hall");
+		Room upperFloor = new Room("HOTEL_HALL_TOP", "Second Floor Hall");
+		Room closet = new Room("HOTEL_CLOSET_TOP", "Storage Room");
+		Room upperWestHallway = new Room("HOTEL_HALL_WEST", "Second Floor West Hall");
+		Room rr = new Room("HOTEL_BAR_RR", "Restroom");
+		Room room101 = new Room("HOTEL_ROOM_101", "Room 101");
+		Room room201 = new Room("HOTEL_ROOM_201", "Room 201");
+		Room room202 = new Room("HOTEL_ROOM_202", "Room 202");
+		Room employeesOnly = new Room("HOTEL_EMPLOYEES_ONLY", "Basement Access");
+		Room basement = new Room("HOTEL_BASEMENT", "Basement");
+		Room utilities = new Room("HOTEL_UTILITIES", "Utility Room");
+		Room exit = new Room("EXIT", "The Great Outdoors");
 		
 		lobby.addExit(bar, Room.WEST);
 		lobby.addExit(lounge, Room.EAST);
 		lobby.addExit(hall, Room.NORTH);
 		lobby.addExit(upperFloor, Room.UP);
 		lobby.addExit(exit, Room.SOUTH);
-		lobby.addNPC(new Bartender("bartender"));
 
 		exit.setLocked(true);
 		exit.addExit(lobby, Room.NORTH);
@@ -98,10 +97,14 @@ public class World {
 		upperFloor.addExit(lobby, Room.DOWN);
 		upperFloor.addExit(closet, Room.NORTH);
 		upperFloor.addExit(upperWestHallway, Room.WEST);
-		upperFloor.addItem(new LargeBox("HOTEL_HALL_LARGE_BOX", "large box"));
-		upperFloor.addSimpleItem("furniture", "Various pieces of furniture are stacked"
+		Item box = new LargeBox("HOTEL_HALL_LARGE_BOX", "large box");
+		upperFloor.addItem(box);
+		upperFloor.addItem(box, "box");
+		String furnitureDesc = "Various pieces of furniture are stacked"
 				+ " hapazardly in the hallway, barring your way. There are too many peices"
-				+ " of furniture for you to move yourself. You will not be able to go that way.");
+				+ " of furniture for you to move yourself. You will not be able to go that way.";
+		upperFloor.addSimpleItem("furniture", furnitureDesc);
+		upperFloor.addSimpleItem("stacked furniture", furnitureDesc);
 		
 		closet.setLocked(true);
 		closet.addExit(upperFloor, Room.SOUTH);
@@ -131,7 +134,9 @@ public class World {
 		room202.setLocked(true);
 		room202.addExit(upperWestHallway, Room.SOUTH);
 		room202.addItem(new Refrigerator());
-		room202.addItem(new Hole());
+		Item hole = new Hole();
+		room202.addItem(hole);
+		room202.addItem(hole, "mouse hole");
 		
 		rr.addExit(bar, Room.SOUTH);
 		rr.addItem(new Toilet("HOTEL_BAR_TOILET", "toilet"));

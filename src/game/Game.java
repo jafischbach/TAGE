@@ -28,12 +28,12 @@ public class Game {
 	public static final String TITLE = "Hotel Escape";
 	
 	/**
-	 * Version number.
+	 * Game version number.
 	 */
 	public static final String VERSION = "beta";
 	
 	/**
-	 * Developer name.
+	 * Game developer name.
 	 */
 	public static final String DEVELOPER = "The Steve Machine";
 	
@@ -101,6 +101,11 @@ public class Game {
 			GameGUI.display.append(s + "\n\n");
 	}
 
+	public static void printRoom() {
+		if (!CONSOLE)
+			GameGUI.displayRoom(currentRoom);
+	}
+	
 	/**
 	 * Same as print() but does not add a blank line after
 	 * printing the given message.
@@ -226,6 +231,7 @@ public class Game {
 
 	/**
 	 * Returns the room the player is currently in.
+	 * 
 	 * @return current room
 	 */
 	public static Room getCurrentRoom() {
@@ -496,7 +502,7 @@ public class Game {
 	// Initializes the GUI for GUI applications.
 	private static void playGUI() {
 		GameGUI.buildWindow();
-		print(currentRoom.getDesc());
+		printRoom();
 	}
 
 	/**
@@ -547,16 +553,20 @@ public class Game {
 					break;
 				default:
 					print("Invalid direction.");
+					return;
 				}
 				if (direction != 'x' && direction != 'i')
-					print(currentRoom.getDesc());
+					if (CONSOLE)
+						print(currentRoom.getDesc());
+					else
+						printRoom();
 			}
 		} catch (InvalidDirectionException ex) {
 			print(ex.getMessage());
 		} catch (InvalidActionException ex) {
 			Game.print(ex.getMessage());
 		} catch (IndexOutOfBoundsException ex) {
-			// Nothing to do here.
+			Game.print("Invalid command.");
 		}
 	}
 
