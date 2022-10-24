@@ -207,7 +207,7 @@ public class Bartender extends NPC {
 			convo3();
 			break;
 		default:
-			if (Player.has("chainsaw") && !Player.has("gas can")) {
+			if (Player.has("chainsaw") && !Player.has("utility key")) {
 				convo5();
 			} else if (gaveBeer)
 				say("And you're still here. Wonderful.");

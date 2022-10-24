@@ -140,4 +140,17 @@ public abstract class Item implements Serializable {
 		Game.print("You can't close the "+name+"!");
 	}
 	
+	/**
+	 * Responds to a command unique to this item if such
+	 * a command exists.
+	 * 
+	 * Extending classes should override this method if
+	 * the item should respond to a unique command.
+	 * 
+	 * @param command command issued by player
+	 */
+	public void uniqueCommand(String command) {
+		Game.print("You can't do that with the "+name+".");
+	}
+	
 }

@@ -46,4 +46,11 @@ public class Chest extends Item {
 				+ " it's way too heavy. Don't give yourself a hernia.");
 	}
 	
+	public void uniqueCommand(String command) {
+		if (command.equals("unlock"))
+			open();
+		else
+			super.uniqueCommand(command);
+	}
+	
 }

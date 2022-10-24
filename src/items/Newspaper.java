@@ -46,4 +46,10 @@ public class Newspaper extends Item {
 		}
 	}
 
+	public void uniqueCommand(String command) {
+		if (command.equals("read"))
+			open();
+		else
+			super.uniqueCommand(command);
+	}
 }

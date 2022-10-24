@@ -170,7 +170,8 @@ public class GameGUI {
 					Player.inventory = new HashMap<String, Item>();
 					Game.startGame();
 					World.buildWorld();
-					display.setText(Game.getCurrentRoom().getDesc() + "\n\n");
+					display.setText("");
+					Game.printRoom();
 					command.setEditable(true);
 					saveMenuItem.setEnabled(true);
 				}

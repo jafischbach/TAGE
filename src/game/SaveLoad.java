@@ -134,6 +134,7 @@ public class SaveLoad {
 			Game.rooms = (HashMap<String, Room>) stream.readObject();
 			Game.flags = (HashMap<String, Integer>) stream.readObject();
 			Game.currentRoom = (Room) stream.readObject();
+			Game.printRoom();
 			stream.close();
 		} catch (FileNotFoundException ex) {
 			Game.print("Save file not found.");

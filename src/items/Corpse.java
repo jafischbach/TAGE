@@ -53,5 +53,14 @@ public class Corpse extends Item {
 		else
 			Game.print("Where are you planning to move him to? You know what, don't answer that.");
 	}
+
+	@Override
+	public void uniqueCommand(String command) {
+		if (command.equals("talk"))
+			Game.print("You engage in a stimulating, if one-sided, conversation with"
+					+ " the corpse.");
+		else
+			super.uniqueCommand(command);
+	}
 	
 }

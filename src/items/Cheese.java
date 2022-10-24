@@ -24,4 +24,12 @@ public class Cheese extends Item {
 				+ " a slimy, yellow space ship cruising the cosmos. You quickly grow bored.");
 	}
 	
+	@Override
+	public void uniqueCommand(String command) {
+		if (command.equals("eat"))
+			use();
+		else
+			super.uniqueCommand(command);
+	}
+	
 }

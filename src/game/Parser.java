@@ -46,10 +46,10 @@ public class Parser {
 	}
 
 	private static void processSimpleCommand(Room r, String command) {
-		if (command.equalsIgnoreCase("look"))
+		if (command.equalsIgnoreCase("look")) {
 			if (Game.CONSOLE)
 				Game.print(r.getDesc());
-		else if (command.equalsIgnoreCase("save"))
+		} else if (command.equalsIgnoreCase("save"))
 			SaveLoad.saveGame();
 		else if (command.equalsIgnoreCase("load"))
 			SaveLoad.loadGame();
@@ -107,9 +107,12 @@ public class Parser {
 				try {
 					if (action.equalsIgnoreCase("look"))
 						processLook(r, i, itemName);
-					else if (action.equalsIgnoreCase("talk"))
-						r.npcs.get(itemName).talk();
-					else if (action.equalsIgnoreCase("take"))
+					else if (action.equalsIgnoreCase("talk")) {
+						if (r.npcs != null && r.npcs.containsKey(itemName))
+							r.npcs.get(itemName).talk();
+						else
+							i.uniqueCommand(action);
+					} else if (action.equalsIgnoreCase("take"))
 						i.take();
 					else if (action.equalsIgnoreCase("move"))
 						i.move();
@@ -120,7 +123,7 @@ public class Parser {
 					else if (action.equalsIgnoreCase("close"))
 						i.close();
 					else
-						Game.print("Invalid command.");
+						i.uniqueCommand(action);
 				} catch (NullPointerException ex) {
 					String itemDesc = r.getSimpleItemDesc(itemName);
 					if (itemDesc == null)

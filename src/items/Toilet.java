@@ -33,4 +33,22 @@ public class Toilet extends Item {
 		Game.print("Fortunately for you, the toilet seat is already down.");
 	}
 	
+	@Override
+	public void uniqueCommand(String command) {
+		if (command.equalsIgnoreCase("flush")) {
+			Game.print("Demonstrating a shocking lack of common sense, you press"
+					+ " the handle on the toilet. You hear a strained gurgling sound"
+					+ " from within the bowl. Pipes begin to clang and the entire"
+					+ " toilet starts to vibrate quite violently. The sink faucet"
+					+ " suddely bursts and a powerful stream of some vile, murky"
+					+ " slime shoots upwards and splatters across the ceiling and"
+					+ " then everywhere else. You are drenched in a toxic slime."
+					+ " Weeks later, the doctors tell you that there's nothing else"
+					+ " they can do and you spend your final days raving at the"
+					+ " shrill voices in your head.");
+			Game.endGame();
+		} else
+			super.uniqueCommand(command);
+	}
+	
 }

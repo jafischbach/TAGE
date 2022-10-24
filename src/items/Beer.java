@@ -35,4 +35,11 @@ public class Beer extends Item {
 		Game.print("Don't open the can until you're ready to use it!");
 	}
 	
+	public void uniqueCommand(String command) {
+		if (command.equals("drink"))
+			use();
+		else
+			super.uniqueCommand(command);
+	}
+	
 }

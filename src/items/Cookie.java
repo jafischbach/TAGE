@@ -22,4 +22,11 @@ public class Cookie extends Item {
 		}
 	}
 	
+	public void uniqueCommand(String command) {
+		if (command.equals("eat"))
+			use();
+		else
+			super.uniqueCommand(command);
+	}
+	
 }

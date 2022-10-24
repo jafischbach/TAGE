@@ -29,6 +29,7 @@ public class SmallKey extends Item {
 				Room closet = Game.getRoom("HOTEL_CLOSET_TOP");
 				closet.setLocked(false);
 				r.setDesc("HOTEL_HALL_TOP_B");
+				Game.printRoom();
 			} else {
 				Game.print("You already unlocked the door, dumbass.");
 			}

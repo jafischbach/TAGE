@@ -30,7 +30,10 @@ public class Rug extends Item {
 			Game.print("Good idea. You never know when you'll find a trap door underneath"
 					+ " a rug in a creepy, dusty room, am I right? You shove the rug aside"
 					+ " with your foot. Huh. Look at that. A trap door.");
-			Game.getCurrentRoom().addItem(new TrapDoor());
+			Item trapdoor = new TrapDoor();
+			Room r = Game.getCurrentRoom();
+			r.addItem(trapdoor);
+			r.addItem(trapdoor, "trapdoor");
 			isMoved = true;
 		}
 	}
