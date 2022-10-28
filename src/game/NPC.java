@@ -193,8 +193,20 @@ public abstract class NPC implements Serializable {
 	}
 
 	/**
-	 * Displays a generic method when the player tries to
-	 * attach this NPC.
+	 * This method allows the player to try to attack this
+	 * NPC with the player's equipped weapon.
+	 */
+	public void attack() {
+		String weapon = Player.getEquipped();
+		if (weapon == null)
+			Game.print("You do not have a weapon equipped.");
+		else
+			attack(Player.getEquipped());
+	}
+	
+	/**
+	 * Displays a generic message when the player tries to
+	 * attack this NPC.
 	 * 
 	 * Extending classes should override this method if the
 	 * player can attack the NPC.
@@ -202,7 +214,7 @@ public abstract class NPC implements Serializable {
 	 * @param weaponName name of weapon player is attacking with
 	 */
 	public void attack(String weaponName) {
-		Game.print("You cannot attack " + name + ".");
+		Game.print("You cannot attack " + name + " with a " + weaponName);
 	}
 
 	/**

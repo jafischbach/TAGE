@@ -32,16 +32,21 @@ public class Parser {
 			else
 				Game.print("You don't have a " + itemName + ".");
 		} else if (action.equalsIgnoreCase("attack")) {
+			if (command.length() == 6)
+				throw new InvalidActionException("Attack whom?");
 			int i = command.indexOf(" with ");
-			if (i < 0)
-				throw new InvalidActionException("Attack whom with what?");
-			String npcName = command.substring(7, i);
-			String weaponName = command.substring(i+6);
-			NPC npc = getNPC(r, npcName);
-			if (Player.has(weaponName))
-				npc.attack(weaponName);
-			else
-				Game.print("You don't have a " + weaponName + ".");
+			if (i < 0) {
+				String npcName = command.substring(7);
+				getNPC(r, npcName).attack();
+			} else {
+				String npcName = command.substring(7, i);
+				String weaponName = command.substring(i+6);
+				NPC npc = getNPC(r, npcName);
+				if (Player.has(weaponName))
+					npc.attack(weaponName);
+				else
+					Game.print("You don't have a " + weaponName + ".");
+			}
 		}
 	}
 
@@ -102,16 +107,18 @@ public class Parser {
 			} else {
 				String itemName = command.substring(space+1);
 				Item i = Player.getItem(itemName);
+				NPC c = r.npcs == null ? null : r.npcs.get(itemName);
 				if (i == null && r.items != null)
 					i = r.items.get(itemName);
 				try {
 					if (action.equalsIgnoreCase("look"))
 						processLook(r, i, itemName);
 					else if (action.equalsIgnoreCase("talk")) {
-						if (r.npcs != null && r.npcs.containsKey(itemName))
-							r.npcs.get(itemName).talk();
-						else
-							i.uniqueCommand(action);
+						c.talk();
+//						if (r.npcs != null && r.npcs.containsKey(itemName))
+//							r.npcs.get(itemName).talk();
+//						else
+//							i.uniqueCommand(action);
 					} else if (action.equalsIgnoreCase("take"))
 						i.take();
 					else if (action.equalsIgnoreCase("move"))
@@ -122,6 +129,8 @@ public class Parser {
 						i.open();
 					else if (action.equalsIgnoreCase("close"))
 						i.close();
+					else if (action.equalsIgnoreCase("equip"))
+						Player.equip(itemName);
 					else
 						i.uniqueCommand(action);
 				} catch (NullPointerException ex) {

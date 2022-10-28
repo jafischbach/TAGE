@@ -320,7 +320,7 @@ public class Bartender extends NPC {
 						+ " weapon of choice is lacking in power.");
 			}
 		} else {
-			Game.print("You can't do that.");
+			super.attack(weaponName);
 		}
 	}
 

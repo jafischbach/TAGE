@@ -7,6 +7,8 @@ public class Player {
 	public static String name;
 	public static HashMap<String, Item> inventory = new HashMap<String, Item>();
 	
+	private static String equippedWeapon;
+	
 	public static void addItem(String name, Item item) {
 		inventory.put(name, item);
 	}
@@ -33,9 +35,25 @@ public class Player {
 		else {
 			Game.println("You are carrying:");
 			for(String item : inventory.keySet())
-				Game.println(item);
+				if (item.equals(equippedWeapon))
+					Game.println(item + " (equipped)");
+				else	
+					Game.println(item);
 			Game.println("");
 		}
+	}
+	
+	public static void equip(String weapon) {
+		if (has(weapon)) {
+			equippedWeapon = weapon;
+			Game.print("You equip the "+weapon+".");
+		} else {
+			Game.print("You don't have a "+weapon+"!");
+		}
+	}
+	
+	public static String getEquipped() {
+		return equippedWeapon;
 	}
 	
 }

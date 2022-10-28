@@ -398,7 +398,8 @@ public class Game {
 		println("take <item> - take the item and add it to player's inventory");
 		println("move <item> - move the item");
 		println("open <item> - open the item");
-		println("close <item> - close the item\n");
+		println("close <item> - close the item");
+		println("equip <item> - equips the item as a weapon\n");
 	}
 
 	/**
