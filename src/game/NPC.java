@@ -1,6 +1,8 @@
 package game;
 
 import java.io.Serializable;
+import java.util.Random;
+
 import javax.swing.JOptionPane;
 
 /**
@@ -13,6 +15,8 @@ public abstract class NPC implements Serializable {
 
 	public static final long serialVersionUID = 1L;
 
+	private static Random rand = new Random();
+	
 	private String name;		// NPC's name
 	private String descLabel;	// Label for NPC description
 	private int health;			// NPC's current health
@@ -129,6 +133,10 @@ public abstract class NPC implements Serializable {
 		health += thisMuch;
 	}
 
+	public int roll(int sides) {
+		return rand.nextInt(sides);
+	}
+	
 	/**
 	 * Displays dialog for this NPC.
 	 * 
@@ -214,7 +222,7 @@ public abstract class NPC implements Serializable {
 	 * @param weaponName name of weapon player is attacking with
 	 */
 	public void attack(String weaponName) {
-		Game.print("You cannot attack " + name + " with a " + weaponName);
+		Game.print("You cannot attack " + name + " with a " + weaponName + ".");
 	}
 
 	/**

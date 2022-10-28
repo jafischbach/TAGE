@@ -18,6 +18,7 @@ public class Refrigerator extends Item {
 	}
 	
 	public void open() {
+		if (Game.hasFlag("wolverine sleeping")) {
 		if (isOpen)
 			Game.print("The refrigerator is already open. That's why it's getting"
 					+ " uncomfortably cold in here. Close the damn thing already!");
@@ -40,6 +41,10 @@ public class Refrigerator extends Item {
 					+ " lots of ice cold Dr. Hops beer! You wonder who it's all for. Doesn't"
 					+ " seem like the bartender's style.");
 			isOpen = true;
+		}
+		} else {
+			Game.print("Is this really the time to go for a snack? THERE'S A VIOLENT ANIMAL"
+					+ " EYEBALLING YOU!");
 		}
 	}
 	

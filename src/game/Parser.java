@@ -10,9 +10,12 @@ public class Parser {
 
 	private static NPC getNPC(Room r, String name) {
 		NPC npc = r.npcs.get(name);
-		if (npc == null)
-			throw new InvalidActionException("There is no " + name + " in the room.");
-		else {
+		if (npc == null) {
+			if (r.hasItem(name))
+				throw new InvalidActionException("You can't do that to the " + name + ", weirdo.");
+			else
+				throw new InvalidActionException("There is no " + name + " in the room.");
+		} else {
 			return npc;
 		}
 	}
@@ -32,8 +35,8 @@ public class Parser {
 			else
 				Game.print("You don't have a " + itemName + ".");
 		} else if (action.equalsIgnoreCase("attack")) {
-			if (command.length() == 6)
-				throw new InvalidActionException("Attack whom?");
+//			if (command.length() == 6)
+//				throw new InvalidActionException("Attack whom?");
 			int i = command.indexOf(" with ");
 			if (i < 0) {
 				String npcName = command.substring(7);

@@ -10,7 +10,7 @@ import characters.*;
  * This short game consists of 15 rooms, 32 items, and 4 NPCs.
  * 
  * The World class constructs the game world by creating all rooms,
- * most items and two NPCs. Additional items and NPCs are created
+ * most items and three NPCs. Additional items and NPCs are created
  * dynamically as the player progresses through the game.
  * 
  * @version beta (2022)
@@ -18,6 +18,10 @@ import characters.*;
  */
 public class World {
 
+	public static final String INTRO_TEXT = 
+			"You find yourself in a hotel lobby. You have no idea how you got here, but you"
+			+ " do know that the front door is locked. Find a way out of the hotel!";
+	
 	public static void buildWorld() {
 		Room lobby = new Room("HOTEL_LOBBY", "Lobby");
 		Game.setCurrentRoom(lobby);
@@ -137,6 +141,7 @@ public class World {
 		Item hole = new Hole();
 		room202.addItem(hole);
 		room202.addItem(hole, "mouse hole");
+		room202.addNPC(new Wolverine());
 		
 		rr.addExit(bar, Room.SOUTH);
 		rr.addItem(new Toilet("HOTEL_BAR_TOILET", "toilet"));

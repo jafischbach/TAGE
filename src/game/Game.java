@@ -47,8 +47,8 @@ public class Game {
 	 * Import data from raw text files? 
 	 * If false, the game will import data from obscured data files.
 	 */
-	public static final boolean TEXT_DATA_FILES = false;
-
+	public static final boolean TEXT_DATA_FILES = true;
+	
 	/**
 	 * Launches the game!
 	 */
@@ -491,6 +491,7 @@ public class Game {
 
 	// Main game loop for console applications. 
 	private static void playText() {
+		print(World.INTRO_TEXT);
 		print(currentRoom.getDesc());
 		do {
 			System.out.print("What do you want to do? ");
@@ -504,6 +505,7 @@ public class Game {
 	private static void playGUI() {
 		GameGUI.buildWindow();
 		printRoom();
+		print(World.INTRO_TEXT);
 	}
 
 	/**

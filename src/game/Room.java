@@ -51,7 +51,9 @@ public class Room implements Serializable {
 	}
 
 	public boolean hasItem(String name) {
-		return items.containsKey(name);
+		boolean hasItem = items == null ? false : items.containsKey(name);
+		boolean hasSimpleItem = simpleItems == null ? false : simpleItems.contains(name);
+		return hasItem || hasSimpleItem;
 	}
 
 	public Item getItem(String name) {
