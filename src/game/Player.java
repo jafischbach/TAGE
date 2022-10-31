@@ -4,11 +4,15 @@ import java.util.HashMap;
 
 public class Player {
 
-	public static String name;
+	public static String name = "Steve";
 	public static HashMap<String, Item> inventory = new HashMap<String, Item>();
 	
 	private static int health = 100;
 	private static String equippedWeapon;
+	
+	public static void say(String s) {
+		Game.print(name + ": " + s);
+	}
 	
 	public static void addItem(String name, Item item) {
 		inventory.put(name, item);

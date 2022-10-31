@@ -1,6 +1,7 @@
 package game;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
@@ -76,6 +77,7 @@ public class Game {
 
 	protected static HashMap<String, Room> rooms; // All room objects
 	protected static HashMap<String, Integer> flags; // Game state flags
+	protected static HashMap<String, HashMap<String, Item>> roomItems;
 
 	// Scanner for user input when game is a console application.
 	private static Scanner input = new Scanner(System.in);
@@ -476,6 +478,7 @@ public class Game {
 		itemDescs = new HashMap<String, String>();
 		npcDescs = new HashMap<String, String>();
 		rooms = new HashMap<String, Room>();
+		roomItems = new HashMap<String, HashMap<String, Item>>();
 		simpleItems = new HashMap<String, String>();
 
 		if (TEXT_DATA_FILES) {

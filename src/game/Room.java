@@ -23,6 +23,7 @@ public class Room implements Serializable {
 	private ArrayList<String> simpleItems;
 	private String roomLabel;
 	private boolean isLocked;
+	private boolean entered;
 
 	public Room(String label, String name) {
 		roomLabel = label;
@@ -31,6 +32,7 @@ public class Room implements Serializable {
 			throw new InvalidLabelException(label);
 		descLabel = label;
 		isLocked = false;
+		entered = false;
 		go = new Room[6];
 		Game.addRoom(label, this);
 	}
@@ -40,11 +42,17 @@ public class Room implements Serializable {
 	}
 
 	public void addItem(Item item, String name) {
-		if (items == null)
-			items = new HashMap<String, Item>();
-		items.put(name, item);
+		if (!entered) {
+			if (!Game.roomItems.containsKey(roomLabel))
+				Game.roomItems.put(roomLabel, new HashMap<String, Item>());
+			Game.roomItems.get(roomLabel).put(name, item);
+		} else {
+			if (items == null)
+				items = new HashMap<String, Item>();
+			items.put(name, item);
+		}
 	}
-	
+
 	public void removeItem(String name) {
 		if (items != null)
 			items.remove(name);
@@ -78,11 +86,11 @@ public class Room implements Serializable {
 	public String getName() {
 		return roomName;
 	}
-	
+
 	public void setName(String name) {
 		roomName = name;
 	}
-	
+
 	public String getDesc() {
 		return Game.roomDescs.get(descLabel);
 	}
@@ -104,6 +112,10 @@ public class Room implements Serializable {
 
 	public boolean isLocked() {
 		return isLocked;
+	}
+
+	public String getRoomLabel() {
+		return roomLabel;
 	}
 
 	public void addSimpleItem(String name, String desc) {
@@ -158,14 +170,24 @@ public class Room implements Serializable {
 		if (r != null)
 			if (r.isLocked())
 				throw new InvalidDirectionException("You can't go that way right now.");
-			else
+			else {
+				go[direction].enteringRoom();
 				return go[direction];
+			}
 		else
 			throw new InvalidDirectionException("You can't go that way!");
 	}
 
 	public boolean equals(String label) {
 		return roomLabel.equals(label);
+	}
+
+	private void enteringRoom() {
+		if (!entered) {
+			entered = true;
+			if (Game.roomItems.containsKey(roomLabel))
+				items = Game.roomItems.get(roomLabel);
+		}
 	}
 
 }
