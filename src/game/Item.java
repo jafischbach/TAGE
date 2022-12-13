@@ -101,7 +101,7 @@ public abstract class Item implements Serializable {
 	 * the item can be taken.
 	 */
 	public void take() {
-		if (Player.has(name))
+		if (Game.player.has(name))
 			Game.print("You already have the "+name+".");
 		else
 			Game.print("You can't take the "+name+"!");

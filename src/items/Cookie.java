@@ -13,10 +13,10 @@ public class Cookie extends Item {
 	}
 	
 	public void use() {
-		if (Player.has("corkscrew") || Player.has("large key")) {
+		if (Game.player.has("corkscrew") || Game.player.has("large key")) {
 			Game.print("Yes! It is time for cookie! You stuff the cookie in"
 					+ " your mouth. It's fresh and moist. You wish you had milk.");
-			Player.removeItem("cookie");
+			Game.player.removeItem("cookie");
 		} else {
 			Game.print("No! It is not time for cookie!");
 		}

@@ -20,7 +20,7 @@ public class Closet extends Item {
 	public void look() {
 		if (isOpen) {
 			if (roomNum == 101) {
-				if (Player.has("crowbar"))
+				if (Game.player.has("crowbar"))
 					Game.print("The closet is full of clothes, neatly arranged"
 							+ " on hangars.");
 				else {

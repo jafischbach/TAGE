@@ -20,7 +20,7 @@ public class Newspaper extends Item {
 						+ " Curious, you bend down and pick up the small key. You then close"
 						+ " the newspaper and put it away.");
 				keyFound = true;
-				Player.addItem("small key", new SmallKey("small key"));
+				Game.player.addItem("small key", new SmallKey("small key"));
 			} else {
 				Game.print("Nah. You don't feel like reading the newspaper.");
 			}
@@ -35,7 +35,7 @@ public class Newspaper extends Item {
 		if (!taken) {
 			Game.print("You gently lift the newspaper from the old man's lap, being " + 
 					"careful not to disturb him.");
-			Player.addItem(getName(), this);
+			Game.player.addItem(getName(), this);
 			Room r = Game.getCurrentRoom();
 			r.removeItem("newspaper");
 			r.setDesc("HOTEL_LOUNGE_B");

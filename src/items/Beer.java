@@ -17,17 +17,17 @@ public class Beer extends Item {
 				+ " beverage. You smash the empty can against your forehead (because you're"
 				+ " awesome that way) and, after a mighty belch, toss the aluminum disk away."
 				+ " I hope you didn't need to hold onto that!");
-		Player.removeItem("beer");
+		Game.player.removeItem("beer");
 	}
 	
 	public void take() {
-		if (Player.has("beer"))
+		if (Game.player.has("beer"))
 			Game.print("You already have a can of beer. How many do you think you can"
 					+ " stuff in your pockets?");
 		else {
 			Game.print("You fetch an ice cold can of Dr. Hops beer and the day seems just"
 					+ " a little brighter.");
-			Player.addItem(this);
+			Game.player.addItem(this);
 		}
 	}
 	

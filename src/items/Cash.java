@@ -32,7 +32,7 @@ public class Cash extends Item {
 					+ " beach house fund. Assuming you ever get out of this damn"
 					+ " hotel that is.");
 			isTaken = true;
-			Player.addItem(this);
+			Game.player.addItem(this);
 			Game.getCurrentRoom().removeItem("cash");
 		}
 	}

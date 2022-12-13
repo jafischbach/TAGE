@@ -69,9 +69,15 @@ public class Room implements Serializable {
 	}
 
 	public void addNPC(NPC npc) {
-		if (npcs == null)
-			npcs = new HashMap<String, NPC>();
-		npcs.put(npc.getName(), npc);
+		if (!entered) {
+			if (!Game.roomNPCS.containsKey(roomLabel))
+				Game.roomNPCS.put(roomLabel, new HashMap<String, NPC>());
+			Game.roomNPCS.get(roomLabel).put(npc.getName(), npc);
+		} else {
+			if (npcs == null)
+				npcs = new HashMap<String, NPC>();
+			npcs.put(npc.getName(), npc);
+		}
 	}
 
 	public void removeNPC(String name) {
@@ -92,6 +98,13 @@ public class Room implements Serializable {
 	}
 
 	public String getDesc() {
+		if (!entered) {
+			entered = true;
+			if (Game.roomItems.containsKey(roomLabel))
+				items = Game.roomItems.get(roomLabel);
+			if (Game.roomNPCS.containsKey(roomLabel))
+				npcs = Game.roomNPCS.get(roomLabel);
+		}
 		return Game.roomDescs.get(descLabel);
 	}
 
@@ -171,7 +184,6 @@ public class Room implements Serializable {
 			if (r.isLocked())
 				throw new InvalidDirectionException("You can't go that way right now.");
 			else {
-				go[direction].enteringRoom();
 				return go[direction];
 			}
 		else
@@ -180,14 +192,6 @@ public class Room implements Serializable {
 
 	public boolean equals(String label) {
 		return roomLabel.equals(label);
-	}
-
-	private void enteringRoom() {
-		if (!entered) {
-			entered = true;
-			if (Game.roomItems.containsKey(roomLabel))
-				items = Game.roomItems.get(roomLabel);
-		}
 	}
 
 }

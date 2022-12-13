@@ -25,7 +25,7 @@ public class Refrigerator extends Item {
 		else if (isLocked) {
 			Game.print("The damn thing is locked! The keyhole is so small you didn't notice"
 					+ " it at first. Now who the hell locks a refrigerator?");
-			if (Player.has("wee little key")) {
+			if (Game.player.has("wee little key")) {
 				Game.print("The wee little key fits perfectly in the tiny lock. The key is"
 						+ " so wee, it's hard to turn the damn thing! You eventually manage"
 						+ " though and now the refrigerator is unlocked!");

@@ -21,6 +21,8 @@ public class SledgeHammer extends Item {
 		if(!boxSmashed && r.equals("HOTEL_HALL_TOP")) {
 			Game.print("With a mighty swing, you smite the large box. Ten minutes later,"
 					+ " you manage to reduce the large box to a pile of splinters.");
+			Game.print("You stand and admire your work while catching your breath. You hear"
+					+ " what sounds like a door slamming below.");
 			r.setDesc("HOTEL_HALL_TOP_C");
 			Game.printRoom();
 			boxSmashed = true;
@@ -30,8 +32,6 @@ public class SledgeHammer extends Item {
 					+ " don't want to get a splinter.");
 			Room hallway = Game.getRoom("HOTEL_HALL_WEST");
 			hallway.setLocked(false);
-			Room room101 = Game.getRoom("HOTEL_ROOM_101");
-			room101.setLocked(false);
 			Room bar = Game.getRoom("HOTEL_BAR");
 			bar.addNPC(new Bartender("bartender"));
 			bar.setDesc("HOTEL_BAR_B");
@@ -56,7 +56,7 @@ public class SledgeHammer extends Item {
 					+ " is heavy, but you decide to carry it around anyway and shove"
 					+ " it into your pocket.");
 			isTaken = true;
-			Player.addItem("sledge hammer", this);
+			Game.player.addItem("sledge hammer", this);
 			Game.getCurrentRoom().removeItem("sledge hammer");
 		}
 			

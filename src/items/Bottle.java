@@ -16,7 +16,7 @@ public class Bottle extends Item {
 			Game.print("You already have the bottle.");
 		else {
 			Game.print("You pick up the bottle, finding it lighter than expected.");
-			Player.addItem("bottle", this);
+			Game.player.addItem("bottle", this);
 			Game.getCurrentRoom().removeItem("bottle");
 			isTaken = true;
 			Game.addFlag("bottleTaken");
@@ -32,7 +32,7 @@ public class Bottle extends Item {
 			else {
 				Game.print("You pull out the cork and peer inside the bottle."
 						+ " You find a tiny key! Tipping the bottle, you extract the tiny key.");
-				Player.addItem("tiny key", new TinyKey("tiny key"));
+				Game.player.addItem("tiny key", new TinyKey("tiny key"));
 				isOpen = true;
 			}
 		}

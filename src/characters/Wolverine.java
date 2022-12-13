@@ -43,16 +43,20 @@ public class Wolverine extends NPC {
 						+ " calms the animal. Instead of viciously attacking you, it just"
 						+ " reaches out and snatches the cookie. Retreating to a corner"
 						+ " of the room, the animal settles down for a nap.");
-				Game.addFlag("wolverine sleeping");
-				Game.getCurrentRoom().setDesc("HOTEL_ROOM_202_B");
-				Game.printRoom();
-				Player.removeItem("cookie");
-				if (!Player.has("corkscrew")) {
+				wolverineSleeps();
+				Game.player.removeItem("cookie");
+				if (!Game.player.has("corkscrew")) {
 					Game.print("Strangely, it appears that the wolverine was guarding a"
 							+ " corkscrew. You could contemplate the reason for this, but"
 							+ " decide not to. Instead, you just bend down and pick up the" + " corkscrew.");
-					Player.addItem(new Corkscrew());
+					Game.player.addItem(new Corkscrew());
 				}
+			} else if (weapon.equalsIgnoreCase("newspaper")) {
+				Game.print("You swat the angry wolverine on the nose with the newspaper."
+						+ " The wolverine lowers its head and whimpers. Properly chastened,"
+						+ " the little beast slinks to a corner of the room where it curles"
+						+ " itself into a furry ball and goes to sleep.");
+				wolverineSleeps();
 			} else if (weapon.equalsIgnoreCase("crowbar")) {
 				hitWolverine();
 			} else
@@ -61,15 +65,20 @@ public class Wolverine extends NPC {
 	}
 
 	private void hitPlayer() {
-		int harm = roll(60);
-		if (Player.reduceHealth(harm)) {
-			Game.print("The wolverine manages to evade your crowbar long"
-					+ " enough to bite and scratch you. It's quite painful.");
-			Game.print("You: " + Player.getHealth()+"/100");
+		int toss = roll(3);
+		if (toss < 2) {
+			int harm = roll(60);
+			if (Game.player.reduceHealth(harm)) {
+				Game.print("The wolverine manages to evade your crowbar long"
+						+ " enough to bite and scratch you. It's quite painful.");
+				Game.print("You: " + Game.player.getHealth() + "/100");
+			} else {
+				Game.print("Evading your crowbar, the wolverine lunges and tears"
+						+ " out your throat. The fiesty animal proceeds to feast" + " on your corpse.");
+				Game.endGame();
+			}
 		} else {
-			Game.print("Evading your crowbar, the wolverine lunges and tears"
-					+ " out your throat. The fiesty animal proceeds to feast" + " on your corpse.");
-			Game.endGame();
+			Game.print("You narrowly avoid the animal's snapping jaws.");
 		}
 	}
 
@@ -86,14 +95,18 @@ public class Wolverine extends NPC {
 				Game.print("The wolverine attempts to dodge your attack, but you smite"
 						+ " the furry bastard with all your strength and render the "
 						+ " little beast senseless. It rolls onto the floor and troubles" + " you no more.");
-				Game.addFlag("wolverine sleeping");
-				Game.getCurrentRoom().setDesc("HOTEL_ROOM_202_B");
-				Game.printRoom();
+				wolverineSleeps();
 			}
 		} else {
 			Game.print("You swing your crowbar at the wolverine, but the nimble beast" + " dances out of your reach.");
 			hitPlayer();
 		}
+	}
+
+	private void wolverineSleeps() {
+		Game.addFlag("wolverine sleeping");
+		Game.getCurrentRoom().setDesc("HOTEL_ROOM_202_B");
+		Game.printRoom();
 	}
 
 }

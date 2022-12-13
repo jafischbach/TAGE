@@ -37,7 +37,7 @@ public class Crowbar extends Item {
 		else {
 			Game.print("Cool! You can always use a crowbar. Imagine all the things you"
 					+ " can pry open now!");
-			Player.addItem(this);
+			Game.player.addItem(this);
 			Game.getCurrentRoom().removeItem("crowbar");
 		}
 	}

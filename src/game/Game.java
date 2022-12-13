@@ -1,7 +1,6 @@
 package game;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
@@ -62,6 +61,8 @@ public class Game {
 			playGUI();
 	}
 
+	public static Player player;
+	
 	// Data structures containing descriptions of rooms, items, and NPCs.
 	protected static HashMap<String, String> roomDescs;
 	protected static HashMap<String, String> itemDescs;
@@ -78,6 +79,7 @@ public class Game {
 	protected static HashMap<String, Room> rooms; // All room objects
 	protected static HashMap<String, Integer> flags; // Game state flags
 	protected static HashMap<String, HashMap<String, Item>> roomItems;
+	protected static HashMap<String, HashMap<String, NPC>> roomNPCS;
 
 	// Scanner for user input when game is a console application.
 	private static Scanner input = new Scanner(System.in);
@@ -426,10 +428,14 @@ public class Game {
 					String line = descReader.nextLine();
 					if (line.equals("#"))
 						break;
-					desc += line;
+					if (line.length() == 0)
+						desc += "\n\n";
+					else
+						desc += line;
 				}
 				map.put(label, desc);
 			}
+			descReader.close();
 		} catch (FileNotFoundException ex) {
 			// Nothing to do here (text file may not be present)
 		}
@@ -479,6 +485,7 @@ public class Game {
 		npcDescs = new HashMap<String, String>();
 		rooms = new HashMap<String, Room>();
 		roomItems = new HashMap<String, HashMap<String, Item>>();
+		roomNPCS = new HashMap<String, HashMap<String, NPC>>();
 		simpleItems = new HashMap<String, String>();
 
 		if (TEXT_DATA_FILES) {
@@ -494,6 +501,7 @@ public class Game {
 
 	// Main game loop for console applications. 
 	private static void playText() {
+		player = new Player();
 		print(World.INTRO_TEXT);
 		print(currentRoom.getDesc());
 		do {
@@ -506,6 +514,7 @@ public class Game {
 
 	// Initializes the GUI for GUI applications.
 	private static void playGUI() {
+		player = new Player();
 		GameGUI.buildWindow();
 		printRoom();
 		print(World.INTRO_TEXT);
@@ -547,7 +556,7 @@ public class Game {
 					currentRoom = currentRoom.goDown();
 					break;
 				case 'i':
-					Player.printInventory();
+					player.printInventory();
 					break;
 				case 'x':
 					char response = getYesNo("Are you sure you want to quit the game? (y/n) ");

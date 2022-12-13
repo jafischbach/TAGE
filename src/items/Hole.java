@@ -14,13 +14,13 @@ public class Hole extends Item {
 
 	public void look() {
 		if (Game.hasFlag("wolverine sleeping")) {
-			if (Player.has("cheese")) {
+			if (Game.player.has("cheese")) {
 				Game.print("Looks like a mouse hole. Since there's a mouse sitting in it,"
 						+ " it probably is a mouse hole.");
 				Game.getCurrentRoom().addNPC(new Mouse());
 				keyPresent = true;
 			} else if (keyPresent) {
-				if (Player.has("large key")) {
+				if (Game.player.has("large key")) {
 					Game.print("There is nothing else of interest in the hole.");
 				} else {
 					Game.print("Now that the mouse is gone, you can take the time to peer carefully"
@@ -28,7 +28,7 @@ public class Hole extends Item {
 							+ " everywhere in this damn hotel. I'm sure there's an excellent reason "
 							+ " for that that has nothing to do with lack of originality. Anyway, you"
 							+ " reach into the hole and snag a large key.");
-					Player.addItem(new LargeKey());
+					Game.player.addItem(new LargeKey());
 				}
 			} else {
 				Game.print("You peer into the hole but find nothing of interest right now except some"

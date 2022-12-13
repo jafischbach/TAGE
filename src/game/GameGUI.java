@@ -10,7 +10,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class GameGUI {
 
@@ -167,7 +166,7 @@ public class GameGUI {
 						"Are you sure you want to start a new game? You will lose all unsaved progress.",
 						"New Game", JOptionPane.YES_NO_OPTION);
 				if (option == JOptionPane.YES_OPTION) {
-					Player.inventory = new HashMap<String, Item>();
+					Game.player.clearInventory();
 					Game.startGame();
 					World.buildWorld();
 					display.setText("");

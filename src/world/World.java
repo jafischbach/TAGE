@@ -7,7 +7,7 @@ import characters.*;
 /**
  * Hotel Escape - a demo text adventure developed using FlossTAGE.
  * 
- * This short game consists of 15 rooms, 32 items, and 4 NPCs.
+ * This short game consists of 15 rooms, 32 items, and 5 NPCs.
  * 
  * The World class constructs the game world by creating all rooms,
  * most items and three NPCs. Additional items and NPCs are created
@@ -69,6 +69,7 @@ public class World {
 		room101.setLocked(true);
 		room101.addExit(hall, Room.EAST);
 		room101.addItem(new Nightstand("nightstand"));
+		room101.addItem(new Drawer("drawer", 101));
 		room101.addItem(new Closet("closet", 101));
 		room101.addItem(new Bed());
 		room101.addItem(new Picture());
@@ -132,6 +133,7 @@ public class World {
 		room201.addExit(upperWestHallway, Room.NORTH);
 		room201.addItem(new Closet("closet", 201));
 		room201.addItem(new Nightstand("nightstand"));
+		room201.addItem(new Drawer("drawer", 201));
 		room201.addItem(new Bed());
 		room201.addItem(new Rug());
 		

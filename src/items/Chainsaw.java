@@ -14,13 +14,13 @@ public class Chainsaw extends Item {
 	}
 	
 	public void take() {
-		if(Player.has("chainsaw"))
+		if(Game.player.has("chainsaw"))
 			Game.print("You're already carrying the chainsaw. How do you not know this?");
 		else {
 			Game.print("You heft the Easy Slaughter(tm) Mid-Size Chainsaw, strike a pose"
 					+ " and feel awesome, and then stuff the chainsaw in your pocket with"
 					+ " all the other stuff you're carrying around.");
-			Player.addItem(this);
+			Game.player.addItem(this);
 			Room r = Game.getCurrentRoom();
 			r.removeItem("chainsaw");
 			r.setDesc("HOTEL_BASEMENT_B");
@@ -51,7 +51,7 @@ public class Chainsaw extends Item {
 				Game.print("There's only so much gas in the chainsaw. Don't waste it trying"
 						+ " to destroy everything you see.");
 			}
-		} else if (Player.has("chainsaw")){
+		} else if (Game.player.has("chainsaw")){
 			Game.print("You eagerly heft the chainsaw to wreak righteous devastation on"
 					+ " this vile hotel...only to discover that the chainsaw is out of"
 					+ " gas. Major bummer.");

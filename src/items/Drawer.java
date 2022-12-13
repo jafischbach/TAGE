@@ -28,7 +28,7 @@ public class Drawer extends Item {
 						+ " just contains a few personal items and nothing of use"
 						+ " to you.");
 		else if (roomNum == 201)
-			if (Player.has("silver room key"))
+			if (Game.player.has("silver room key"))
 				Game.print("There is nothing else in the drawer.");
 			else {
 				Game.print("The only thing in the drawer is a silver room key.");

@@ -6,11 +6,13 @@ import game.Player;
 
 public class RoomKey extends Item {
 
+	private boolean room101unlocked;
 	private boolean room201unlocked;
 	private boolean room202unlocked;
 	
 	public RoomKey(String name) {
 		super(name);
+		room101unlocked = false;
 		room201unlocked = false;
 		room202unlocked = false;
 	}
@@ -18,20 +20,32 @@ public class RoomKey extends Item {
 	public void look() {
 		if (getName().equals("bronze room key"))
 			Game.print("It's a hotel room key. It has the number 201 stamped into it.");
-		else
+		else if (getName().equals("silver room key"))
 			Game.print("It's a hotel room key. It has the number 202 stamped into it.");
+		else
+			Game.print("It's a hotel room key. It has the number 101 stamped into it.");
 	}
 	
 	public void take() {
-		if (getName().equals("bronze room key"))
+		String key = getName();
+		if (key.equals("bronze room key"))
 			Game.print("You already have the bronze room key.");
-		else if (Player.has("silver room key"))
-			Game.print("You already have the silver room key.");
-		else {
-			Game.print("You reach into the drawer and add the silver room key to your collection."
+		else if (key.equals("silver room key")) {
+			if (Game.player.has("silver room key"))
+				Game.print("You already have the silver room key.");
+			else {
+				Game.print("You reach into the drawer and add the silver room key to your collection."
 					+ " You regret not bringing a keyring.");
-			Player.addItem(this);
-			Game.getCurrentRoom().removeItem("silver room key");
+				Game.player.addItem(this);
+				Game.getCurrentRoom().removeItem("silver room key");
+			}
+		} else if (Game.player.has("gold room key")) 
+			Game.print("You already have the gold room key.");
+		else {
+			Game.print("Making sure the bartender isn't looking, you quickly bend down and"
+					+ " pocket the gold room key.");
+			Game.getCurrentRoom().removeItem("gold room key");
+			Game.player.addItem(this);
 		}
 	}
 	
@@ -46,7 +60,7 @@ public class RoomKey extends Item {
 				room201unlocked = true;
 			} else
 				Game.print("The bronze room key doesn't unlock anything in this room.");
-		else
+		else if (getName().equals("silver room key")) {
 			if (room202unlocked)
 				Game.print("You're already unlocked Room 202.");
 			else if (Game.getCurrentRoom().equals("HOTEL_HALL_WEST")) {
@@ -55,7 +69,18 @@ public class RoomKey extends Item {
 				Game.getRoom("HOTEL_ROOM_202").setLocked(false);
 				room202unlocked = true;
 			} else
-				Game.print("The silver room key doesn't unlock anything in this room.");	
+				Game.print("The silver room key doesn't unlock anything in this room.");
+		} else {
+			if (room101unlocked)
+				Game.print("You're already unlocked Room 101.");
+			else if (Game.getCurrentRoom().equals("HOTEL_HALL_1ST")) {
+				Game.print("You unlock Room 101 with the gold room key. Brace yourself; "
+						+ "you're about to enter the bartender's abode.");
+				Game.getRoom("HOTEL_ROOM_101").setLocked(false);
+				room101unlocked = true;
+			} else
+				Game.print("The gold room key doesn't unlock anything in this room.");
+		}
 	}
 	
 }

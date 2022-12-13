@@ -15,12 +15,12 @@ public class TrapDoor extends Item {
 	
 	public void look() {
 		if(isOpen)
-			if(Player.has("cash"))
-				if (Player.has("coupon") && !Player.has("wee little key")) {
+			if(Game.player.has("cash"))
+				if (Game.player.has("coupon") && !Game.player.has("wee little key")) {
 					Game.print("You peer into the now cash-less hole beneath the trap door and see a tiny"
 							+ " glint of metal. Reaching into the hole, you find a wee little key, which you"
 							+ " take.");
-					Player.addItem(new WeeLittleKey());
+					Game.player.addItem(new WeeLittleKey());
 				} else 
 					Game.print("You don't see anything else hidden beneath the trap door.");
 			else if (cashFound)
@@ -45,7 +45,7 @@ public class TrapDoor extends Item {
 		if (isOpen)
 			Game.print("Uh...sure buddy. You can open the already-opened trap door. That's"
 					+ " definitely a thing you can do. Go ahead. I'll watch.");
-		else if (Player.has("crowbar")) {
+		else if (Game.player.has("crowbar")) {
 			Game.print("Well, isn't this just the perfect opportunity to use a crowbar! Good"
 					+ " thing you're carrying one around, eh? You insert the crowbar inbetween"
 					+ " the trapdoor and the floor and exert just enough force to pop that"

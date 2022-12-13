@@ -21,7 +21,7 @@ public class Mouse extends NPC {
 					+ " that you have not laid a trap, the mouse snatches the cheese and scurries"
 					+ " away, leaving its hole undefended.");
 			Game.getCurrentRoom().removeNPC("mouse");
-			Player.removeItem("cheese");
+			Game.player.removeItem("cheese");
 		} else {
 			super.give(item);
 		}

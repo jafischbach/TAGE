@@ -13,7 +13,7 @@ public class Chest extends Item {
 	public void look() {
 		if (!isOpen)
 			super.look();
-		else if (Player.has("sledge hammer"))
+		else if (Game.player.has("sledge hammer"))
 			Game.print("An empty chest sits on the floor. It is of no further interest to you.");
 		else
 			Game.print("The chest sits open on the floor. There is a sledge hammer inside.");
@@ -21,7 +21,7 @@ public class Chest extends Item {
 	
 	public void open() {
 		if (!isOpen) {
-			if(Player.has("tiny key")) {
+			if(Game.player.has("tiny key")) {
 				Game.print("The tiny key fits snugly into the lock and you soon have"
 						+ " the chest open. You lift the lid and see a slegde hammer inside.");
 				isOpen = true;

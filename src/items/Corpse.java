@@ -36,8 +36,8 @@ public class Corpse extends Item {
 	}
 	
 	public void move() {
-		if (Player.has("cookie"))
-			if (Player.has("corkscrew"))
+		if (Game.player.has("cookie"))
+			if (Game.player.has("corkscrew"))
 				Game.print("Stop playing with the dead guy.");
 			else {
 				Game.print("You really want to put your hands on a dead dude and start moving"
@@ -48,7 +48,7 @@ public class Corpse extends Item {
 						+ " pocket. Reluctantly releasing the dead guy's remains, you bend down"
 						+ " to inspect the floor. A corkscrew! You pick up and pocket the"
 						+ " corkscrew.");
-				Player.addItem(new Corkscrew());
+				Game.player.addItem(new Corkscrew());
 			}
 		else
 			Game.print("Where are you planning to move him to? You know what, don't answer that.");

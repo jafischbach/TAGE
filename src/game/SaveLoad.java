@@ -88,7 +88,7 @@ public class SaveLoad {
 			}
 			saveFile.createNewFile();
 			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
-			stream.writeObject(Player.inventory);
+			stream.writeObject(Game.player);
 			stream.writeObject(Game.rooms);
 			stream.writeObject(Game.flags);
 			stream.writeObject(Game.currentRoom);
@@ -130,7 +130,7 @@ public class SaveLoad {
 		try {
 			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
 			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
-			Player.inventory = (HashMap<String, Item>) stream.readObject();
+			Game.player = (Player) stream.readObject();
 			Game.rooms = (HashMap<String, Room>) stream.readObject();
 			Game.flags = (HashMap<String, Integer>) stream.readObject();
 			Game.currentRoom = (Room) stream.readObject();

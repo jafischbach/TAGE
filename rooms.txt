@@ -5,7 +5,9 @@ HOTEL_BAR
 There is a long bar along the west wall. Since the bar is closed, there is no bartender at the moment. There is a closed door marked "Rest Room" in the north wall. Another doorway leads east to the lobby.
 #
 HOTEL_BAR_B
-There is a long bar along the west wall. There is a closed door marked "Rest Room" in the north wall. Another doorway leads east to the lobby. A man now stands behind the bar pretending not to notice you. Must be the hotel bartender.
+There is a long bar along the west wall. There is a closed door marked "Rest Room" in the north wall. Another doorway leads east to the lobby. 
+
+A man now stands behind the bar pretending not to notice you. Must be the hotel bartender.
 #
 HOTEL_BAR_C
 This used to be a bar. Now it's nothing more than the bartender's gruesome tomb. There is a closed door, dripping with former bartender, in the north wall. Another doorway leads east to the lobby.

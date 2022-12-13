@@ -30,7 +30,7 @@ public class Cop extends NPC {
 		option[0] = "I had to! I was trapped! There was no other way out. Look! This freakin'"
 				+ " hotel doesn't even have windows. What kind of hotel doesn't have windows?"
 				+ " And I'm telling you, there's something not right with that bartender...";
-		if (Player.has("cash"))
+		if (Game.player.has("cash"))
 			option[1] = "Well, Mr. Law Enforcement Officer, sir. Deputy Steve, is it? I just"
 					+ " so happen to have this pile of cash. I don't suppose that might alter"
 					+ " the situation here, would it?";
@@ -49,7 +49,7 @@ public class Cop extends NPC {
 			Game.endGame();
 			break;
 		case 2:
-			if (Player.has("cash")) {
+			if (Game.player.has("cash")) {
 				Game.print("The cop eagerly accepts the proferred bribe. Well, there goes your"
 						+ " beach house fund.");
 				Game.print("Congratulations! You escaped the hotel and avoided doing hard time"

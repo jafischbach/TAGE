@@ -1,42 +1,70 @@
 package game;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
-public class Player {
-
-	public static String name = "Steve";
-	public static HashMap<String, Item> inventory = new HashMap<String, Item>();
+public class Player implements Serializable {
 	
-	private static int health = 100;
-	private static String equippedWeapon;
+	private static final long serialVersionUID = 1L;
 	
-	public static void say(String s) {
+	private String name;
+	private int health;
+	private String equippedWeapon;
+	private HashMap<String, Item> inventory;
+	
+	public Player() {
+		this("Steve", 100);
+	}
+	
+	public Player(String name) {
+		this(name, 100);
+	}
+	
+	public Player(String name, int health) {
+		this.name = name;
+		this.health = health;
+		inventory = new HashMap<String, Item>();
+	}
+	
+	public void say(String s) {
 		Game.print(name + ": " + s);
 	}
 	
-	public static void addItem(String name, Item item) {
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public void addItem(String name, Item item) {
 		inventory.put(name, item);
 	}
 	
-	public static void addItem(Item item) {
+	public void addItem(Item item) {
 		inventory.put(item.getName(), item);
 	}
 	
-	public static Item getItem(String name) {
+	public Item getItem(String name) {
 		return inventory.get(name);
 	}
 	
-	public static void removeItem(String name) {
+	public void removeItem(String name) {
 		inventory.remove(name);
 		if (name.equals(equippedWeapon))
 			equippedWeapon = null;
 	}
 	
-	public static boolean has(String name) {
+	public void clearInventory() {
+		inventory.clear();
+	}
+	
+	public boolean has(String name) {
 		return inventory.containsKey(name);
 	}
 	
-	public static void printInventory() {
+	public void printInventory() {
 		if (inventory.keySet().isEmpty())
 			Game.print("You are carrying nothing!");
 		else {
@@ -50,7 +78,7 @@ public class Player {
 		}
 	}
 	
-	public static void equip(String weapon) {
+	public void equip(String weapon) {
 		if (has(weapon)) {
 			equippedWeapon = weapon;
 			Game.print("You equip the "+weapon+".");
@@ -59,7 +87,7 @@ public class Player {
 		}
 	}
 	
-	public static String getEquipped() {
+	public String getEquipped() {
 		return equippedWeapon;
 	}
 	
@@ -69,7 +97,7 @@ public class Player {
 	 * 
 	 * @return player's health
 	 */
-	public static int getHealth() {
+	public int getHealth() {
 		return health;
 	}
 
@@ -78,8 +106,8 @@ public class Player {
 	 * 
 	 * @param health new value for player's health
 	 */
-	public static void setHealth(int health) {
-		Player.health = health;
+	public void setHealth(int health) {
+		this.health = health;
 	}
 
 	/**
@@ -88,7 +116,7 @@ public class Player {
 	 * @param thisMuch amount to reduce health by
 	 * @return true if player's health remains above zero
 	 */
-	public static boolean reduceHealth(int thisMuch) {
+	public boolean reduceHealth(int thisMuch) {
 		health -= thisMuch;
 		if (health <= 0)
 			return false;
@@ -101,7 +129,7 @@ public class Player {
 	 * 
 	 * @param thisMuch amount to increase health by
 	 */
-	public static void addHealth(int thisMuch) {
+	public void addHealth(int thisMuch) {
 		health += thisMuch;
 	}
 	

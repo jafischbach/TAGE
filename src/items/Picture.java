@@ -40,7 +40,7 @@ public class Picture extends Item {
 					+ " this hotel is taped to the back. Not one to leave a key behind, you"
 					+ " peel away the tape and take the bronze room key.");
 			keyFound = true;
-			Player.addItem(new RoomKey("bronze room key"));
+			Game.player.addItem(new RoomKey("bronze room key"));
 		}
 	}
 	

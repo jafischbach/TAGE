@@ -30,7 +30,7 @@ public class Parser {
 			String itemName = command.substring(5, i);
 			String npcName = command.substring(i+4);
 			NPC npc = getNPC(r, npcName);
-			if (Player.has(itemName))
+			if (Game.player.has(itemName))
 				npc.give(itemName);
 			else
 				Game.print("You don't have a " + itemName + ".");
@@ -45,7 +45,7 @@ public class Parser {
 				String npcName = command.substring(7, i);
 				String weaponName = command.substring(i+6);
 				NPC npc = getNPC(r, npcName);
-				if (Player.has(weaponName))
+				if (Game.player.has(weaponName))
 					npc.attack(weaponName);
 				else
 					Game.print("You don't have a " + weaponName + ".");
@@ -109,7 +109,7 @@ public class Parser {
 				processComplexCommand(r, action, command);
 			} else {
 				String itemName = command.substring(space+1);
-				Item i = Player.getItem(itemName);
+				Item i = Game.player.getItem(itemName);
 				NPC c = r.npcs == null ? null : r.npcs.get(itemName);
 				if (i == null && r.items != null)
 					i = r.items.get(itemName);
@@ -118,10 +118,6 @@ public class Parser {
 						processLook(r, i, itemName);
 					else if (action.equalsIgnoreCase("talk")) {
 						c.talk();
-//						if (r.npcs != null && r.npcs.containsKey(itemName))
-//							r.npcs.get(itemName).talk();
-//						else
-//							i.uniqueCommand(action);
 					} else if (action.equalsIgnoreCase("take"))
 						i.take();
 					else if (action.equalsIgnoreCase("move"))
@@ -133,15 +129,15 @@ public class Parser {
 					else if (action.equalsIgnoreCase("close"))
 						i.close();
 					else if (action.equalsIgnoreCase("equip"))
-						Player.equip(itemName);
+						Game.player.equip(itemName);
 					else
 						i.uniqueCommand(action);
 				} catch (NullPointerException ex) {
 					String itemDesc = r.getSimpleItemDesc(itemName);
-					if (itemDesc == null)
-						Game.print("You don't see a " + itemName + " in this room!");
+					if (itemDesc != null || c != null)
+						Game.print("You can't do that with " + itemName + ".");
 					else
-						Game.print("You can't do that with the " + itemName + ".");
+						Game.print("You don't see a " + itemName + " in this room!");
 				}
 			}
 		}

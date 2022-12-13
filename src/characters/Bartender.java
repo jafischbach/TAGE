@@ -86,11 +86,11 @@ public class Bartender extends NPC {
 			say("Then feel free to visit your local convenience store. Pick up some"
 					+ " slim jims while you're at it. I hear the sushi is lovely as well."
 					+ " Here's a coupon. Enjoy.");
-			Player.addItem(new Coupon());
+			Game.player.addItem(new Coupon());
 			break;
 		case 2:
 			say("Sure. Swiss? Gouda? Ricotta? Brie? Oh, wait. This is all we have left. Enjoy.");
-			Player.addItem(new Cheese());
+			Game.player.addItem(new Cheese());
 			break;
 		case 3:
 			say("The front door is locked? That's odd. Sadly, I don't have a key. Please"
@@ -98,8 +98,13 @@ public class Bartender extends NPC {
 					+ " There is an employee entrance, though. I could tell you about it..."
 					+ "if you brought me a corkscrew. Opening wine bottles has been a"
 					+ " challenge lately. In the meantime, have a cookie.");
-			Player.addItem(new Cookie());
+			Game.player.addItem(new Cookie());
 		}
+		Game.print("Not wanting to deal with the bartender any more at the moment, you turn"
+				+ " to leave. A small object on the floor catches your eye. Trying not to"
+				+ " catch the bartender's notice, you nonchalantly step closer to the object."
+				+ " It appears to be a gold room key.");
+		Game.getCurrentRoom().addItem(new RoomKey("gold room key"));
 	}
 
 	private void convo4() {
@@ -134,7 +139,7 @@ public class Bartender extends NPC {
 					+ " You can reach the basement through the door marked \"Employees Only\"."
 					+ " Here's the key. Come visit again!");
 			Game.print("The bartender hands you a large key.");
-			Player.addItem(new LargeKey());
+			Game.player.addItem(new LargeKey());
 		}
 	}
 
@@ -156,7 +161,7 @@ public class Bartender extends NPC {
 					+ " do know where you can find gasoline. If it will hasten your"
 					+ " departure, I'll happily help you.");
 			Game.print("The bartender hands you a utility key.");
-			Player.addItem(new UtilityKey());
+			Game.player.addItem(new UtilityKey());
 			break;
 		case 2:
 			say("No. We have a full staff. I'm just the only one brave enough to deal"
@@ -184,7 +189,7 @@ public class Bartender extends NPC {
 			Game.print("The bartender points to a door marked \"Exit\" and then stalks away.");
 			Game.setCurrentRoom("HOTEL_BASEMENT");
 			Game.getRoom("HOTEL_EMPLOYEES_ONLY").setLocked(false);
-			Player.removeItem("beer");
+			Game.player.removeItem("beer");
 			gaveBeer = true;
 			Game.printRoom();
 		}
@@ -207,7 +212,7 @@ public class Bartender extends NPC {
 			convo3();
 			break;
 		default:
-			if (Player.has("chainsaw") && !Player.has("utility key")) {
+			if (Game.player.has("chainsaw") && !Game.player.has("utility key")) {
 				convo5();
 			} else if (gaveBeer)
 				say("And you're still here. Wonderful.");
@@ -252,7 +257,7 @@ public class Bartender extends NPC {
 			say("What are you doing with that? Just help yourself while"
 					+ " the bartender is off taking a nap. Is that how it is? It's empty!"
 					+ " Did you drink it all? <mumbles something inaudible but probably not" + " flattering>");
-			Player.removeItem("bottle");
+			Game.player.removeItem("bottle");
 		} else if (itemName.equals("sledge hammer")) {
 			say("Actually, I'd rather not hold onto that. When the owner sees whatever you"
 					+ " did upstairs, he might blame the one with the sledge hammer. Better" + " that's you than me.");
@@ -266,7 +271,7 @@ public class Bartender extends NPC {
 					+ " was another time. A quieter time.");
 			Game.print("The bartender stares off into space. Just as the moment starts to" + " get awkward...");
 			say("Oh? You're still here? Um. Well. Thanks for the tip. Now off you go.");
-			Player.removeItem("cash");
+			Game.player.removeItem("cash");
 		} else if (itemName.equals("bronze room key") || itemName.equals("silver room key")) {
 			say("I'm the bartender, sir. This is why I stand behind the bar. You see? If you"
 					+ " want to check out, please bring your key to the receptionist. I'm"
@@ -287,7 +292,7 @@ public class Bartender extends NPC {
 					+ " a shotgun, which he uses to blow a hole through your chest.");
 			Game.endGame();
 		} else if (weaponName.equals("sledge hammer") || weaponName.equals("crowbar")) {
-			if (Player.has("gas can")) {
+			if (Game.player.has("gas can")) {
 				Game.print("You swing the " + weaponName + " and pulverize the bartender into a gory heap"
 						+ " of bone, blood, and organs. I hope you're proud of yourself.");
 				Room r = Game.getCurrentRoom();
@@ -305,9 +310,9 @@ public class Bartender extends NPC {
 		} else if (weaponName.equals("newspaper")) {
 			Game.print("You repeatedly smack the bartender with your folded newspaper. He just"
 					+ " looks at you, bemused, and then snatches the newspaper away from you.");
-			Player.removeItem("newspaper");
+			Game.player.removeItem("newspaper");
 		} else if (weaponName.equals("chainsaw")) {
-			if (Player.has("gas can")) {
+			if (Game.player.has("gas can")) {
 				Game.print("With sadistic glee, you start the chainsaw and proceed to carve"
 						+ " the defenseless bartender into fun size bartender bits. What a"
 						+ " gory mess you've made. Had fun?");

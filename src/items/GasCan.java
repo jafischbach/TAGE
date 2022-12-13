@@ -12,7 +12,7 @@ public class GasCan extends Item {
 	}
 	
 	public void look() {
-		if (Player.has("gas can"))
+		if (Game.player.has("gas can"))
 			if (isEmpty) {
 				Game.print("You're carrying around an empty gas can because you just"
 					+ " can't let go of things.");
@@ -24,11 +24,11 @@ public class GasCan extends Item {
 	}
 	
 	public void take() {
-		if (Player.has("gas can"))
+		if (Game.player.has("gas can"))
 			Game.print("You already have the gas can.");
 		else {
 			Game.print("You retrieve the gas can from the shelf.");
-			Player.addItem(this);
+			Game.player.addItem(this);
 			Room r = Game.getCurrentRoom();
 			r.removeItem("gas can");
 			r.setDesc("HOTEL_UTILITIES_B");
@@ -37,7 +37,7 @@ public class GasCan extends Item {
 	}
 	
 	public void open() {
-		if (Player.has("gas can"))
+		if (Game.player.has("gas can"))
 			if (isEmpty)
 				Game.print("There's nothing else in there.");
 			else
@@ -48,7 +48,7 @@ public class GasCan extends Item {
 	}
 	
 	public void use() {
-		if (Player.has("gas can"))
+		if (Game.player.has("gas can"))
 			if (isEmpty)
 				Game.print("The can is empty. Were you planning to use it as a...no, never mind.");
 			else {

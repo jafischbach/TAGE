@@ -205,11 +205,11 @@ public abstract class NPC implements Serializable {
 	 * NPC with the player's equipped weapon.
 	 */
 	public void attack() {
-		String weapon = Player.getEquipped();
+		String weapon = Game.player.getEquipped();
 		if (weapon == null)
 			Game.print("You do not have a weapon equipped.");
 		else
-			attack(Player.getEquipped());
+			attack(Game.player.getEquipped());
 	}
 	
 	/**
