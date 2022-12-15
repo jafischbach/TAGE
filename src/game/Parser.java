@@ -7,7 +7,10 @@ public class Parser {
 
 	private static final List<String> complexCommands = Arrays.asList("give", "attack");
 	private static final List<String> simpleCommands = Arrays.asList("look", "save", "load", "help", "help item", "help npc");
-
+	private static final List<String> directions = Arrays.asList("north", "south", "east", "west", "up", "down");
+	private static final List<String> extraneousWords = Arrays.asList("at", "a", "the", "on", "in", "inside");
+	private static final List<String> lookQualifiers = Arrays.asList("behind", "beneath", "under");
+	
 	private static NPC getNPC(Room r, String name) {
 		NPC npc = r.npcs.get(name);
 		if (npc == null) {
@@ -67,6 +70,8 @@ public class Parser {
 			Game.itemHelp();
 		else if (command.equalsIgnoreCase("help npc"))
 			Game.npcHelp();
+		else
+			Game.processCommand(command.charAt(0)+"");
 	}
 
 	private static void processLook(Room r, Item i, String itemName) {
@@ -98,9 +103,19 @@ public class Parser {
 		return out;
 	}
 	
+	private static String removeExtraneousWords(String in) {
+		String[] s = in.split(" ");
+		String out = s[0];
+		for(int i=1; i<s.length; i++)
+			if (!extraneousWords.contains(s[i]))
+				out += " " + s[i];
+		return out;
+	}
+	
 	public static void processCommand(Room r, String command) {
 		command = removeRedundantWS(command);
-		if (simpleCommands.contains(command))
+		command = removeExtraneousWords(command);
+		if (simpleCommands.contains(command) || directions.contains(command))
 			processSimpleCommand(r, command);
 		else {
 			int space = command.indexOf(" ");
@@ -116,28 +131,43 @@ public class Parser {
 				try {
 					if (action.equalsIgnoreCase("look"))
 						processLook(r, i, itemName);
-					else if (action.equalsIgnoreCase("talk")) {
+					else if (action.equalsIgnoreCase("talk") || action.equalsIgnoreCase("speak")) {
+						itemName = itemName.replaceFirst("to ", "");
+						c = r.npcs.get(itemName);
 						c.talk();
-					} else if (action.equalsIgnoreCase("take"))
+					} else if (action.equalsIgnoreCase("take") || action.equalsIgnoreCase("get")
+							|| action.equalsIgnoreCase("pick")) {
+						itemName = itemName.replaceFirst("up ", "");
+						i = Game.getCurrentRoom().getItem(itemName);
 						i.take();
-					else if (action.equalsIgnoreCase("move"))
+					} else if (action.equalsIgnoreCase("move") || action.equalsIgnoreCase("push")
+							|| action.equalsIgnoreCase("pull"))
 						i.move();
 					else if (action.equalsIgnoreCase("use"))
 						i.use();
 					else if (action.equalsIgnoreCase("open"))
-						i.open();
+						if (i == null && itemName.contains("door"))
+							Game.print("Either go in that direction or use an item.");
+						else
+							i.open();
 					else if (action.equalsIgnoreCase("close"))
 						i.close();
 					else if (action.equalsIgnoreCase("equip"))
 						Game.player.equip(itemName);
-					else
+					else if (action.equalsIgnoreCase("go")) {
+						itemName = itemName.replaceFirst("to ", "");
+						if(directions.contains(itemName.toLowerCase()))
+							Game.processCommand(itemName.charAt(0)+"");
+						else
+							Game.print("You can't go "+itemName+"!");
+					} else
 						i.uniqueCommand(action);
 				} catch (NullPointerException ex) {
 					String itemDesc = r.getSimpleItemDesc(itemName);
 					if (itemDesc != null || c != null)
 						Game.print("You can't do that with " + itemName + ".");
 					else
-						Game.print("You don't see a " + itemName + " in this room!");
+						Game.print("You can't do that!");
 				}
 			}
 		}
