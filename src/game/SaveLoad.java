@@ -8,6 +8,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JOptionPane;
@@ -89,7 +90,8 @@ public class SaveLoad {
 			saveFile.createNewFile();
 			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
 			stream.writeObject(Game.player);
-			stream.writeObject(Game.rooms);
+			//stream.writeObject(Game.rooms);
+			stream.writeObject(Game.visitedRooms);
 			stream.writeObject(Game.flags);
 			stream.writeObject(Game.currentRoom);
 			stream.close();
@@ -131,9 +133,11 @@ public class SaveLoad {
 			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
 			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
 			Game.player = (Player) stream.readObject();
-			Game.rooms = (HashMap<String, Room>) stream.readObject();
+			//Game.rooms = (HashMap<String, Room>) stream.readObject();
+			Game.visitedRooms = (ArrayList<Room>) stream.readObject();
 			Game.flags = (HashMap<String, Integer>) stream.readObject();
 			Game.currentRoom = (Room) stream.readObject();
+			updateRooms();
 			Game.printRoom();
 			stream.close();
 		} catch (FileNotFoundException ex) {
@@ -143,6 +147,11 @@ public class SaveLoad {
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}
+	}
+	
+	private static void updateRooms() {
+		for(Room r : Game.visitedRooms)
+			Game.rooms.put(r.getRoomLabel(), r);
 	}
 	
 }

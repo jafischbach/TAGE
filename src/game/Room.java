@@ -17,7 +17,7 @@ public class Room implements Serializable {
 
 	private String descLabel;
 	private String roomName;
-	private Room[] go;
+	private String[] go;
 	protected HashMap<String, Item> items;
 	protected HashMap<String, NPC> npcs;
 	private ArrayList<String> simpleItems;
@@ -33,7 +33,7 @@ public class Room implements Serializable {
 		descLabel = label;
 		isLocked = false;
 		entered = false;
-		go = new Room[6];
+		go = new String[6];
 		Game.addRoom(label, this);
 	}
 
@@ -65,7 +65,7 @@ public class Room implements Serializable {
 	}
 
 	public Item getItem(String name) {
-		return items.get(name);
+		return items == null ? null : items.get(name);
 	}
 
 	public void addNPC(NPC npc) {
@@ -85,8 +85,16 @@ public class Room implements Serializable {
 			npcs.remove(name);
 	}
 
+	public boolean hasNPC(String name) {
+		return npcs == null ? false : npcs.containsKey(name);
+	}
+
+	public NPC getNPC(String name) {
+		return npcs == null? null : npcs.get(name);
+	}
+	
 	public void addExit(Room room, int direction) {
-		go[direction] = room;
+		go[direction] = room.getRoomLabel();
 	}
 
 	public String getName() {
@@ -99,11 +107,7 @@ public class Room implements Serializable {
 
 	public String getDesc() {
 		if (!entered) {
-			entered = true;
-			if (Game.roomItems.containsKey(roomLabel))
-				items = Game.roomItems.get(roomLabel);
-			if (Game.roomNPCS.containsKey(roomLabel))
-				npcs = Game.roomNPCS.get(roomLabel);
+			enteringRoom();
 		}
 		return Game.roomDescs.get(descLabel);
 	}
@@ -179,17 +183,26 @@ public class Room implements Serializable {
 	}
 
 	private Room go(int direction) {
-		Room r = go[direction];
+		Room r = Game.getRoom(go[direction]);
 		if (r != null)
 			if (r.isLocked())
 				throw new InvalidDirectionException("You can't go that way right now.");
 			else {
-				return go[direction];
+				return r;
 			}
 		else
 			throw new InvalidDirectionException("You can't go that way!");
 	}
 
+	private void enteringRoom() {
+		entered = true;
+		if (Game.roomItems.containsKey(roomLabel))
+			items = Game.roomItems.get(roomLabel);
+		if (Game.roomNPCS.containsKey(roomLabel))
+			npcs = Game.roomNPCS.get(roomLabel);
+		Game.visitedRooms.add(this);
+	}
+	
 	public boolean equals(String label) {
 		return roomLabel.equals(label);
 	}

@@ -81,6 +81,16 @@ public abstract class Item implements Serializable {
 	public void look() {
 		Game.print(Game.itemDescs.get(descLabel));
 	}
+
+	/**
+	 * Displays a message when the player tries to look at
+	 * some aspect of the item. 
+	 * Ex. "look behind" or "look under".
+	 * @param where where is the player looking?
+	 */
+	public void look(String where) {
+		Game.print("You don't see anything interesting.");
+	}
 	
 	/**
 	 * Displays a generic message when player tries to

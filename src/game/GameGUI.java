@@ -39,7 +39,7 @@ public class GameGUI {
 	
 	public static void buildWindow() {
 		window = new JFrame();
-		window.setTitle(Game.TITLE);
+		window.setTitle(World.TITLE);
 		try {
 			window.setIconImage(ImageIO.read(new File(ICON_FILENAME)));
 		} catch(IOException ex) {
@@ -231,9 +231,9 @@ public class GameGUI {
 		JMenuItem aboutMenuItem = new JMenuItem("About");
 		aboutMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String s = Game.TITLE + "\n";
-				s += "Version: " + Game.VERSION + "\n\n";
-				s += "Developer: " + Game.DEVELOPER + "\n\n";
+				String s = World.TITLE + "\n";
+				s += "Version: " + World.VERSION + "\n\n";
+				s += "Developer: " + World.DEVELOPER + "\n\n";
 				s += "FlossTAGE Version: beta";
 				JOptionPane.showMessageDialog(window, s, "About", JOptionPane.INFORMATION_MESSAGE);
 			}

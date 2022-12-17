@@ -9,6 +9,16 @@ public class Toilet extends Item {
 	}
 	
 	@Override
+	public void look(String where) {
+		if (where.equalsIgnoreCase("behind"))
+			Game.print("You reach behind the toilet and find a gun! Oh, wait. No,"
+					+ " that's in The Godfather. Never mind. You find nothing behind"
+					+ " the toilet, but now your hand is beyond filthy.");
+		else
+			look();
+	}
+	
+	@Override
 	public void use() {
 		Game.print("Really? Trust me. You can hold it.");
 	}

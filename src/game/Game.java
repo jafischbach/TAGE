@@ -1,6 +1,7 @@
 package game;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Map.Entry;
@@ -21,21 +22,6 @@ import world.World;
  * @version beta (2022)
  */
 public class Game {
-
-	/**
-	 * Game title.
-	 */
-	public static final String TITLE = "Hotel Escape";
-	
-	/**
-	 * Game version number.
-	 */
-	public static final String VERSION = "beta";
-	
-	/**
-	 * Game developer name.
-	 */
-	public static final String DEVELOPER = "The Steve Machine";
 	
 	/**
 	 * Is the game a console application? 
@@ -77,6 +63,7 @@ public class Game {
 	protected static Room currentRoom;
 
 	protected static HashMap<String, Room> rooms; // All room objects
+	protected static ArrayList<Room> visitedRooms; // Rooms visited by player
 	protected static HashMap<String, Integer> flags; // Game state flags
 	protected static HashMap<String, HashMap<String, Item>> roomItems;
 	protected static HashMap<String, HashMap<String, NPC>> roomNPCS;
@@ -222,7 +209,7 @@ public class Game {
 
 	// Displays the game over message when game ends.
 	private static void gameOverMessage() {
-		print("I guess we're done here. Thanks for playing. Bye!");
+		print(World.GAME_OVER_TEXT); 
 		if (CONSOLE) {
 			print("<Press ENTER to exit.>");
 			input.nextLine();
@@ -484,6 +471,7 @@ public class Game {
 		itemDescs = new HashMap<String, String>();
 		npcDescs = new HashMap<String, String>();
 		rooms = new HashMap<String, Room>();
+		visitedRooms = new ArrayList<Room>();
 		roomItems = new HashMap<String, HashMap<String, Item>>();
 		roomNPCS = new HashMap<String, HashMap<String, NPC>>();
 		simpleItems = new HashMap<String, String>();

@@ -18,9 +18,26 @@ import characters.*;
  */
 public class World {
 
+	/**
+	 * Game title.
+	 */
+	public static final String TITLE = "Hotel Escape";
+	
+	/**
+	 * Game version number.
+	 */
+	public static final String VERSION = "beta";
+	
+	/**
+	 * Game developer name.
+	 */
+	public static final String DEVELOPER = "The Steve Machine";
+	
 	public static final String INTRO_TEXT = 
 			"You find yourself in a hotel lobby. You have no idea how you got here, but you"
 			+ " do know that the front door is locked. Find a way out of the hotel!";
+	
+	public static final String GAME_OVER_TEXT = "I guess we're done here. Thanks for playing. Bye!";
 	
 	public static void buildWorld() {
 		Room lobby = new Room("HOTEL_LOBBY", "Lobby");
