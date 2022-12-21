@@ -8,14 +8,17 @@ public class OldMan extends NPC {
 		super("old man");
 	}
 	
+	@Override
 	public void look() {
 		Game.print("The old man is sleeping peacefully.");
 	}
 	
+	@Override
 	public void talk() {
 		Game.print("The old man doesn't talk in his sleep.");
 	}
 	
+	@Override
 	public void attack(String weapon) {
 		char response = Game.getYesNo("Really? You really want to attack the gentle old man"
 				+ " with the "+weapon+"? Really? (y/n) ");
@@ -36,6 +39,16 @@ public class OldMan extends NPC {
 		} else {
 			Game.print("Glad to hear you're not a total jackass.");
 		}
+	}
+	
+	@Override
+	public void uniqueCommand(String command) {
+		if (command.equals("wake"))
+			Game.print("Don't be a jackass. Let the poor old man sleep.");
+		else if (command.equals("pick up"))
+			Game.print("How dare you!? The old man has been happily married for 47 years!");
+		else
+			super.uniqueCommand(command);
 	}
 	
 }

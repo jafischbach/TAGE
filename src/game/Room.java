@@ -135,10 +135,14 @@ public class Room implements Serializable {
 		return roomLabel;
 	}
 
-	public void addSimpleItem(String name, String desc) {
+	public void addSimpleItem(String name) {
 		if (simpleItems == null)
 			simpleItems = new ArrayList<String>();
 		simpleItems.add(name);
+	}
+	
+	public void addSimpleItem(String name, String desc) {
+		addSimpleItem(name);
 		Game.addSimpleItem(name, desc);
 	}
 

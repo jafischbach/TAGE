@@ -8,12 +8,14 @@ public class Chainsaw extends Item {
 		super("chainsaw");
 	}
 	
+	@Override
 	public void look() {
 		Game.print("It's an Easy Slaughter(tm) Mid-Size Chainsaw! You've been asking"
 				+ " Santa for one of these for years.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if(Game.player.has("chainsaw"))
 			Game.print("You're already carrying the chainsaw. How do you not know this?");
 		else {
@@ -28,10 +30,12 @@ public class Chainsaw extends Item {
 		}
 	}
 	
+	@Override
 	public void open() {
 		Game.print("Don't do that! You'll void the warranty!");
 	}
 	
+	@Override
 	public void use() {
 		if (Game.hasFlag("chainsaw gassed")) {
 			Room r = Game.getCurrentRoom();

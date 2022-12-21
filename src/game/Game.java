@@ -47,7 +47,12 @@ public class Game {
 			playGUI();
 	}
 
+	/**
+	 * Reference to the player object.
+	 */
 	public static Player player;
+	
+	protected static Room currentRoom;
 	
 	// Data structures containing descriptions of rooms, items, and NPCs.
 	protected static HashMap<String, String> roomDescs;
@@ -60,19 +65,21 @@ public class Game {
 	protected static int convoOptions;
 	protected static NPC character;
 
-	protected static Room currentRoom;
-
+	// Various game data structures
 	protected static HashMap<String, Room> rooms; // All room objects
 	protected static ArrayList<Room> visitedRooms; // Rooms visited by player
 	protected static HashMap<String, Integer> flags; // Game state flags
+	
+	// Items and NPCs not yet encountered by player.
+	// These objects are not included in save game files.
 	protected static HashMap<String, HashMap<String, Item>> roomItems;
 	protected static HashMap<String, HashMap<String, NPC>> roomNPCS;
 
-	// Scanner for user input when game is a console application.
-	private static Scanner input = new Scanner(System.in);
-
 	// Descriptions of non-interactive items.
 	private static HashMap<String, String> simpleItems;
+		
+	// Scanner for user input when game is a console application.
+	private static Scanner input = new Scanner(System.in);
 
 	// Shift cipher offset used to obscure data files.
 	private static int OFFSET = 113;
@@ -91,11 +98,6 @@ public class Game {
 		else
 			GameGUI.display.append(s + "\n\n");
 	}
-
-	public static void printRoom() {
-		if (!CONSOLE)
-			GameGUI.displayRoom(currentRoom);
-	}
 	
 	/**
 	 * Same as print() but does not add a blank line after
@@ -112,6 +114,15 @@ public class Game {
 			GameGUI.display.append(s + "\n");
 	}
 
+	/**
+	 * Displays the description of the current room in the GUI.
+	 * Does nothing for console applications.
+	 */
+	public static void printRoom() {
+		if (!CONSOLE)
+			GameGUI.displayRoom(currentRoom);
+	}
+	
 	/**
 	 * Alerts GameGUI that the next command entered by the user
 	 * is the response to a NPC dialog prompt.
@@ -134,7 +145,7 @@ public class Game {
 	 * user input.
 	 * 
 	 * @param prompt prompt to display to player
-	 * @return player's response
+	 * @return player's response (either 'y' or 'n')
 	 */
 	public static char getYesNo(String prompt) {
 		if (CONSOLE) {
@@ -183,9 +194,9 @@ public class Game {
 			}
 		} else {
 			try {
-				String s = JOptionPane.showInputDialog(title.equals("Dialog") ? 
-						   GameGUI.command : 
-						   GameGUI.window, prompt, title, JOptionPane.QUESTION_MESSAGE);
+				String s = JOptionPane.showInputDialog(
+							title.equals("Dialog") ? GameGUI.command : GameGUI.window, 
+							prompt, title, JOptionPane.QUESTION_MESSAGE);
 				if (s == null)
 					throw new CancelledInputException();
 				return Integer.parseInt(s);
@@ -232,7 +243,7 @@ public class Game {
 	/**
 	 * Sets the current room to the given room.
 	 * 
-	 * This essentially "moves" the player to the
+	 * This teleports the player to the
 	 * given room.
 	 * 
 	 * @param r room player will move to
@@ -245,7 +256,7 @@ public class Game {
 	 * Sets the current room to the room with the
 	 * given label.
 	 * 
-	 * This essentially "moves" the player to the
+	 * This teleports the player to the
 	 * given room.
 	 * 
 	 * @param label label of room player will move to
@@ -365,6 +376,7 @@ public class Game {
 	 * Displays the list of general player commands.
 	 */
 	public static void help() {
+		println("Basic commands:");
 		println("look - display desription of current room");
 		println("n - move north");
 		println("s - move south");
@@ -384,6 +396,7 @@ public class Game {
 	 * Displays the list of commands player can use with items.
 	 */
 	public static void itemHelp() {
+		println("Basic item interactions (may not be exaustive):");
 		println("look <item> - display description of item");
 		println("use <item> - use the item");
 		println("take <item> - take the item and add it to player's inventory");
@@ -397,6 +410,7 @@ public class Game {
 	 * Displays the list of commands player can use with NPCs.
 	 */
 	public static void npcHelp() {
+		println("Basic NPC interactions (may not be exaustive):");
 		println("look <npc> - display a description of the NPC");
 		println("talk <npc> - talk to the NPC");
 		println("give <item> to <npc> - give the item to the NPC");

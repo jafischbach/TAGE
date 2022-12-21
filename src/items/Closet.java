@@ -17,6 +17,7 @@ public class Closet extends Item {
 		corpseFound = false;
 	}
 	
+	@Override
 	public void look() {
 		if (isOpen) {
 			if (roomNum == 101) {
@@ -48,6 +49,7 @@ public class Closet extends Item {
 				+ " not lead to Narnia.");
 	}
 	
+	@Override
 	public void open() {
 		if(isOpen)
 			Game.print("The closet is already open. You're not that bright, are you?");
@@ -61,6 +63,7 @@ public class Closet extends Item {
 		}
 	}
 	
+	@Override
 	public void close() {
 		if(isOpen) {
 			if (roomNum == 101)

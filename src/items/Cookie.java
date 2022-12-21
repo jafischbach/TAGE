@@ -8,10 +8,12 @@ public class Cookie extends Item {
 		super("cookie");
 	}
 	
+	@Override
 	public void look() {
 		Game.print("Mmmm. Cookie. It's a chocolate chip cookie!");
 	}
 	
+	@Override
 	public void use() {
 		if (Game.player.has("corkscrew") || Game.player.has("large key")) {
 			Game.print("Yes! It is time for cookie! You stuff the cookie in"
@@ -22,6 +24,7 @@ public class Cookie extends Item {
 		}
 	}
 	
+	@Override
 	public void uniqueCommand(String command) {
 		if (command.equals("eat"))
 			use();

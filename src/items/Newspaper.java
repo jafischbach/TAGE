@@ -11,6 +11,7 @@ public class Newspaper extends Item {
 		super(lable, name);
 	}
 
+	@Override
 	public void open() {
 		if (!taken) {
 			Game.print("You don't have the newspaper.");
@@ -27,11 +28,13 @@ public class Newspaper extends Item {
 		}
 	}
 	
+	@Override
 	public void close() {
 		Game.print("The newspaper is already closed.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if (!taken) {
 			Game.print("You gently lift the newspaper from the old man's lap, being " + 
 					"careful not to disturb him.");
@@ -46,6 +49,7 @@ public class Newspaper extends Item {
 		}
 	}
 
+	@Override
 	public void uniqueCommand(String command) {
 		if (command.equals("read"))
 			open();

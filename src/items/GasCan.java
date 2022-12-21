@@ -11,6 +11,7 @@ public class GasCan extends Item {
 		isEmpty = false;
 	}
 	
+	@Override
 	public void look() {
 		if (Game.player.has("gas can"))
 			if (isEmpty) {
@@ -23,7 +24,8 @@ public class GasCan extends Item {
 			Game.print("It's a metal cannister labelled \"Super Flammable Stuff.\"");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if (Game.player.has("gas can"))
 			Game.print("You already have the gas can.");
 		else {
@@ -36,6 +38,7 @@ public class GasCan extends Item {
 		}
 	}
 	
+	@Override
 	public void open() {
 		if (Game.player.has("gas can"))
 			if (isEmpty)
@@ -47,6 +50,7 @@ public class GasCan extends Item {
 			Game.print("You don't have the gas can.");
 	}
 	
+	@Override
 	public void use() {
 		if (Game.player.has("gas can"))
 			if (isEmpty)

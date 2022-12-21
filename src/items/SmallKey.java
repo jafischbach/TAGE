@@ -10,6 +10,7 @@ public class SmallKey extends Item {
 		super(name);
 	}
 
+	@Override
 	public void look() {
 		if (!lockFound) {
 			Game.print("It's a small key. You wonder what it unlocks.");
@@ -18,6 +19,7 @@ public class SmallKey extends Item {
 		}
 	}
 
+	@Override
 	public void use() {
 		Room r = Game.getCurrentRoom();
 		if (r.equals("HOTEL_HALL_TOP")) {

@@ -63,6 +63,13 @@ public class World {
 		lobby.addExit(hall, Room.NORTH);
 		lobby.addExit(upperFloor, Room.UP);
 		lobby.addExit(exit, Room.SOUTH);
+		lobby.addSimpleItem("exit", "The wooden door to the outside looks sturdy. It is securely"
+				+ " locked.");
+		lobby.addSimpleItem("front door", "The wooden door to the outside looks sturdy. It is securely"
+				+ " locked.");
+		lobby.addSimpleItem("staircase", "An unremarkable staircase leads up to the second floor.");
+		lobby.addSimpleItem("doorway", "You are shocked to discover that a doorway leads to another"
+				+ " room! Bizarre!");
 
 		exit.setLocked(true);
 		exit.addExit(lobby, Room.NORTH);
@@ -71,17 +78,23 @@ public class World {
 		bar.addExit(rr, Room.NORTH);
 		bar.addExit(lobby, Room.EAST);
 		bar.addItem(new HotelBar("HOTEL_BAR", "bar"));
-
+		bar.addSimpleItem("door", "It's just a door. Don't get too excited.");
+		bar.addSimpleItem("doorway");
+		
 		lounge.addExit(lobby, Room.WEST);
-		lounge.addItem(new Newspaper("HOTEL_LOUNGE_NEWSPAPER", "newspaper"));
+		Newspaper paper = new Newspaper("HOTEL_LOUNGE_NEWSPAPER", "newspaper");
+		lounge.addItem(paper);
+		lounge.addItem(paper, "old newspaper");
 		lounge.addNPC(new OldMan());
 		lounge.addSimpleItem("couch", "It's a ratty old couch. This isn't a luxury hotel.");
 		lounge.addSimpleItem("armchair", "Identical armchairs sit in the room. An old man"
 				+ " occupies one of them.");
+		lounge.addSimpleItem("doorway");
 
 		hall.addExit(lobby, Room.SOUTH);
 		hall.addExit(room101, Room.WEST);
 		hall.addExit(employeesOnly, Room.EAST);
+		hall.addSimpleItem("door");
 		
 		room101.setLocked(true);
 		room101.addExit(hall, Room.EAST);
@@ -127,6 +140,7 @@ public class World {
 				+ " of furniture for you to move yourself. You will not be able to go that way.";
 		upperFloor.addSimpleItem("furniture", furnitureDesc);
 		upperFloor.addSimpleItem("stacked furniture", furnitureDesc);
+		upperFloor.addSimpleItem("door");
 		
 		closet.setLocked(true);
 		closet.addExit(upperFloor, Room.SOUTH);

@@ -244,5 +244,9 @@ public abstract class NPC implements Serializable {
 	public void give(String itemName) {
 		Game.print(name + " doesn't want " + itemName + ".");
 	}
+	
+	public void uniqueCommand(String command) {
+		Game.print("You can't do that!");
+	}
 
 }

@@ -12,6 +12,7 @@ public class LargeKey extends Item {
 		roomFound = false;
 	}
 	
+	@Override
 	public void look() {
 		if (roomFound)
 			Game.print("It's a large, metal key that opens the door marked \"Employees Only\".");
@@ -20,6 +21,7 @@ public class LargeKey extends Item {
 					+ " keys, but it probably opens a door somewhere.");
 	}
 	
+	@Override
 	public void use() {
 		if (Game.getCurrentRoom().equals("HOTEL_HALL_1ST")) {
 			if(roomFound)

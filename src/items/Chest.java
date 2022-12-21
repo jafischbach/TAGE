@@ -10,6 +10,7 @@ public class Chest extends Item {
 		super(label, name);
 	}
 	
+	@Override
 	public void look() {
 		if (!isOpen)
 			super.look();
@@ -19,6 +20,7 @@ public class Chest extends Item {
 			Game.print("The chest sits open on the floor. There is a sledge hammer inside.");
 	}
 	
+	@Override
 	public void open() {
 		if (!isOpen) {
 			if(Game.player.has("tiny key")) {
@@ -34,6 +36,7 @@ public class Chest extends Item {
 		}
 	}
 	
+	@Override
 	public void close() {
 		if (isOpen)
 			Game.print("You could close the chest but decide you have no reason to.");
@@ -41,11 +44,13 @@ public class Chest extends Item {
 			Game.print("The lid is already closed.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		Game.print("Why the hell would you want to carry around a large chest? Besides,"
 				+ " it's way too heavy. Don't give yourself a hernia.");
 	}
 	
+	@Override
 	public void uniqueCommand(String command) {
 		if (command.equals("unlock"))
 			open();

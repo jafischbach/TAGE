@@ -9,6 +9,7 @@ public class Wolverine extends NPC {
 		super("wolverine");
 	}
 
+	@Override
 	public void look() {
 		if (Game.hasFlag("wolverine sleeping"))
 			Game.print("The wolverine is sleeping peacefully. Little bastard"
@@ -17,6 +18,7 @@ public class Wolverine extends NPC {
 			Game.print("It's small, furry, and totally pissed off.");
 	}
 
+	@Override
 	public void attack(String weapon) {
 		if (Game.hasFlag("wolverine sleeping"))
 			Game.print("The wolverine is sleeping. Leave the poor thing alone.");

@@ -13,6 +13,7 @@ public class TrapDoor extends Item {
 		cashFound = false;
 	}
 	
+	@Override
 	public void look() {
 		if(isOpen)
 			if(Game.player.has("cash"))
@@ -41,6 +42,7 @@ public class TrapDoor extends Item {
 					+ "hole.");
 	}
 	
+	@Override
 	public void open() {
 		if (isOpen)
 			Game.print("Uh...sure buddy. You can open the already-opened trap door. That's"
@@ -57,6 +59,7 @@ public class TrapDoor extends Item {
 					+ " cool stuff under there.");
 	}
 	
+	@Override
 	public void close() {
 		if(isOpen) {
 			Game.print("You kick the trap door closed.");

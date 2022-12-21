@@ -13,6 +13,7 @@ public class Picture extends Item {
 		keyFound = false;
 	}
 	
+	@Override
 	public void look() {
 		if (Game.hasFlag("met bartender"))
 			Game.print("The bartender actually has a smile in the picture. You wonder if the"
@@ -23,7 +24,8 @@ public class Picture extends Item {
 					+ " care about.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if (Game.hasFlag("met bartender"))
 			Game.print("Why would you want to carry around a picture of the bartender? Actually,"
 				+ " don't answer that. I'd rather not know. Leave the picture on the wall.");
@@ -31,7 +33,8 @@ public class Picture extends Item {
 			Game.print("Why would you want to carry around a picture of two random dudes?");
 	}
 	
-	public void move() {
+	@Override
+	public void move(String command) {
 		if (keyFound)
 			Game.print("Why? There's nothing else behind it.");
 		else {

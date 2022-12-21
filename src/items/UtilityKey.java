@@ -12,6 +12,7 @@ public class UtilityKey extends Item {
 		roomUnlocked = false;
 	}
 	
+	@Override
 	public void look() {
 		if (roomUnlocked)
 			Game.print("It's the key that opens the door in the utilities room in the basement.");
@@ -19,6 +20,7 @@ public class UtilityKey extends Item {
 			Game.print("Yet another key. The bartender called it a utility key.");
 	}
 	
+	@Override
 	public void use() {
 		if (roomUnlocked)
 			Game.print("You already unlocked the door to the utilities room.");

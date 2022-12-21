@@ -11,6 +11,7 @@ public class WeeLittleKey extends Item {
 		lockFound = false;
 	}
 	
+	@Override
 	public void look() {
 		if (lockFound)
 			Game.print("It's a key so wee you're amazed you haven't lost it yet. It unlocks"
@@ -20,6 +21,7 @@ public class WeeLittleKey extends Item {
 				+ " tiny key you found earlier.");
 	}
 	
+	@Override
 	public void use() {
 		if(Game.getCurrentRoom().equals("HOTEL_ROOM_202")) {
 			Game.print("The lock on the refrigerator is so wee, this key might actually work! Try"
@@ -30,7 +32,8 @@ public class WeeLittleKey extends Item {
 					+ " in this room.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		Game.print("You're already carrying the wee little key.");
 	}
 	

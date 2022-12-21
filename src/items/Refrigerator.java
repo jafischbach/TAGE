@@ -13,10 +13,12 @@ public class Refrigerator extends Item {
 		isOpen = false;
 	}
 	
+	@Override
 	public void look() {
 		Game.print("It's a working refrigerator and it's not caked in dust. Creepy.");
 	}
 	
+	@Override
 	public void open() {
 		if (Game.hasFlag("wolverine sleeping")) {
 		if (isOpen)
@@ -48,6 +50,7 @@ public class Refrigerator extends Item {
 		}
 	}
 	
+	@Override
 	public void close() {
 		if (isOpen) {
 			Game.print("You close the refrigerator. Gotta keep all that beer nice and cold!");

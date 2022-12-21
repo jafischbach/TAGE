@@ -13,10 +13,10 @@ HOTEL_BAR_C
 This used to be a bar. Now it's nothing more than the bartender's gruesome tomb. There is a closed door, dripping with former bartender, in the north wall. Another doorway leads east to the lobby.
 #
 HOTEL_LOUNGE
-This is a pleasant room with a couch and two armchairs. An old man is sleeping in one of the chairs, an old newspaper lays folded in his lap. A doorway leads west to the lobby.
+This is a pleasant room with a couch and two armchairs. An old man is sleeping in one of the armchairs, an old newspaper lays folded in his lap. A doorway leads west to the lobby.
 #
 HOTEL_LOUNGE_B
-This is a pleasant room with a couch and two armchairs. An old man is sleeping in one of the chairs. A doorway leads west to the lobby.
+This is a pleasant room with a couch and two armchairs. An old man is sleeping in one of the armchairs. A doorway leads west to the lobby.
 #
 HOTEL_HALL_1ST
 You are in a short, dead-end hallway. A door in the west wall is marked "101" and a door in the east wall is marked "Employees Only." You can return south to the lobby.

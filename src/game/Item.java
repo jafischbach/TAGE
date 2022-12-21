@@ -109,8 +109,10 @@ public abstract class Item implements Serializable {
 	 * 
 	 * Extending classes should override this method if
 	 * the item can be taken.
+	 * 
+	 * @param command command entered by player ("take", "get", or "pick up")
 	 */
-	public void take() {
+	public void take(String command) {
 		if (Game.player.has(name))
 			Game.print("You already have the "+name+".");
 		else
@@ -123,8 +125,10 @@ public abstract class Item implements Serializable {
 	 * 
 	 * Extending classes should override this method if
 	 * the item can be moved.
+	 * 
+	 * @param command command entered by player ("move", "push", or "pull")
 	 */
-	public void move() {
+	public void move(String command) {
 		Game.print(name+" doesn't move.");
 	}
 	

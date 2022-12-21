@@ -8,16 +8,19 @@ public class Cop extends NPC {
 		super("cop");
 	}
 	
+	@Override
 	public void look() {
 		Game.print("The cop looks intimidating in his sharp, blue uniform. His badge glistens"
 				+ " in the sun. He squints at you, waiting for you to make the first move. You're"
 				+ " not getting past this guy.");
 	}
 	
+	@Override
 	public void attack(String weapon) {
 		Game.print("You brought a " + weapon + " to a gun fight. You're not going to win that one.");
 	}
 	
+	@Override
 	public void talk() {
 		say("Well, well, well. Who do we have here? Chainsaw. Crowbar. Slegde hammer. Looks like"
 				+ " a vandal to me. A professional vandal. Those are some serious tools. Master"
@@ -39,6 +42,7 @@ public class Cop extends NPC {
 		getResponse(option);
 	}
 	
+	@Override
 	public void response(int choice) {
 		switch(choice) {
 		case 1:
@@ -65,6 +69,7 @@ public class Cop extends NPC {
 		}
 	}
 	
+	@Override
 	public void give(String item) {
 		if (item.equals("cash")) {
 			Game.print("The cop eagerly accepts the proferred bribe. Well, there goes your"

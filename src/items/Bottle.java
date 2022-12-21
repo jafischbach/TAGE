@@ -11,7 +11,8 @@ public class Bottle extends Item {
 		super(lable, name);
 	}
 
-	public void take() {
+	@Override
+	public void take(String command) {
 		if (isTaken)
 			Game.print("You already have the bottle.");
 		else {
@@ -23,6 +24,7 @@ public class Bottle extends Item {
 		}
 	}
 
+	@Override
 	public void open() {
 		if (!isTaken)
 			Game.print("You don't have the bottle!");
@@ -38,6 +40,7 @@ public class Bottle extends Item {
 		}
 	}
 
+	@Override
 	public void close() {
 		if (!isTaken)
 			Game.print("You don't have the bottle!");

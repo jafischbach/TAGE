@@ -14,10 +14,12 @@ public class Crowbar extends Item {
 		isTaken = false;
 	}
 	
+	@Override
 	public void look() {
 		Game.print("What a cool crowbar!");
 	}
 	
+	@Override
 	public void use() {
 		Room r = Game.getCurrentRoom();
 		if (r.equals("HOTEL_ROOM_201") && r.hasItem("trap door"))
@@ -31,7 +33,8 @@ public class Crowbar extends Item {
 			Game.print("You don't see anything that needs prying.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if(isTaken)
 			Game.print("You already have the crowbar.");
 		else {

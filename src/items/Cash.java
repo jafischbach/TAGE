@@ -11,10 +11,12 @@ public class Cash extends Item {
 		isTaken = false;
 	}
 	
+	@Override
 	public void look() {
 		Game.print("That's a whole lot of sweet legal tender!");
 	}
 	
+	@Override
 	public void use() {
 		if (isTaken)
 			Game.print("You fan yourself with the cash and feel much cooler.");
@@ -22,7 +24,8 @@ public class Cash extends Item {
 			Game.print("You don't have the cash!");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if (isTaken)
 			Game.print("You already have the cash.");
 		else {

@@ -8,6 +8,7 @@ public class Corpse extends Item {
 		super("corpse");
 	}
 	
+	@Override
 	public void look() {
 		if (Game.hasFlag("met bartender"))
 			Game.print("Yup. It's a dead guy. It's hard to tell how long he's been dead,"
@@ -20,22 +21,26 @@ public class Corpse extends Item {
 					+ " was or how he died or why someone stuffed him in the closet.");
 	}
 	
+	@Override
 	public void use() {
 		Game.print("Please don't elaborate on how you were thinking of using the corpse. I"
 				+ " can't emphasize enough how much I don't want to know what's in your"
 				+ " sick head.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		Game.print("Yeah. Sure. Carry around a dead guy. That won't look suspicious at all."
 				+ " You're a dumbass. You know this, right?");
 	}
 	
+	@Override
 	public void open() {
 		Game.print("Are you a medical examiner? No. No you are not.");
 	}
 	
-	public void move() {
+	@Override
+	public void move(String command) {
 		if (Game.player.has("cookie"))
 			if (Game.player.has("corkscrew"))
 				Game.print("Stop playing with the dead guy.");

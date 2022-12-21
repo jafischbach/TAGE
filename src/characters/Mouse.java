@@ -8,11 +8,13 @@ public class Mouse extends NPC {
 		super("mouse");
 	}
 	
+	@Override
 	public void look() {
 		Game.print("A tiny gray mouse crouches just within the hole. It stares at you with"
 				+ " burning malevolence.");
 	}
 	
+	@Override
 	public void give(String item) {
 		if (item.equals("cheese")) {
 			Game.print("You place the cheese in front of the hole. The mouse regards you suspiciously."
@@ -27,10 +29,12 @@ public class Mouse extends NPC {
 		}
 	}
 	
+	@Override
 	public void talk() {
 		Game.print("You want to talk to a rodent? Are you feeling okay?");
 	}
 	
+	@Override
 	public void attack(String weapon) {
 		Game.print("The mouse scurries out of your reach. Nice try, but you don't have the"
 				+ " reflexes to hurt or catch the mouse.");

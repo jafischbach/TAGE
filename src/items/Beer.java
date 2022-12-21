@@ -8,10 +8,12 @@ public class Beer extends Item {
 		super("beer");
 	}
 	
+	@Override
 	public void look() {
 		Game.print("It's a can of cool Dr. Hops beer!");
 	}
 	
+	@Override
 	public void use() {
 		Game.print("You pop open the can of Dr. Hops beer and chug the cool, refreshing"
 				+ " beverage. You smash the empty can against your forehead (because you're"
@@ -20,7 +22,8 @@ public class Beer extends Item {
 		Game.player.removeItem("beer");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if (Game.player.has("beer"))
 			Game.print("You already have a can of beer. How many do you think you can"
 					+ " stuff in your pockets?");
@@ -31,10 +34,12 @@ public class Beer extends Item {
 		}
 	}
 	
+	@Override
 	public void open() {
 		Game.print("Don't open the can until you're ready to use it!");
 	}
 	
+	@Override
 	public void uniqueCommand(String command) {
 		if (command.equals("drink"))
 			use();

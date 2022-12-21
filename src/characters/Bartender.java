@@ -195,6 +195,7 @@ public class Bartender extends NPC {
 		}
 	}
 
+	@Override
 	public void talk() {
 		if (notMet) {
 			notMet = false;
@@ -221,6 +222,7 @@ public class Bartender extends NPC {
 		}
 	}
 
+	@Override
 	public void response(int choice) {
 		switch (convo) {
 		case 1:
@@ -241,6 +243,7 @@ public class Bartender extends NPC {
 		}
 	}
 
+	@Override
 	public void look() {
 		if (notMet) {
 			notMet = false;
@@ -252,6 +255,7 @@ public class Bartender extends NPC {
 		Game.print(d);
 	}
 
+	@Override
 	public void give(String itemName) {
 		if (itemName.equals("bottle")) {
 			say("What are you doing with that? Just help yourself while"
@@ -284,6 +288,7 @@ public class Bartender extends NPC {
 			super.give(itemName);
 	}
 
+	@Override
 	public void attack(String weaponName) {
 		if (weaponName.equals("bottle")) {
 			Game.print("You whack the bartender over the head with the glass bottle. The bottle"

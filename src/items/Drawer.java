@@ -15,6 +15,7 @@ public class Drawer extends Item {
 		isOpen = false;
 	}
 	
+	@Override
 	public void look() {
 		if (!isOpen)
 			Game.print("What a nice drawer. It fits nicely in the nightstand. The wood even matches!");
@@ -36,6 +37,7 @@ public class Drawer extends Item {
 			}
 	}
 	
+	@Override
 	public void open() {
 		if (isOpen)
 			Game.print("It's already open. You feeling okay?");
@@ -45,6 +47,7 @@ public class Drawer extends Item {
 		}
 	}
 	
+	@Override
 	public void close() {
 		if (isOpen) {
 			if (roomNum == 101)

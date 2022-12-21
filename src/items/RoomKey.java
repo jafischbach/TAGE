@@ -17,6 +17,7 @@ public class RoomKey extends Item {
 		room202unlocked = false;
 	}
 	
+	@Override
 	public void look() {
 		if (getName().equals("bronze room key"))
 			Game.print("It's a hotel room key. It has the number 201 stamped into it.");
@@ -26,7 +27,8 @@ public class RoomKey extends Item {
 			Game.print("It's a hotel room key. It has the number 101 stamped into it.");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		String key = getName();
 		if (key.equals("bronze room key"))
 			Game.print("You already have the bronze room key.");
@@ -49,6 +51,7 @@ public class RoomKey extends Item {
 		}
 	}
 	
+	@Override
 	public void use() {
 		if (getName().equals("bronze room key"))
 			if (room201unlocked)

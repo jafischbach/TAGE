@@ -12,10 +12,12 @@ public class SledgeHammer extends Item {
 		super(name);
 	}
 	
+	@Override
 	public void look() {
 		Game.print("It's a sledge hammer.");
 	}
 	
+	@Override
 	public void use() {
 		Room r = Game.getCurrentRoom();
 		if(!boxSmashed && r.equals("HOTEL_HALL_TOP")) {
@@ -48,7 +50,8 @@ public class SledgeHammer extends Item {
 			Game.print("Stop swinging that thing around. You can't smash everything!");
 	}
 	
-	public void take() {
+	@Override
+	public void take(String command) {
 		if (isTaken)
 			Game.print("You already have the sledge hammer.");
 		else {

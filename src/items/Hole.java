@@ -12,6 +12,7 @@ public class Hole extends Item {
 		keyPresent = false;
 	}
 
+	@Override
 	public void look() {
 		if (Game.hasFlag("wolverine sleeping")) {
 			if (Game.player.has("cheese")) {
