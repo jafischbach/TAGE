@@ -16,12 +16,13 @@ public class GameGUI {
 	public static final int FONT_SIZE = 18;
 	public static final String ICON_FILENAME = "bartenderIcon.png";
 
-	public static JLabel roomNameLabel;
-	public static JTextArea roomDisplay;
-	public static JTextArea display;
-	public static JTextField command;
-	public static JFrame window;
-	public static JMenuItem saveMenuItem;
+	protected static JTextArea display;
+	protected static JTextField command;
+	protected static JFrame window;
+	protected static JMenuItem saveMenuItem;
+	
+	private static JLabel roomNameLabel;
+	private static JTextArea roomDisplay;
 	private static String lastCommand = "";
 
 	public static void displayRoom(Room r) {

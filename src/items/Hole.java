@@ -34,6 +34,9 @@ public class Hole extends Item {
 			} else {
 				Game.print("You peer into the hole but find nothing of interest right now except some"
 						+ " mouse droppings. You decline to take those with you.");
+				Room r = Game.getCurrentRoom();
+				r.addSimpleItem("dropping", "MOUSE_DROPPINGS", "Um, yuck?");
+				r.addSimpleItem("mouse droppings", "MOUSE_DROPPINGS");
 			}
 		} else {
 			Game.print("There's a wolverine trying to murder you! Priorities!");

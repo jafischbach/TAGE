@@ -29,13 +29,15 @@ public class SledgeHammer extends Item {
 			Game.printRoom();
 			boxSmashed = true;
 			r.removeItem("large box");
-			r.addSimpleItem("debris", "You admire the evidence of your prowess with the mighty"
+			r.addSimpleItem("debris", "2ND_HALL_DEBRIS", "You admire the evidence of your prowess with the mighty"
 					+ " sledge hammer. All large boxes beware! Now careful where you step. You"
 					+ " don't want to get a splinter.");
 			Room hallway = Game.getRoom("HOTEL_HALL_WEST");
 			hallway.setLocked(false);
 			Room bar = Game.getRoom("HOTEL_BAR");
-			bar.addNPC(new Bartender("bartender"));
+			Bartender bartender = new Bartender("bartender");
+			bar.addNPC(bartender);
+			bar.addNPC(bartender, "hotel bartender");
 			bar.setDesc("HOTEL_BAR_B");
 		} else if(r.equals("HOTEL_LOBBY"))
 			Game.print("You swing the sledge hammer at the door leading outside, hoping"

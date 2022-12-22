@@ -26,12 +26,19 @@ public class HotelBar extends Item {
 	
 	@Override
 	public void look(String where) {
-		if (where.equals("behind"))
-			Game.print("You casually waltz behind the bar as if you own the place. You peer"
+		if (where.equals("behind")) {
+			if (Game.hasFlag("bartender dead"))
+				Game.print("You consider whether it's worth stepping in the considerable"
+						+ " gore now plastering the floor behind be bar just to score"
+						+ " some free liquor. Nah.");
+			else if (Game.getRoom("HOTEL_BAR").hasNPC("bartender"))
+				Game.print("Not while the bartender is standing right there!");
+			else
+				Game.print("You casually waltz behind the bar as if you own the place. You peer"
 					+ " beneath the counter hoping to score some quality booze. Instead, you"
 					+ " find nothing but dust covering a shelf. One area is less dusty. It"
 					+ " look like some elongated object is kept there from time to time.");
-		else
+		} else
 			super.look(where);
 	}
 	

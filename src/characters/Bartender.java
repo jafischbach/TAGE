@@ -302,6 +302,7 @@ public class Bartender extends NPC {
 						+ " of bone, blood, and organs. I hope you're proud of yourself.");
 				Room r = Game.getCurrentRoom();
 				r.removeNPC("bartender");
+				Game.addFlag("bartender dead");
 				r.setDesc("HOTEL_BAR_C");
 				Game.printRoom();
 			} else {
@@ -323,6 +324,7 @@ public class Bartender extends NPC {
 						+ " gory mess you've made. Had fun?");
 				Room r = Game.getCurrentRoom();
 				r.removeNPC("bartender");
+				Game.addFlag("bartender dead");
 				r.setDesc("HOTEL_BAR_C");
 				Game.printRoom();
 			} else {

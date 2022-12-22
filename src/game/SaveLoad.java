@@ -90,7 +90,6 @@ public class SaveLoad {
 			saveFile.createNewFile();
 			ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(saveFile));
 			stream.writeObject(Game.player);
-			//stream.writeObject(Game.rooms);
 			stream.writeObject(Game.visitedRooms);
 			stream.writeObject(Game.flags);
 			stream.writeObject(Game.currentRoom);
@@ -133,17 +132,19 @@ public class SaveLoad {
 			File loadFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
 			ObjectInputStream stream = new ObjectInputStream(new FileInputStream(loadFile));
 			Game.player = (Player) stream.readObject();
-			//Game.rooms = (HashMap<String, Room>) stream.readObject();
 			Game.visitedRooms = (ArrayList<Room>) stream.readObject();
 			Game.flags = (HashMap<String, Integer>) stream.readObject();
 			Game.currentRoom = (Room) stream.readObject();
 			updateRooms();
 			Game.printRoom();
+			if (!Game.CONSOLE) 
+				GameGUI.display.setText("");
 			stream.close();
 		} catch (FileNotFoundException ex) {
 			Game.print("Save file not found.");
 		} catch (IOException ex) {
 			Game.print("Error loading save file.");
+			ex.printStackTrace();
 		} catch (ClassNotFoundException ex) {
 			ex.printStackTrace();
 		}

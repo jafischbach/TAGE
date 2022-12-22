@@ -48,6 +48,9 @@ This was probably a hotel room once upon a time. It's mostly empty now. Just you
 HOTEL_ROOM_202_B
 This was probably a hotel room once upon a time. It's mostly empty now. Just you, lots of dust, a refrigerator that's happily humming away, and a hole in the wall. A wolverine is sleeping peacefully.
 #
+HOTEL_DARKNESS
+Wow. You can't see anything at all. You better return to the east before something nasty finds you.
+#
 HOTEL_ROOM_101
 What a nice bedroom! There's a neatly made bed, a nightstand, and a closet. A picture of two gentleman hangs on the wall. There's not a speck of dust anywhere!
 #

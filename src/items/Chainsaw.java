@@ -51,6 +51,7 @@ public class Chainsaw extends Item {
 						+ " to tear that wooden bastard to shreds. Sun shines through the"
 						+ " opening and you glimpse freedom beyond.");
 				Game.getRoom("EXIT").setLocked(false);
+				Game.addSimpleItem("LOBBY_EXIT", "What front door? Hahahaha!");
 			} else {
 				Game.print("There's only so much gas in the chainsaw. Don't waste it trying"
 						+ " to destroy everything you see.");

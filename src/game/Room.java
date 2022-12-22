@@ -1,7 +1,6 @@
 package game;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Room implements Serializable {
@@ -20,7 +19,7 @@ public class Room implements Serializable {
 	private String[] go;
 	protected HashMap<String, Item> items;
 	protected HashMap<String, NPC> npcs;
-	private ArrayList<String> simpleItems;
+	private HashMap<String, String> simpleItems;
 	private String roomLabel;
 	private boolean isLocked;
 	private boolean entered;
@@ -60,7 +59,7 @@ public class Room implements Serializable {
 
 	public boolean hasItem(String name) {
 		boolean hasItem = items == null ? false : items.containsKey(name);
-		boolean hasSimpleItem = simpleItems == null ? false : simpleItems.contains(name);
+		boolean hasSimpleItem = simpleItems == null ? false : simpleItems.containsKey(name);
 		return hasItem || hasSimpleItem;
 	}
 
@@ -69,14 +68,18 @@ public class Room implements Serializable {
 	}
 
 	public void addNPC(NPC npc) {
+		addNPC(npc, npc.getName());
+	}
+	
+	public void addNPC(NPC npc, String name) {
 		if (!entered) {
 			if (!Game.roomNPCS.containsKey(roomLabel))
 				Game.roomNPCS.put(roomLabel, new HashMap<String, NPC>());
-			Game.roomNPCS.get(roomLabel).put(npc.getName(), npc);
+			Game.roomNPCS.get(roomLabel).put(name, npc);
 		} else {
 			if (npcs == null)
 				npcs = new HashMap<String, NPC>();
-			npcs.put(npc.getName(), npc);
+			npcs.put(name, npc);
 		}
 	}
 
@@ -135,21 +138,25 @@ public class Room implements Serializable {
 		return roomLabel;
 	}
 
-	public void addSimpleItem(String name) {
-		if (simpleItems == null)
-			simpleItems = new ArrayList<String>();
-		simpleItems.add(name);
+	public boolean hasSimpleItem(String name) {
+		return simpleItems == null ? false : simpleItems.containsKey(name);
 	}
 	
-	public void addSimpleItem(String name, String desc) {
-		addSimpleItem(name);
-		Game.addSimpleItem(name, desc);
+	public void addSimpleItem(String name, String label) {
+		if (simpleItems == null)
+			simpleItems = new HashMap<String, String>();
+		simpleItems.put(name, label);
+	}
+	
+	public void addSimpleItem(String name, String label, String desc) {
+		addSimpleItem(name, label);
+		Game.addSimpleItem(label, desc);
 	}
 
 	public String getSimpleItemDesc(String name) {
-		if (simpleItems != null && simpleItems.contains(name)) {
+		if (simpleItems != null && simpleItems.containsKey(name)) {
 			try {
-				String desc = Game.getSimpleItem(name);
+				String desc = Game.getSimpleItem(simpleItems.get(name));
 				if (desc != null)
 					return desc;
 				else

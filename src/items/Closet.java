@@ -3,6 +3,7 @@ package items;
 import game.Game;
 import game.Item;
 import game.Player;
+import game.Room;
 
 public class Closet extends Item {
 
@@ -28,7 +29,13 @@ public class Closet extends Item {
 					Game.print("The closet is full of clothes, neatly arranged on"
 						+ " hangars. At the bottom of the closet, you find a crowbar. Weird"
 						+ " place for that, but whatever.");
-					Game.getCurrentRoom().addItem(new Crowbar("crowbar"));
+					Room r = Game.getCurrentRoom();
+					r.addItem(new Crowbar("crowbar"));
+					r.addSimpleItem("clothes", "ROOM_101_CLOTHES", "You are not impressed with the"
+							+ " bartender's taste in attire. You wouldn't be caught dead in any of"
+							+ " this crap.");
+					r.addSimpleItem("hangars", "Ordinary clothes hangars. You don't have any clothes"
+							+ " to hang, so leave the hangars where they are.");
 				}
 			} else if (corpseFound)
 				Game.print("The closet is still inhabited by a dead guy.");

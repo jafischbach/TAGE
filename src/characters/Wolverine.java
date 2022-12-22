@@ -95,7 +95,7 @@ public class Wolverine extends NPC {
 				hitPlayer();
 			} else {
 				Game.print("The wolverine attempts to dodge your attack, but you smite"
-						+ " the furry bastard with all your strength and render the "
+						+ " the furry bastard with all your strength and render the"
 						+ " little beast senseless. It rolls onto the floor and troubles" + " you no more.");
 				wolverineSleeps();
 			}

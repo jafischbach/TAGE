@@ -92,7 +92,7 @@ public class Parser {
 				Item i = getItem(r, itemName);
 				if (i != null)
 					i.look(where);
-				else if (Game.getSimpleItem(itemName) != null)
+				else if (r.hasSimpleItem(itemName))
 					Game.print("You see nothing interesting.");
 				else if (r.hasNPC(itemName))
 					Game.print("Don't be rude.");
@@ -223,7 +223,7 @@ public class Parser {
 						getItem(r, rest).close();
 					else if (action.equals("equip"))
 						Game.player.equip(rest);
-					else if (action.equals("go")) {
+					else if (action.equals("go") || action.equals("walk")) {
 						rest = rest.replaceFirst("to ", "");
 						if(directions.contains(rest.toLowerCase()))
 							Game.processCommand(rest.charAt(0)+"");

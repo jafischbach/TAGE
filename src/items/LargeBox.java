@@ -29,4 +29,16 @@ public class LargeBox extends Item {
 				+ " opening this box.");
 	}
 	
+	@Override
+	public void uniqueCommand(String command) {
+		if (command.equals("smash")) {
+			if (Game.player.has("sledge hammer"))
+				Game.print("Good plan. Just use the sledge hammer!");
+			else
+				Game.print("You're not the Hulk, dude. You can't smash the box with your bare"
+						+ " hands.");
+		} else
+			super.uniqueCommand(command);
+	}
+	
 }
