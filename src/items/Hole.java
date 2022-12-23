@@ -26,7 +26,7 @@ public class Hole extends Item {
 				} else {
 					Game.print("Now that the mouse is gone, you can take the time to peer carefully"
 							+ " into the hole. Aha! A key! Of course there's a key. There are keys"
-							+ " everywhere in this damn hotel. I'm sure there's an excellent reason "
+							+ " everywhere in this damn hotel. I'm sure there's an excellent reason"
 							+ " for that that has nothing to do with lack of originality. Anyway, you"
 							+ " reach into the hole and snag a large key.");
 					Game.player.addItem(new LargeKey());

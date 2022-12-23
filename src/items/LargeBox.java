@@ -25,7 +25,7 @@ public class LargeBox extends Item {
 	
 	@Override
 	public void open() {
-		Game.print("If you had a crowbar, maybe. Otherwise, there's no a chance you're"
+		Game.print("If you had a crowbar, maybe. Otherwise, there's no chance you're"
 				+ " opening this box.");
 	}
 	

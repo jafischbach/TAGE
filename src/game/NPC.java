@@ -245,6 +245,15 @@ public abstract class NPC implements Serializable {
 		Game.print(name + " doesn't want " + itemName + ".");
 	}
 	
+	/**
+	 * Responds to a command unique to this NPC if such
+	 * a command exists.
+	 * 
+	 * Extending classes should override this method if
+	 * the NPC should respond to a unique command.
+	 * 
+	 * @param command command issued by player
+	 */
 	public void uniqueCommand(String command) {
 		Game.print("You can't do that!");
 	}

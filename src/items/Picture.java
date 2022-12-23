@@ -18,7 +18,7 @@ public class Picture extends Item {
 		if (Game.hasFlag("met bartender"))
 			Game.print("The bartender actually has a smile in the picture. You wonder if the"
 				+ " older gentleman in the picture is the bartender's father or the hotel's"
-				+ " owner? Maybe they're one and the same! Does it matter? Probably not.");
+				+ " owner. Maybe they're one and the same! Does it matter? Probably not.");
 		else
 			Game.print("It's just an uninteresting picture of two men you don't know or"
 					+ " care about.");

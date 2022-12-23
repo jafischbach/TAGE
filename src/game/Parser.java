@@ -14,6 +14,7 @@ public class Parser {
 	private static final List<String> directions = Arrays.asList("north", "south", "east", "west", "up", "down");
 	private static final List<String> extraneousWords = Arrays.asList("at", "a", "the", "on", "in", "inside");
 	private static final List<String> lookQualifiers = Arrays.asList("behind", "beneath", "under");
+	private static final List<String> travelWords = Arrays.asList("go", "walk", "run", "climb", "travel");
 	private static final List<Character> vowels = Arrays.asList('a', 'e', 'i', 'o', 'u');
 
 	/**
@@ -191,7 +192,7 @@ public class Parser {
 			} else {
 				String rest = command.substring(space+1);
 				try {
-					if (action.equals("look"))
+					if (action.equals("look") || action.equals("search"))
 						processLook(r, rest);
 					else if (action.equals("talk") || action.equals("speak")) {
 						rest = rest.replaceFirst("to ", "");
@@ -213,7 +214,7 @@ public class Parser {
 						getItem(r, rest).move(action);
 					else if (action.equals("use"))
 						getItem(r, rest).use();
-					else if (action.equals("open")) {
+					else if (action.equals("open") || action.equals("unlock")) {
 						Item i = getItem(r, rest);
 						if (i == null && rest.contains("door"))
 							Game.print("Either go in that direction or use an item.");
@@ -223,9 +224,9 @@ public class Parser {
 						getItem(r, rest).close();
 					else if (action.equals("equip"))
 						Game.player.equip(rest);
-					else if (action.equals("go") || action.equals("walk")) {
+					else if (travelWords.contains(action)) {
 						rest = rest.replaceFirst("to ", "");
-						if(directions.contains(rest.toLowerCase()))
+						if(directions.contains(rest.split(" ")[0].toLowerCase()))
 							Game.processCommand(rest.charAt(0)+"");
 						else
 							Game.print("You can't go "+rest+"!");

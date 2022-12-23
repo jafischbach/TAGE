@@ -43,6 +43,11 @@ public class TrapDoor extends Item {
 	}
 	
 	@Override
+	public void look(String where) {
+		look();
+	}
+	
+	@Override
 	public void open() {
 		if (isOpen)
 			Game.print("Uh...sure buddy. You can open the already-opened trap door. That's"

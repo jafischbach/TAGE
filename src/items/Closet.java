@@ -34,7 +34,7 @@ public class Closet extends Item {
 					r.addSimpleItem("clothes", "ROOM_101_CLOTHES", "You are not impressed with the"
 							+ " bartender's taste in attire. You wouldn't be caught dead in any of"
 							+ " this crap.");
-					r.addSimpleItem("hangars", "Ordinary clothes hangars. You don't have any clothes"
+					r.addSimpleItem("hangars", "ROOM_101_HANGARS", "Ordinary clothes hangars. You don't have any clothes"
 							+ " to hang, so leave the hangars where they are.");
 				}
 			} else if (corpseFound)

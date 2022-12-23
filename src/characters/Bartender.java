@@ -175,7 +175,7 @@ public class Bartender extends NPC {
 			say("No.");
 			Game.print("He reaches beneath the bar, retrieves a shotgun, and proceeds to end your miserable life,"
 					+ " cackling with glee.");
-			Game.endGame();
+			Game.endGame(); 
 		} else {
 			say("Beer? You're giving me...beer? Beer!? BEER!?");
 			Game.print(
@@ -276,7 +276,8 @@ public class Bartender extends NPC {
 			Game.print("The bartender stares off into space. Just as the moment starts to" + " get awkward...");
 			say("Oh? You're still here? Um. Well. Thanks for the tip. Now off you go.");
 			Game.player.removeItem("cash");
-		} else if (itemName.equals("bronze room key") || itemName.equals("silver room key")) {
+		} else if (itemName.equals("bronze room key") || itemName.equals("silver room key")
+				|| itemName.equals("gold room key")) {
 			say("I'm the bartender, sir. This is why I stand behind the bar. You see? If you"
 					+ " want to check out, please bring your key to the receptionist. I'm"
 					+ " sure he'll be back from his lunch break any day now.");

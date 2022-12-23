@@ -150,8 +150,12 @@ public class World {
 				+ " You briefly flirt with the idea of flipping some of the switches, but, as this"
 				+ " would almost certainly leave you in the dark in the basement of a creepy"
 				+ " hotel, you quickly reconsider.");
+		utilities.addSimpleItem("panel", "UTILITY_PANEL");
+		utilities.addSimpleItem("large panel", "UTILITY_PANEL");
+		utilities.addSimpleItem("large electric panel", "UTILITY_PANEL");
 		utilities.addSimpleItem("laundry machines", "UTILITY_LAUNDRY", "Damn. Those look new. The bartender must"
 				+ " really care about clean underwear.");
+		utilities.addSimpleItem("machines", "UTILITY_LAUNDRY");
 		utilities.addSimpleItem("shelf", "UTILITY_SHELF", "Just a wooden shelf.");
 		
 		upperFloor.addExit(lobby, Room.DOWN);
@@ -176,6 +180,7 @@ public class World {
 		closet.addItem(chest, "cool chest");
 		closet.addSimpleItem("junk", "CLOSET_JUNK", "Just an assortment of (mostly broken) cleaning supplies"
 				+ " of absolutely no use to you.");
+		closet.addSimpleItem("cleaning supplies", "CLOSET_SUPPLIES", "It's all junk.");
 
 		upperWestHallway.setLocked(true);
 		upperWestHallway.addExit(upperFloor, Room.EAST);

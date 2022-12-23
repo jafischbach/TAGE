@@ -15,7 +15,9 @@ public class GameGUI {
 
 	public static final int FONT_SIZE = 18;
 	public static final String ICON_FILENAME = "bartenderIcon.png";
-
+	public static final int WINDOW_HEIGHT = 700;
+	public static final int WINDOW_WIDTH = 800;
+	
 	protected static JTextArea display;
 	protected static JTextField command;
 	protected static JFrame window;
@@ -72,7 +74,7 @@ public class GameGUI {
 		window.add(mainPanel, BorderLayout.CENTER);
 		window.add(buildCommandPanel(), BorderLayout.SOUTH);
 
-		window.setSize(800, 550);
+		window.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
 	}

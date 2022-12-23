@@ -18,6 +18,14 @@ public class Rug extends Item {
 	}
 	
 	@Override
+	public void look(String where) {
+		if (where.equals("under"))
+			move(where);
+		else
+			super.look(where);
+	}
+	
+	@Override
 	public void take(String command) {
 		Game.print("Were you planning to take the rug outside and beat all the dust away? Nice"
 				+ " thought and I'm sure the hotel's housekeeping staff (should they exist)"
