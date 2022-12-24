@@ -13,6 +13,7 @@ public class Parser {
 	private static final List<String> simpleCommands = Arrays.asList("look", "save", "load", "help", "help item", "help npc");
 	private static final List<String> directions = Arrays.asList("north", "south", "east", "west", "up", "down");
 	private static final List<String> extraneousWords = Arrays.asList("at", "a", "the", "on", "in", "inside");
+	private static final List<String> lookWords = Arrays.asList("look", "search", "examine");
 	private static final List<String> lookQualifiers = Arrays.asList("behind", "beneath", "under");
 	private static final List<String> travelWords = Arrays.asList("go", "walk", "run", "climb", "travel");
 	private static final List<Character> vowels = Arrays.asList('a', 'e', 'i', 'o', 'u');
@@ -192,7 +193,7 @@ public class Parser {
 			} else {
 				String rest = command.substring(space+1);
 				try {
-					if (action.equals("look") || action.equals("search"))
+					if (lookWords.contains(action))
 						processLook(r, rest);
 					else if (action.equals("talk") || action.equals("speak")) {
 						rest = rest.replaceFirst("to ", "");

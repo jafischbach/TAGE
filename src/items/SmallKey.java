@@ -23,7 +23,7 @@ public class SmallKey extends Item {
 	public void use() {
 		Room r = Game.getCurrentRoom();
 		if (r.equals("HOTEL_HALL_TOP")) {
-			if (!lockFound || Game.getRoom("HOTEL_CLOSET_TOP").isLocked()) {
+			if (!lockFound) {
 				Game.print("Score! The small key fits perfectly in the door lock."
 						+ " You eagerly turn they key and are rewarded with a click!" 
 						+ " The door is now unlocked.");

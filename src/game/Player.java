@@ -2,68 +2,137 @@ package game;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
+/**
+ * The game player is represented by an object of this class.
+ */
 public class Player implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String name;
-	private int health;
-	private String equippedWeapon;
-	private HashMap<String, Item> inventory;
+	private String name; // Player's name
+	private int health; // Player's current health
+	private String equippedWeapon; // Player's currently equipped weapon
+	private HashMap<String, Item> inventory; // Player's inventory of items
 	
+	/**
+	 * Creates a new player named "Steve" and starting
+	 * health of 100.
+	 */
 	public Player() {
 		this("Steve", 100);
 	}
 	
+	/**
+	 * Creates a new player with the given name and starting
+	 * health of 100.
+	 * @param name player's name
+	 */
 	public Player(String name) {
 		this(name, 100);
 	}
 	
+	/**
+	 * Creates a new player with the given name and the given
+	 * health value.
+	 * @param name player's name
+	 * @param health player's starting health
+	 */
 	public Player(String name, int health) {
 		this.name = name;
 		this.health = health;
 		inventory = new HashMap<String, Item>();
 	}
 	
+	/**
+	 * Prints the given string as dialog from the player.
+	 * @param s player's dialog
+	 */
 	public void say(String s) {
 		Game.print(name + ": " + s);
 	}
 	
+	/**
+	 * Returns the player's name.
+	 * @return player's name
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Sets the player's name to the given string.
+	 * @param name player's new name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 	
+	/**
+	 * Adds the given item with the given name to the
+	 * player's inventory. Player will use the name to refer
+	 * to the item. Use this method to create an alias for an
+	 * item already in the player's inventory.
+	 * @param name name of item
+	 * @param item item to add
+	 */
 	public void addItem(String name, Item item) {
 		inventory.put(name, item);
 	}
 	
+	/**
+	 * Adds the given item to the player's inventory.
+	 * @param item item to add
+	 */
 	public void addItem(Item item) {
 		inventory.put(item.getName(), item);
 	}
 	
+	/**
+	 * Gets the item with the given name from the
+	 * player's inventory.
+	 * @param name name of item
+	 * @return item with the given name
+	 */
 	public Item getItem(String name) {
 		return inventory.get(name);
 	}
 	
+	/**
+	 * Removes the item with the given name from the player's
+	 * inventory.
+	 * @param name name of item to remove
+	 */
 	public void removeItem(String name) {
-		inventory.remove(name);
+		Item removedItem = inventory.remove(name);
 		if (name.equals(equippedWeapon))
 			equippedWeapon = null;
+		for(Map.Entry<String, Item> entry : inventory.entrySet())
+			if (removedItem == entry.getValue())
+				inventory.remove(entry.getKey());
 	}
 	
+	/**
+	 * Removes all items from the player's inventory.
+	 */
 	public void clearInventory() {
 		inventory.clear();
 	}
 	
+	/**
+	 * Returns true if the player has an item with the
+	 * given name.
+	 * @param name name of item
+	 * @return true if player has the item
+	 */
 	public boolean has(String name) {
 		return inventory.containsKey(name);
 	}
 	
+	/**
+	 * Prints the player's inventory.
+	 */
 	public void printInventory() {
 		if (inventory.keySet().isEmpty())
 			Game.print("You are carrying nothing!");
@@ -78,6 +147,11 @@ public class Player implements Serializable {
 		}
 	}
 	
+	/**
+	 * Equips the weapon with the given name, assuming
+	 * the weapon is in the player's inventory.
+	 * @param weapon name of weapon
+	 */
 	public void equip(String weapon) {
 		if (has(weapon)) {
 			equippedWeapon = weapon;
@@ -87,6 +161,11 @@ public class Player implements Serializable {
 		}
 	}
 	
+	/**
+	 * Returns the name of the equipped weapon.
+	 * Returns null if there is no equipped weapon.
+	 * @return name of equipped weapon, or null
+	 */
 	public String getEquipped() {
 		return equippedWeapon;
 	}

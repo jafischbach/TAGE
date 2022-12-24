@@ -32,7 +32,7 @@ public class Hole extends Item {
 					Game.player.addItem(new LargeKey());
 				}
 			} else {
-				Game.print("You peer into the hole but find nothing of interest right now except some"
+				Game.print("You peer into the hole but find nothing of interest except some"
 						+ " mouse droppings. You decline to take those with you.");
 				Room r = Game.getCurrentRoom();
 				r.addSimpleItem("dropping", "MOUSE_DROPPINGS", "Um, yuck?");

@@ -19,7 +19,7 @@ import world.World;
  * utility methods (particularly for I/O).
  * 
  * @author J Adam Fischbach
- * @version beta (2022)
+ * @version 1.0
  */
 public class Game {
 	
@@ -33,7 +33,7 @@ public class Game {
 	 * Import data from raw text files? 
 	 * If false, the game will import data from obscured data files.
 	 */
-	public static final boolean TEXT_DATA_FILES = true;
+	public static final boolean TEXT_DATA_FILES = false;
 	
 	/**
 	 * Launches the game!

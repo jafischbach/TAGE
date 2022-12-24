@@ -11,6 +11,9 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * This class implements the GUI for the game.
+ */
 public class GameGUI {
 
 	public static final int FONT_SIZE = 18;
@@ -27,20 +30,36 @@ public class GameGUI {
 	private static JTextArea roomDisplay;
 	private static String lastCommand = "";
 
+	/**
+	 * Displays the given room's description in the
+	 * room display text area.
+	 * @param r room to display
+	 */
 	public static void displayRoom(Room r) {
 		roomNameLabel.setText(r.getName());
 		roomDisplay.setText(r.getDesc());
 	}
 	
+	/**
+	 * Sets the main text display's color.
+	 * @param c text color
+	 */
 	public static void setResponseColor(Color c) {
 		display.setForeground(c);
 	}
 
+	/**
+	 * Sets the room display's text color.
+	 * @param c text color
+	 */
 	public static void setRoomColor(Color c) {
 		roomDisplay.setForeground(c);
 	}
 	
-	public static void buildWindow() {
+	/**
+	 * Builds the window for the game.
+	 */
+	protected static void buildWindow() {
 		window = new JFrame();
 		window.setTitle(World.TITLE);
 		try {
@@ -79,6 +98,7 @@ public class GameGUI {
 		window.setVisible(true);
 	}
 	
+	// Constructs and returns the room display.
 	private static JScrollPane buildRoomDisplay() {
 		roomDisplay = new JTextArea();
 		roomDisplay.setFont(new Font(null, Font.PLAIN, FONT_SIZE));
@@ -94,6 +114,7 @@ public class GameGUI {
 		return scrollPane;
 	}
 
+	// Constructs and returns the main text display.
 	private static JScrollPane buildDisplay() {
 		display = new JTextArea();
 		display.setFont(new Font(null, Font.PLAIN, FONT_SIZE));
@@ -110,6 +131,7 @@ public class GameGUI {
 		return scrollPane;
 	}
 
+	// Constructs and returns the command input panel.
 	private static JPanel buildCommandPanel() {
 		JPanel commandPanel = new JPanel(new GridLayout(2, 1));
 		commandPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
@@ -159,6 +181,7 @@ public class GameGUI {
 		return commandPanel;
 	}
 
+	// Constructs and returns the menu bar.
 	private static JMenuBar buildMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
 		JMenu fileMenu = new JMenu("File");
@@ -237,7 +260,7 @@ public class GameGUI {
 				String s = World.TITLE + "\n";
 				s += "Version: " + World.VERSION + "\n\n";
 				s += "Developer: " + World.DEVELOPER + "\n\n";
-				s += "FlossTAGE Version: beta";
+				s += "FlossTAGE Version: 1.0";
 				JOptionPane.showMessageDialog(window, s, "About", JOptionPane.INFORMATION_MESSAGE);
 			}
 		});

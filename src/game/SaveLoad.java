@@ -13,8 +13,23 @@ import java.util.HashMap;
 
 import javax.swing.JOptionPane;
 
+/**
+ * This class contains methods to save and load games.
+ * 
+ * Games are saved in a "saves" folder within the main game folder.
+ * This folder will be created if it does not already exist.
+ * 
+ * Save files are named "saveX.sav" where X is replaced with the number
+ * of the saved game.
+ */
 public class SaveLoad {
 
+	/**
+	 * Returns an array containing the names of all save files.
+	 * Assumes save files have a ".sav" extension and are stored
+	 * in the "saves" folder.
+	 * @return names of save files
+	 */
 	public static String[] getSaves() {
 		File files = new File(System.getProperty("user.dir") + "\\saves");
 		if (files.exists()) {
@@ -30,6 +45,17 @@ public class SaveLoad {
 		}
 	}
 
+	/**
+	 * Prompts the player to enter an integer option and returns that integer.
+	 * Method verifies that integer entered is between min and max values, inclusive.
+	 * Assumes min <= max.
+	 * @param s prompt to display
+	 * @param min minimum available option
+	 * @param max maximum available option
+	 * @param title title of dialog box (for GUI applications)
+	 * @return option entered by player
+	 * @throws CancelledInputException if player selects "Cancel"
+	 */
 	public static int getOption(String s, int min, int max, String title) throws CancelledInputException {
 		int option = Game.getInt(s + "\nEnter option (" + min + "-" + max + "): ", title);
 		if (option < min || option > max) {
@@ -43,6 +69,9 @@ public class SaveLoad {
 		return option;
 	}
 
+	/**
+	 * Saves the current game by creating or updating a save file.
+	 */
 	public static void saveGame() {
 		int option;
 		int fileID = 1;
@@ -77,6 +106,11 @@ public class SaveLoad {
 		}
 	}
 
+	/**
+	 * Saves the current game in a file named "saveX.sav" where
+	 * X is the given fileID.
+	 * @param fileID number of save file
+	 */
 	public static void saveGame(int fileID) {
 		try {
 			File saveFile = new File(System.getProperty("user.dir") + "\\saves\\save" + fileID + ".sav");
@@ -103,6 +137,9 @@ public class SaveLoad {
 		}
 	}
 
+	/**
+	 * Loads a game from a save file.
+	 */
 	public static void loadGame() {
 		String[] saves = getSaves();
 		if (saves == null)
@@ -126,6 +163,11 @@ public class SaveLoad {
 		}
 	}
 
+	/**
+	 * Loads the save filed named "saveX.sav" where X is the
+	 * given fileID.
+	 * @param fileID number of save file
+	 */
 	@SuppressWarnings("unchecked")
 	public static void loadGame(int fileID) {
 		try {
@@ -150,6 +192,8 @@ public class SaveLoad {
 		}
 	}
 	
+	// Updates the visited rooms in Game's global list of rooms.
+	// This method is called when loading a save game.
 	private static void updateRooms() {
 		for(Room r : Game.visitedRooms)
 			Game.rooms.put(r.getRoomLabel(), r);

@@ -2,6 +2,7 @@ package game;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Each room in the game is represented by an object of this class.
@@ -100,8 +101,12 @@ public class Room implements Serializable {
 	 * @param name name of item to remove
 	 */
 	public void removeItem(String name) {
-		if (items != null)
-			items.remove(name);
+		if (items != null) {
+			Item removedItem = items.remove(name);
+			for(Map.Entry<String, Item> entry : items.entrySet())
+				if (removedItem == entry.getValue())
+					items.remove(entry.getKey());
+		}
 	}
 
 	/**
@@ -157,8 +162,12 @@ public class Room implements Serializable {
 	 * @param name name of NPC
 	 */
 	public void removeNPC(String name) {
-		if (npcs != null)
-			npcs.remove(name);
+		if (npcs != null) {
+			NPC removedNPC = npcs.remove(name);
+			for(Map.Entry<String, NPC> entry : npcs.entrySet())
+				if (removedNPC == entry.getValue())
+					npcs.remove(entry.getKey());
+		}
 	}
 
 	/**
@@ -257,6 +266,8 @@ public class Room implements Serializable {
 	 * @param isLocked should the room be locked?
 	 */
 	public void setLocked(boolean isLocked) {
+		if (isLocked == false)
+			Game.visitedRooms.add(this);
 		this.isLocked = isLocked;
 	}
 
